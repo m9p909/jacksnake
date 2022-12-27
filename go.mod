@@ -1,3 +1,3 @@
-module github.com/BattlesnakeOfficial/starter-snake-go
+module jacksnake
 
 go 1.18

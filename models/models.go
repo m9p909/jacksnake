@@ -1,4 +1,4 @@
-package main
+package models
 
 // API Objects
 // https://docs.battlesnake.com/api
@@ -75,4 +75,8 @@ type BattlesnakeInfoResponse struct {
 type BattlesnakeMoveResponse struct {
 	Move  string `json:"move"`
 	Shout string `json:"shout"`
+}
+
+func Equals(coord1 Coord, coord2 Coord) bool {
+	return coord1.X == coord2.X && coord1.Y == coord2.Y
 }

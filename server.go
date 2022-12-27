@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	. "jacksnake/models"
 	"log"
 	"net/http"
 	"os"

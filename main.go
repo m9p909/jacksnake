@@ -13,6 +13,7 @@ package main
 // For more info see docs.battlesnake.com
 
 import (
+	. "jacksnake/models"
 	"log"
 	"math/rand"
 )
