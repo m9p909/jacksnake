@@ -32,10 +32,25 @@ Djikstras to find shortest path to each dot, then use the sum like before?
 ## Voronai algorithm
 Partition the board into areas where your snake can get first and where other snakes can get first. 
 Generate a heuristic for the amount of space you have vs what the other snakes have. 
+## BFS
+rather than use djikstras, people seem to just use bfs to find the shortest paths
 
+# new ideas based on research
 
+Seems like all these algorithms use a minmax algorithm,
+with a heuristic algorithm to determine the value of
+each position. 
 
+So if we define a heuristic that works ok for evaluting the 4
+current decisions, we could use the same algorithm to 
+evaluate the minmax value and the value of other players. 
 
+So we want a function evaluateBoard(state, board,snekid) that receives a board, 
+determines the score of the board for a given snek.
+The evaluateBoard function should use available heuristics to analyze the board.
 
+Then we can generate a board with each snake move and use heuristics to pick the one with the highest score. 
+
+This algorithm (evaluateBoard) can be expanded with a minmax function to simulate many different boards. 
 
 
