@@ -53,4 +53,8 @@ Then we can generate a board with each snake move and use heuristics to pick the
 
 This algorithm (evaluateBoard) can be expanded with a minmax function to simulate many different boards. 
 
+I think the algorithm should model state as several matrices. A matrix with snake positions, and food. and a matrix with hazards. 
+
+To start with, snake positions and food can be modelled.
+
 
