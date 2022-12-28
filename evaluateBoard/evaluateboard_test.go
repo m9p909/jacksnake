@@ -101,5 +101,18 @@ func Test_createDistanceGraph(t *testing.T) {
 			print("\n")
 		}
 	*/
+}
+
+func Test_getFoodScore(t *testing.T) {
+	snakes := []Battlesnake{
+		{Head: Coord{X: 1, Y: 2},
+			Body: []Coord{{X: 1, Y: 2}}},
+		{Head: Coord{X: 2, Y: 2},
+			Body: []Coord{{X: 2, Y: 2},
+				{X: 2, Y: 1}}}}
+	food := []Coord{{X: 2, Y: 3}, {X: 4, Y: 3}}
+
+	v := getFoodScore(food, createDistanceGraph(buildSnakeBoard(snakes, 5, 5), snakes[0]))
+	print(v)
 
 }

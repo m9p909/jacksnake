@@ -2,6 +2,7 @@ package evaluateboard
 
 import (
 	. "jacksnake/models"
+	"math"
 	"strconv"
 )
 
@@ -145,7 +146,22 @@ func createDistanceGraph(snakes [][]string, snake Battlesnake) [][]int {
 
 }
 
-func evaluateBoard(data GameData) int {
+func getFoodScore(food []Coord, distanceGraph [][]int) float64 {
+	score := 0.0
+	width := float64(len(distanceGraph[0]))
+	height := float64(len(distanceGraph))
 
-	return 24
+	for _, f := range food {
+		dist := float64(distanceGraph[f.Y][f.X])
+		score += (((width + height) - dist) / float64(width*height)) * 0.8
+	}
+	return math.Tanh(score)
+}
+
+func evaluateState(state GameState) float64 {
+	snakes := getSnakes(state)
+	snakesBoard := buildSnakeBoard(snakes, state.Board.Height, state.Board.Width)
+	distanceGraph := createDistanceGraph(snakesBoard, state.You)
+
+	return getFoodScore(state.Board.Food, distanceGraph)
 }

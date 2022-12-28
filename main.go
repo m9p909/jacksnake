@@ -15,7 +15,6 @@ package main
 import (
 	. "jacksnake/models"
 	"log"
-	"math/rand"
 )
 
 // info is called when you create your Battlesnake on play.battlesnake.com
@@ -43,31 +42,11 @@ func end(state GameState) {
 	log.Printf("GAME OVER\n\n")
 }
 
-func applyMove(coord Coord, move string) Coord {
-
-	if move == "up" {
-		coord.Y += 1
-	}
-
-	if move == "down" {
-		coord.Y -= 1
-	}
-
-	if move == "left" {
-		coord.X -= 1
-	}
-
-	if move == "right" {
-		coord.X += 1
-	}
-	return coord
-}
-
 func equal(coord1 Coord, coord2 Coord) bool {
 	return coord1.X == coord2.X && coord1.Y == coord2.Y
 }
 
-func getSafeMoves(state GameState) []string {
+func GetSafeMoves(state GameState) []string {
 	isMoveSafe := map[string]bool{
 		"up":    true,
 		"down":  true,
@@ -118,7 +97,7 @@ func getSafeMoves(state GameState) []string {
 	mybody := state.You.Body
 	for move, isSafe := range isMoveSafe {
 		if isSafe {
-			nextHead := applyMove(myHead, move)
+			nextHead := ApplyMove(myHead, move)
 			for index, coord := range mybody {
 				if index != 0 {
 					if equal(nextHead, coord) {
@@ -172,7 +151,9 @@ func move(state GameState) BattlesnakeMoveResponse {
 	}
 
 	// Choose a random move from the safe ones
-	nextMove := safeMoves[rand.Intn(len(safeMoves))]
+	for _, move := range safeMoves {
+
+	}
 
 	return BattlesnakeMoveResponse{Move: nextMove}
 }
