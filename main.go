@@ -13,10 +13,12 @@ package main
 // For more info see docs.battlesnake.com
 
 import (
+	"fmt"
 	"jacksnake/evaluateBoard"
 	. "jacksnake/models"
 	"log"
 	"math/rand"
+	"time"
 )
 
 // info is called when you create your Battlesnake on play.battlesnake.com
@@ -172,6 +174,7 @@ func determineRandomMove(safeMoves []string) string {
 // Valid moves are "up", "down", "left", or "right"
 // See https://docs.battlesnake.com/api/example-move for available data
 func move(state GameState) BattlesnakeMoveResponse {
+	t1 := time.Now()
 
 	safeMoves := GetSafeMoves(state)
 
@@ -182,6 +185,8 @@ func move(state GameState) BattlesnakeMoveResponse {
 
 	// Choose a random move from the safe ones
 	nextMove := determineBestMove(state, safeMoves)
+
+	fmt.Printf("time: %s\n", time.Since(t1))
 
 	return BattlesnakeMoveResponse{Move: nextMove}
 }
