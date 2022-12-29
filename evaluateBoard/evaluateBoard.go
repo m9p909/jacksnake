@@ -152,13 +152,16 @@ func getFoodScore(food []Coord, distanceGraph [][]int) float64 {
 	height := float64(len(distanceGraph))
 
 	for _, f := range food {
-		dist := float64(distanceGraph[f.Y][f.X])
-		score += (((width + height) - dist) / float64(width*height)) * 0.8
+		if distanceGraph[f.Y][f.X] != -1 {
+			dist := float64(distanceGraph[f.Y][f.X])
+			score += math.Pow(((width + height) - dist), 2) // my best snake is the one that avoids food?
+		}
 	}
-	return math.Tanh(score)
+
+	return score
 }
 
-func evaluateState(state GameState) float64 {
+func EvaluateState(state GameState) float64 {
 	snakes := getSnakes(state)
 	snakesBoard := buildSnakeBoard(snakes, state.Board.Height, state.Board.Width)
 	distanceGraph := createDistanceGraph(snakesBoard, state.You)

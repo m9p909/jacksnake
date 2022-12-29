@@ -13,8 +13,10 @@ package main
 // For more info see docs.battlesnake.com
 
 import (
+	"jacksnake/evaluateBoard"
 	. "jacksnake/models"
 	"log"
+	"math/rand"
 )
 
 // info is called when you create your Battlesnake on play.battlesnake.com
@@ -114,7 +116,7 @@ func GetSafeMoves(state GameState) []string {
 
 	for move, isSafe := range isMoveSafe {
 		if isSafe {
-			next_head := applyMove(myHead, move)
+			next_head := ApplyMove(myHead, move)
 			for _, snake := range opponents {
 				for _, body := range snake.Body {
 					if next_head == body {
@@ -138,12 +140,40 @@ func GetSafeMoves(state GameState) []string {
 	return safeMoves
 }
 
+func determineBestMove(state GameState, safeMoves []string) string {
+	if len(safeMoves) <= 0 {
+		println("no safe moves")
+		return "down"
+	}
+	max := 0.0
+	maxMove := ""
+	for _, move := range safeMoves {
+		newState := simulateMove(state, move)
+		val := evaluateboard.EvaluateState(newState)
+		if val > max {
+			max = val
+			maxMove = move
+		}
+	}
+
+	if maxMove == "" {
+		println("could not determine move, no good moves, picking randomly")
+		return determineRandomMove(safeMoves)
+
+	}
+	return maxMove
+}
+
+func determineRandomMove(safeMoves []string) string {
+	return safeMoves[rand.Intn(len(safeMoves))]
+}
+
 // move is called on every turn and returns your next move
 // Valid moves are "up", "down", "left", or "right"
 // See https://docs.battlesnake.com/api/example-move for available data
 func move(state GameState) BattlesnakeMoveResponse {
 
-	safeMoves := getSafeMoves(state)
+	safeMoves := GetSafeMoves(state)
 
 	if len(safeMoves) == 0 {
 		log.Printf("MOVE %d: No safe moves detected! Moving down\n", state.Turn)
@@ -151,9 +181,7 @@ func move(state GameState) BattlesnakeMoveResponse {
 	}
 
 	// Choose a random move from the safe ones
-	for _, move := range safeMoves {
-
-	}
+	nextMove := determineBestMove(state, safeMoves)
 
 	return BattlesnakeMoveResponse{Move: nextMove}
 }

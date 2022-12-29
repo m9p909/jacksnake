@@ -8,6 +8,7 @@ func removeEndOfTail(snek Battlesnake) Battlesnake {
 	snek.Body = snek.Body[:len(snek.Body)-1]
 	return snek
 }
+
 func ApplyMove(coord Coord, move string) Coord {
 
 	if move == "up" {
@@ -33,14 +34,24 @@ func getNewHead(head Coord, move string) Coord {
 	return ApplyMove(head, move)
 }
 
-func addHeadToFront(snek: Battlesnake) {
+func addHeadToFront(snek Battlesnake, newHead Coord) Battlesnake {
+	newBody := []Coord{
+		newHead,
+	}
+	snek.Body = append(newBody, snek.Body...)
+	return snek
+}
 
+func updateYou(snek Battlesnake, move string) Battlesnake {
+	snek = removeEndOfTail(snek)
+	snek.Head = ApplyMove(snek.Head, move)
+	snek = addHeadToFront(snek, snek.Head)
+	return snek
 }
 
 // assume move is valid
 func simulateMove(state GameState, move string) GameState {
-	snek := state.You
-	snek = removeEndOfTail(snek)
-	
-	snek.Head = ApplyMove(snek.Head)
+	state.You = updateYou(state.You, move)
+
+	return state
 }
