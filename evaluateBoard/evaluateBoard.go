@@ -158,7 +158,7 @@ func getFoodScore(food []Coord, distanceGraph [][]int) float64 {
 		}
 	}
 
-	return score
+	return math.Tanh(score / 200)
 }
 
 func EvaluateState(state GameState) float64 {
