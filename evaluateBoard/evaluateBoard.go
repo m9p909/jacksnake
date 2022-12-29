@@ -146,7 +146,7 @@ func createDistanceGraph(snakes [][]string, snake Battlesnake) [][]int {
 
 }
 
-func getFoodScore(food []Coord, distanceGraph [][]int) float64 {
+func getFoodScore(state []Coord, distanceGraph [][]int) float64 {
 	score := 0.0
 	width := float64(len(distanceGraph[0]))
 	height := float64(len(distanceGraph))
@@ -161,10 +161,63 @@ func getFoodScore(food []Coord, distanceGraph [][]int) float64 {
 	return math.Tanh(score / 200)
 }
 
-func EvaluateState(state GameState) float64 {
+func EvaluateFoodScore(state GameState) float64 {
 	snakes := getSnakes(state)
 	snakesBoard := buildSnakeBoard(snakes, state.Board.Height, state.Board.Width)
 	distanceGraph := createDistanceGraph(snakesBoard, state.You)
-
 	return getFoodScore(state.Board.Food, distanceGraph)
+}
+
+func countAvailableSquares(snakes [][]string, head Coord) int {
+	width := len(snakes[0])
+	height := len(snakes[1])
+	var data = make([][]int, len(snakes))
+	for i := range data {
+		row := make([]int, len(snakes[0]))
+		for j := range row {
+			row[j] = 2000
+		}
+		data[i] = row
+	}
+
+	q := []Coord{head}
+
+	size := 0
+	for len(q) > 0 {
+		nextCoords := []Coord{}
+
+		for _, front := range q {
+			if front.X >= width ||
+				front.X < 0 ||
+				front.Y >= height ||
+				front.Y < 0 ||
+				data[front.Y][front.X] != 2000 ||
+				(snakes[front.Y][front.X] != "-" && !Equals(front, head)) {
+				continue
+			}
+			data[front.Y][front.X] = 1
+			size++
+			nextQ := []Coord{
+				{X: front.X + 1, Y: front.Y},
+				{X: front.X - 1, Y: front.Y},
+				{X: front.X, Y: front.Y + 1},
+				{X: front.X, Y: front.Y - 1},
+			}
+			nextCoords = append(nextCoords, nextQ...)
+		}
+		q = nextCoords
+	}
+	return size
+
+}
+
+func EvaluateSpaceConstraint(state GameState) float64 {
+	snakes := getSnakes(state)
+	snakesBoard := buildSnakeBoard(snakes, state.Board.Height, state.Board.Width)
+	availableSquares := countAvailableSquares(snakesBoard, state.You.Head)
+	return float64(availableSquares) / float64(state.Board.Height*state.Board.Width)
+}
+
+func EvaluateState(state GameState) float64 {
+	return EvaluateFoodScore(state)*0.8 + EvaluateSpaceConstraint(state)*0.2
 }

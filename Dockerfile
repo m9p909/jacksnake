@@ -4,6 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 RUN go mod download && go mod verify
-RUN go build -v -o /usr/local/bin/app ./...
+RUN go build .
+RUN ls
 
-CMD ["app"]
+CMD ["./jacksnake"]
