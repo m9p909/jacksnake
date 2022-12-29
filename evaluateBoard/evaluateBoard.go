@@ -146,7 +146,7 @@ func createDistanceGraph(snakes [][]string, snake Battlesnake) [][]int {
 
 }
 
-func getFoodScore(state []Coord, distanceGraph [][]int) float64 {
+func getFoodScore(food []Coord, distanceGraph [][]int) float64 {
 	score := 0.0
 	width := float64(len(distanceGraph[0]))
 	height := float64(len(distanceGraph))
@@ -218,6 +218,13 @@ func EvaluateSpaceConstraint(state GameState) float64 {
 	return float64(availableSquares) / float64(state.Board.Height*state.Board.Width)
 }
 
+func printScore(turn int, score float64) {
+
+	println("Turn: ", turn, " Scored res: ", score)
+}
+
 func EvaluateState(state GameState) float64 {
-	return EvaluateFoodScore(state)*0.8 + EvaluateSpaceConstraint(state)*0.2
+	res := EvaluateFoodScore(state)*0.5 + EvaluateSpaceConstraint(state)*0.5
+
+	return res
 }
