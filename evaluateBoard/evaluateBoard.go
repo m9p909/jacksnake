@@ -168,9 +168,11 @@ func EvaluateFoodScore(state GameState) float64 {
 	distanceGraph := createDistanceGraph(snakesBoard, state.You)
 	score := getFoodScore(state.Board.Food, distanceGraph)
 	health := float64(state.You.Health) / 100
-
-	return score*1 - health
-
+	if health < 0.25 {
+		return score * (1 - health)
+	} else {
+		return 1 - score
+	}
 }
 
 func countAvailableSquares(snakes [][]string, head Coord) int {
