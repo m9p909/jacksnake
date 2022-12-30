@@ -16,6 +16,8 @@ import (
 	"fmt"
 	"jacksnake/evaluateBoard"
 	. "jacksnake/models"
+	safemoves "jacksnake/safemoves"
+	simulate "jacksnake/simulation"
 	"log"
 	"math/rand"
 	"time"
@@ -46,102 +48,6 @@ func end(state GameState) {
 	log.Printf("GAME OVER\n\n")
 }
 
-func equal(coord1 Coord, coord2 Coord) bool {
-	return coord1.X == coord2.X && coord1.Y == coord2.Y
-}
-
-func GetSafeMoves(state GameState) []string {
-	isMoveSafe := map[string]bool{
-		"up":    true,
-		"down":  true,
-		"left":  true,
-		"right": true,
-	}
-
-	// We've included code to prevent your Battlesnake from moving backwards
-	myHead := state.You.Body[0] // Coordinates of your head
-	myNeck := state.You.Body[1] // Coordinates of your "neck"
-
-	if myNeck.X < myHead.X { // Neck is left of head, don't move left
-		isMoveSafe["left"] = false
-
-	} else if myNeck.X > myHead.X { // Neck is right of head, don't move right
-		isMoveSafe["right"] = false
-
-	} else if myNeck.Y < myHead.Y { // Neck is below head, don't move down
-		isMoveSafe["down"] = false
-
-	} else if myNeck.Y > myHead.Y { // Neck is above head, don't move up
-		isMoveSafe["up"] = false
-	}
-
-	// TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
-	boardWidth := state.Board.Width
-	boardHeight := state.Board.Height
-
-	if state.You.Body[0].Y == boardHeight-1 {
-		isMoveSafe["up"] = false
-	}
-
-	if state.You.Body[0].Y == 0 {
-		println("cannot go down")
-		isMoveSafe["down"] = false
-	}
-
-	if state.You.Body[0].X == 0 {
-		isMoveSafe["left"] = false
-	}
-
-	if state.You.Body[0].X == boardWidth-1 {
-		isMoveSafe["right"] = false
-	}
-
-	// TODO: Step 2 - Prevent your Battlesnake from colliding with itself
-	// mybody := state.You.Body
-	mybody := state.You.Body
-	for move, isSafe := range isMoveSafe {
-		if isSafe {
-			nextHead := ApplyMove(myHead, move)
-			for index, coord := range mybody {
-				if index != 0 {
-					if equal(nextHead, coord) {
-						isMoveSafe[move] = false
-					}
-				}
-
-			}
-		}
-	}
-
-	// TODO: Step 3 - Prevent your Battlesnake from colliding with other Battlesnakes
-	opponents := state.Board.Snakes
-
-	for move, isSafe := range isMoveSafe {
-		if isSafe {
-			next_head := ApplyMove(myHead, move)
-			for _, snake := range opponents {
-				for _, body := range snake.Body {
-					if next_head == body {
-						if equal(next_head, body) {
-							isMoveSafe[move] = false
-						}
-					}
-				}
-			}
-		}
-	}
-
-	// Are there any safe moves left?
-	safeMoves := []string{}
-	for move, isSafe := range isMoveSafe {
-		if isSafe {
-			safeMoves = append(safeMoves, move)
-		}
-	}
-
-	return safeMoves
-}
-
 func determineBestMove(state GameState, safeMoves []string) string {
 	if len(safeMoves) <= 0 {
 		println("no safe moves")
@@ -150,7 +56,7 @@ func determineBestMove(state GameState, safeMoves []string) string {
 	max := 0.0
 	maxMove := ""
 	for _, move := range safeMoves {
-		newState := simulateMove(state, move)
+		newState := simulate.SimulateMove(state, move)
 		val := evaluateboard.EvaluateState(newState)
 		if val > max {
 			max = val
@@ -176,7 +82,7 @@ func determineRandomMove(safeMoves []string) string {
 func move(state GameState) BattlesnakeMoveResponse {
 	t1 := time.Now()
 
-	safeMoves := GetSafeMoves(state)
+	safeMoves := safemoves.GetSafeMoves(state)
 
 	if len(safeMoves) == 0 {
 		log.Printf("MOVE %d: No safe moves detected! Moving down\n", state.Turn)

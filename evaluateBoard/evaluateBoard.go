@@ -1,6 +1,7 @@
 package evaluateboard
 
 import (
+	"fmt"
 	. "jacksnake/models"
 	"math"
 	"strconv"
@@ -215,7 +216,41 @@ func EvaluateSpaceConstraint(state GameState) float64 {
 	snakes := getSnakes(state)
 	snakesBoard := buildSnakeBoard(snakes, state.Board.Height, state.Board.Width)
 	availableSquares := countAvailableSquares(snakesBoard, state.You.Head)
-	return float64(availableSquares) / float64(state.Board.Height*state.Board.Width)
+	return math.Pow(float64(availableSquares)/float64(state.Board.Height*state.Board.Width), 2)
+}
+
+func evaluateBundling(state GameState) float64 {
+	snakes := getSnakes(state)
+	snakesBoard := buildSnakeBoard(snakes, state.Board.Height, state.Board.Width)
+	you := state.You
+	width := state.Board.Width
+	height := state.Board.Height
+	count := 0
+	for _, j := range []int{1, -1} {
+		newhead := Coord{X: you.Head.X + j, Y: you.Head.Y}
+		if newhead.X >= width ||
+			newhead.X < 0 {
+			continue
+		}
+
+		if snakesBoard[newhead.Y][newhead.X] == fmt.Sprintf("%d", len(snakes)-1) {
+			count++
+		}
+	}
+
+	for _, j := range []int{1, -1} {
+		newhead := Coord{X: you.Head.X, Y: you.Head.Y + j}
+		if newhead.Y >= height ||
+			newhead.Y < 0 {
+			continue
+		}
+
+		if snakesBoard[newhead.Y][newhead.X] == fmt.Sprintf("%d", len(snakes)-1) {
+			count++
+		}
+	}
+
+	return float64(count) / 4
 }
 
 func printScore(turn int, score float64) {
@@ -224,7 +259,7 @@ func printScore(turn int, score float64) {
 }
 
 func EvaluateState(state GameState) float64 {
-	res := EvaluateFoodScore(state)*0.5 + EvaluateSpaceConstraint(state)*0.5
+	res := EvaluateFoodScore(state)*0.2 + EvaluateSpaceConstraint(state)*0.6 + evaluateBundling(state)*0.2
 
 	return res
 }
