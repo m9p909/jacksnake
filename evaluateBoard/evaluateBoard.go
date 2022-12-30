@@ -155,11 +155,11 @@ func getFoodScore(food []Coord, distanceGraph [][]int) float64 {
 	for _, f := range food {
 		if distanceGraph[f.Y][f.X] != -1 {
 			dist := float64(distanceGraph[f.Y][f.X])
-			score += math.Pow(((width + height) - dist), 2) // my best snake is the one that avoids food?
+			score += (math.Pow(((width + height) - dist), 2)) // my best snake is the one that avoids food?
 		}
 	}
 
-	return math.Tanh(score / 200)
+	return math.Tanh(score / 1000)
 }
 
 func EvaluateFoodScore(state GameState) float64 {
@@ -216,7 +216,7 @@ func EvaluateSpaceConstraint(state GameState) float64 {
 	snakes := getSnakes(state)
 	snakesBoard := buildSnakeBoard(snakes, state.Board.Height, state.Board.Width)
 	availableSquares := countAvailableSquares(snakesBoard, state.You.Head)
-	return math.Pow(float64(availableSquares)/float64(state.Board.Height*state.Board.Width), 2)
+	return math.Pow(float64(availableSquares)/float64(state.Board.Height*state.Board.Width), 1.5)
 }
 
 func evaluateBundling(state GameState) float64 {
@@ -258,8 +258,16 @@ func printScore(turn int, score float64) {
 	println("Turn: ", turn, " Scored res: ", score)
 }
 
-func EvaluateState(state GameState) float64 {
-	res := EvaluateFoodScore(state)*0.2 + EvaluateSpaceConstraint(state)*0.6 + evaluateBundling(state)*0.2
+func printWeigths(foodScore float64, space float64, bundling float64) {
+	println("Food: ", foodScore)
+	println("Space: ", space)
+	println("Bundling: ", bundling)
+}
 
+func EvaluateState(state GameState) float64 {
+	foodScore := EvaluateFoodScore(state)
+	space := EvaluateSpaceConstraint(state)
+	bundling := evaluateBundling(state)
+	res := foodScore*0.2 + space*0.75 + bundling*0.05
 	return res
 }
