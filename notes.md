@@ -58,3 +58,24 @@ I think the algorithm should model state as several matrices. A matrix with snak
 To start with, snake positions and food can be modelled.
 
 
+# MiniMax with the snakes
+
+I'm not sure how to minimax the game with the snakes because there are multiple opponents. Maybe if I play all the opponents
+https://www.aaai.org/Papers/AAAI/1986/AAAI86-025.pdf
+https://faculty.cc.gatech.edu/~thad/6601-gradAI-fall2015/Korf_Multi-player-Alpha-beta-Pruning.pdf
+
+It seems to work by alternating the player and having a vector of options. So first the main player goes,  then the opponents go, then the tree can be trimmed. The problem with battlesnake is
+that the turns are happening simultaneously. We could check every tree. 
+
+https://coreyja.com/BattlesnakeMinimax/Minimax%20in%20Battlesnake/
+
+There are 2 ways to do a minimax type algorithm: Paranoid and MaxN. In the Paranoid algorithm, we do minmax like it's 2 players and assume all the other snakes are out to get us. 
+So the algorithm will analyze the tree as if all the other snakes are trying to minimize our score. 
+
+In the MaxN algorithm we assume that all the other snakes are trying to maximize their own score. So we pick the best choice assuming all other snakes are acting rationally. 
+
+To use alpha beta, we need pruning. MaxN should be more accurate, but much slower. Alpha beta pruning does not work in maxN. 
+
+For this algorithm, I think I'll use alpha beta because It will have better performance. 
+
+
