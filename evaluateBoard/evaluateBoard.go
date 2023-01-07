@@ -1,7 +1,9 @@
 package evaluateboard
 
 import (
+	"errors"
 	"fmt"
+	"io/ioutil"
 	. "jacksnake/models"
 	"math"
 	"strconv"
@@ -16,13 +18,7 @@ type GameData struct {
 }
 
 func getSnakes(state GameState) []Battlesnake {
-	numSnakes := len(state.Board.Snakes) + 1
-	snakes := make([]Battlesnake, numSnakes)
-	for index, snek := range state.Board.Snakes {
-		snakes[index] = snek
-	}
-	snakes[numSnakes-1] = state.You
-	return snakes
+	return state.Board.Snakes
 }
 
 func makeEmptyBoard(height int, width int) [][]string {
@@ -36,6 +32,10 @@ func makeEmptyBoard(height int, width int) [][]string {
 	}
 
 	return board
+}
+
+func offGrid(coord Coord, height int, width int) bool {
+	return coord.X >= width || coord.X < 0 || coord.Y >= height || coord.Y < 0
 }
 
 func buildSnakeBoard(snakes []Battlesnake, height int, width int) [][]string {
@@ -280,9 +280,48 @@ func EvaluateCurrentState(state GameState) float64 {
 	return res
 }
 
-func EvaluatePossibleState(state GameState) float64 {
+func DisplayState(state GameState) {
+
+	g := buildSnakeBoard(getSnakes(state), state.Board.Height, state.Board.Width)
+	for _, b := range g {
+		for _, c := range b {
+			print("|")
+			print(c)
+			print("|")
+		}
+		print("\n")
+	}
+}
+
+func writeStateToFile(state GameState, file string) {
+
+	fileBinary := []byte(fmt.Sprintf("%#v\n", &state))
+	_ = ioutil.WriteFile(file, fileBinary, 0644)
+}
+
+func checkThatStateIsValid(state GameState) bool {
+	snakes := getSnakes(state)
+	for snakeID, snake := range snakes {
+		for bodyId, body := range snake.Body {
+			if offGrid(body, state.Board.Height, state.Board.Width) {
+				writeStateToFile(state, "asdf.txt")
+				println("Body ", bodyId, " of snake ", snakeID, " is off the board")
+				for _, body := range snake.Body {
+					println("X: ", body.X, " Y: ", body.Y)
+				}
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func EvaluatePossibleState(state GameState) (float64, error) {
+	if !checkThatStateIsValid(state) {
+		return 0, errors.New("Invalid state")
+	}
 	space := EvaluateSpaceConstraint(state)
 	foodScore := EvaluateFoodScore(state)
 	res := foodScore*0.2 + space*0.80
-	return res
+	return res, nil
 }

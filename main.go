@@ -14,12 +14,14 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"jacksnake/evaluateBoard"
 	"jacksnake/minmax"
 	. "jacksnake/models"
 	safemoves "jacksnake/safemoves"
 	simulate "jacksnake/simulation"
 	"log"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -58,10 +60,10 @@ func determineBestMoveHeuristics(state GameState, safeMoves []string) string {
 		println("no safe moves")
 		return "down"
 	}
-	max := 0.0
+	max := math.Inf(-1)
 	maxMove := ""
 	for _, move := range safeMoves {
-		newState := simulate.SimulateMove(state, move)
+		newState := simulate.SimulateMoveBySnake(state, move, state.You)
 		val := evaluateboard.EvaluateCurrentState(newState)
 		if val > max {
 			max = val
@@ -78,7 +80,7 @@ func determineBestMoveHeuristics(state GameState, safeMoves []string) string {
 }
 
 func determineBestMoveMiniMax(state GameState) string {
-	minimaxAlgo := minmax.NewMiniMax(3, state)
+	minimaxAlgo := minmax.NewMiniMax(5, state)
 	move := minimaxAlgo.Analyze()
 	if move == "unknown" {
 		println("MINIMAX FAILED ;(")
@@ -92,10 +94,17 @@ func determineRandomMove(safeMoves []string) string {
 	return safeMoves[rand.Intn(len(safeMoves))]
 }
 
+func writeStateToFile(state GameState, file string) {
+
+	fileBinary := []byte(fmt.Sprintf("%#v\n", &state))
+	_ = ioutil.WriteFile(file, fileBinary, 0644)
+}
+
 // move is called on every turn and returns your next move
 // Valid moves are "up", "down", "left", or "right"
 // See https://docs.battlesnake.com/api/example-move for available data
 func move(state GameState) BattlesnakeMoveResponse {
+
 	t1 := time.Now()
 
 	safeMoves := safemoves.GetSafeMoves(state)

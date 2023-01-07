@@ -7,33 +7,6 @@ import (
 	"testing"
 )
 
-func Test_getSnakes(t *testing.T) {
-	snakes := []Battlesnake{{ID: "a"}, {ID: "b"}, {ID: "c"}}
-	data := GameState{
-		You: snakes[0],
-		Board: Board{
-			Snakes: []Battlesnake{
-				snakes[1], snakes[2],
-			},
-		},
-	}
-
-	result := getSnakes(data)
-
-	if result[0].ID != snakes[1].ID {
-		t.Fail()
-	}
-
-	if result[1].ID != snakes[2].ID {
-		t.Fail()
-	}
-
-	if result[2].ID != snakes[0].ID {
-		t.Fail()
-	}
-
-}
-
 func Test_buildSnakeBoard(t *testing.T) {
 
 	snakes := []Battlesnake{

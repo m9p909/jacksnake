@@ -1,6 +1,7 @@
 package minmax
 
 import (
+	"errors"
 	"jacksnake/evaluateBoard"
 	. "jacksnake/models"
 	"jacksnake/safemoves"
@@ -11,17 +12,11 @@ import (
 // Snake IDS
 
 func getSnakes(state GameState) []Battlesnake {
-	numSnakes := len(state.Board.Snakes) + 1
-	snakes := make([]Battlesnake, numSnakes)
-	for index, snek := range state.Board.Snakes {
-		snakes[index] = snek
-	}
-	snakes[numSnakes-1] = state.You
-	return snakes
+	return state.Board.Snakes
 }
 
 func getNumSnakes(state GameState) int {
-	return len(state.Board.Snakes) + 1
+	return len(state.Board.Snakes)
 }
 
 type MiniMax struct {
@@ -31,12 +26,28 @@ type MiniMax struct {
 	youID        int
 }
 
+func findSnakeWithId(snakes []Battlesnake, id string) (int, error) {
+	for index, snake := range snakes {
+		if snake.ID == id {
+			return index, nil
+		}
+	}
+	return -1, errors.New("could not find snake")
+}
+
 func NewMiniMax(maxDepth int, initialState GameState) MiniMax {
+	id, err := findSnakeWithId(
+		initialState.Board.Snakes,
+		initialState.You.ID)
+	if err != nil {
+		println("Is the player in this game?")
+	}
+
 	return MiniMax{
 		maxDepth,
 		getNumSnakes(initialState),
 		initialState,
-		getNumSnakes(initialState) - 1,
+		id,
 	}
 }
 
@@ -82,7 +93,7 @@ func getPossibleStates(state GameState, turn int) []possibleGameState {
 
 	moves := safemoves.GetSafeMovesBySnake(state, snakes[turn])
 	for _, move := range moves {
-		state := simulation.SimulateMove(state, move)
+		state := simulation.SimulateMoveBySnake(state, move, snakes[turn])
 		output = append(output, possibleGameState{
 			state: state,
 			move:  move,
@@ -93,7 +104,12 @@ func getPossibleStates(state GameState, turn int) []possibleGameState {
 }
 
 func (minmax *MiniMax) evaluateState(state GameState) float64 {
-	return evaluateboard.EvaluatePossibleState(state)
+	value, err := evaluateboard.EvaluatePossibleState(state)
+	if err != nil {
+		return 0.5 // return neutral value.
+
+	}
+	return value
 }
 
 type MinimaxDataInput struct {

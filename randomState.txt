@@ -1,0 +1,9 @@
+&models.GameState{Game:models.Game{ID:"55c13b05-ed61-49aa-b544-7dc4f4ad6c8b", 
+Ruleset:models.Ruleset{Name:"solo", Version:"cli", Settings:models.RulesetSettings{FoodSpawnChance:15, MinimumFood:1, HazardDamagePerTurn:14}},
+Map:"standard", Source:"", Timeout:500}, Turn:46,
+Board:models.Board{Height:7, Width:7, 
+Food:[]models.Coord{models.Coord{X:4, Y:0}, models.Coord{X:5, Y:6}, models.Coord{X:6, Y:4}, models.Coord{X:2, Y:1}, models.Coord{X:3, Y:0}, models.Coord{X:4, Y:6}, models.Coord{X:4, Y:1}, models.Coord{X:2, Y:4}}, 
+Hazards:[]models.Coord{}, 
+Snakes:[]models.Battlesnake{
+models.Battlesnake{ID:"10603880-9668-42fb-a0d1-eaf16e50e0dc", Name:"Go Starter Project", Health:82, 
+Body:[]models.Coord{models.Coord{X:0, Y:0}, models.Coord{X:1, Y:0}, models.Coord{X:1, Y:1}, models.Coord{X:1, Y:2}, models.Coord{X:0, Y:2}, models.Coord{X:0, Y:3}}, Head:models.Coord{X:0, Y:0}, Length:6, Latency:"2", Shout:"", Customizations:models.Customizations{Color:"#b13859", Head:"default", Tail:"default"}}}}, You:models.Battlesnake{ID:"10603880-9668-42fb-a0d1-eaf16e50e0dc", Name:"Go Starter Project", Health:82, Body:[]models.Coord{models.Coord{X:0, Y:0}, models.Coord{X:1, Y:0}, models.Coord{X:1, Y:1}, models.Coord{X:1, Y:2}, models.Coord{X:0, Y:2}, models.Coord{X:0, Y:3}}, Head:models.Coord{X:0, Y:0}, Length:6, Latency:"0", Shout:"", Customizations:models.Customizations{Color:"#b13859", Head:"default", Tail:"default"}}}
