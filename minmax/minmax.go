@@ -46,6 +46,7 @@ func (minmax *MiniMax) Analyze() string {
 		math.Inf(1),
 		math.Inf(-1),
 		minmax.initialState,
+		0,
 	})
 	return decision.turn
 }
@@ -100,6 +101,7 @@ type MinimaxDataInput struct {
 	alpha    float64
 	beta     float64
 	state    GameState
+	depth    int
 }
 
 type MinimaxDataOutput struct {
@@ -109,7 +111,7 @@ type MinimaxDataOutput struct {
 
 func (minimax *MiniMax) minimax(input MinimaxDataInput) MinimaxDataOutput {
 
-	if minimax.maxDepth == minimax.maxDepth {
+	if input.depth == minimax.maxDepth {
 		state := minimax.evaluateState(input.state)
 		return MinimaxDataOutput{
 			value: state,
@@ -124,10 +126,12 @@ func (minimax *MiniMax) minimax(input MinimaxDataInput) MinimaxDataOutput {
 		for _, possibleState := range states {
 
 			minimaxOutput := minimax.minimax(MinimaxDataInput{
-				0,
+				(input.playerId + 1) % minimax.numSnakes,
 				input.alpha,
 				input.beta,
-				possibleState.state})
+				possibleState.state,
+				input.depth + 1,
+			})
 
 			if minimaxOutput.value > bestVal {
 				bestVal = minimaxOutput.value
@@ -151,10 +155,11 @@ func (minimax *MiniMax) minimax(input MinimaxDataInput) MinimaxDataOutput {
 		for _, possibleState := range states {
 
 			minimaxOutput := minimax.minimax(MinimaxDataInput{
-				input.playerId + 1,
+				(input.playerId + 1) % minimax.numSnakes,
 				input.alpha,
 				input.beta,
-				possibleState.state})
+				possibleState.state,
+				input.depth + 1})
 
 			if minimaxOutput.value < worstVal {
 				worstVal = minimaxOutput.value

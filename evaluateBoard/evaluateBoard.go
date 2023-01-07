@@ -73,6 +73,7 @@ func getFood(food []Coord, height int, width int) [][]string {
 
 }
 
+/*
 func buildGameData(state GameState) GameData {
 	snakes := getSnakes(state)
 
@@ -84,6 +85,7 @@ func buildGameData(state GameState) GameData {
 	}
 
 }
+*/
 
 func min(x int, y int) int {
 	if x < y {
