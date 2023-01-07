@@ -270,10 +270,17 @@ func printWeigths(foodScore float64, space float64, bundling float64) {
 	println("Bundling: ", bundling)
 }
 
-func EvaluateState(state GameState) float64 {
+func EvaluateCurrentState(state GameState) float64 {
 	foodScore := EvaluateFoodScore(state)
 	space := EvaluateSpaceConstraint(state)
 	bundling := evaluateBundling(state)
 	res := foodScore*0.2 + space*0.75 + bundling*0.05
+	return res
+}
+
+func EvaluatePossibleState(state GameState) float64 {
+	space := EvaluateSpaceConstraint(state)
+	foodScore := EvaluateFoodScore(state)
+	res := foodScore*0.2 + space*0.80
 	return res
 }

@@ -15,6 +15,7 @@ package main
 import (
 	"fmt"
 	"jacksnake/evaluateBoard"
+	"jacksnake/minmax"
 	. "jacksnake/models"
 	safemoves "jacksnake/safemoves"
 	simulate "jacksnake/simulation"
@@ -48,7 +49,11 @@ func end(state GameState) {
 	log.Printf("GAME OVER\n\n")
 }
 
-func determineBestMove(state GameState, safeMoves []string) string {
+func equal(coord1 Coord, coord2 Coord) bool {
+	return coord1.X == coord2.X && coord1.Y == coord2.Y
+}
+
+func determineBestMoveHeuristics(state GameState, safeMoves []string) string {
 	if len(safeMoves) <= 0 {
 		println("no safe moves")
 		return "down"
@@ -57,7 +62,7 @@ func determineBestMove(state GameState, safeMoves []string) string {
 	maxMove := ""
 	for _, move := range safeMoves {
 		newState := simulate.SimulateMove(state, move)
-		val := evaluateboard.EvaluateState(newState)
+		val := evaluateboard.EvaluateCurrentState(newState)
 		if val > max {
 			max = val
 			maxMove = move
@@ -70,6 +75,11 @@ func determineBestMove(state GameState, safeMoves []string) string {
 
 	}
 	return maxMove
+}
+
+func determineBestMoveMiniMax(state GameState) string {
+	minimaxAlgo := minmax.NewMiniMax(3, state)
+	return minimaxAlgo.Analyze()
 }
 
 func determineRandomMove(safeMoves []string) string {
@@ -90,7 +100,7 @@ func move(state GameState) BattlesnakeMoveResponse {
 	}
 
 	// Choose a random move from the safe ones
-	nextMove := determineBestMove(state, safeMoves)
+	nextMove := determineBestMoveMiniMax(state)
 
 	fmt.Printf("time: %s\n", time.Since(t1))
 

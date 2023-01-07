@@ -5,7 +5,7 @@ import (
 	"jacksnake/simulation"
 )
 
-func GetSafeMoves(state GameState) []string {
+func GetSafeMovesBySnake(state GameState, snake Battlesnake) []string {
 	isMoveSafe := map[string]bool{
 		"up":    true,
 		"down":  true,
@@ -14,8 +14,8 @@ func GetSafeMoves(state GameState) []string {
 	}
 
 	// We've included code to prevent your Battlesnake from moving backwards
-	myHead := state.You.Body[0] // Coordinates of your head
-	myNeck := state.You.Body[1] // Coordinates of your "neck"
+	myHead := snake.Body[0] // Coordinates of your head
+	myNeck := snake.Body[1] // Coordinates of your "neck"
 
 	if myNeck.X < myHead.X { // Neck is left of head, don't move left
 		isMoveSafe["left"] = false
@@ -34,26 +34,25 @@ func GetSafeMoves(state GameState) []string {
 	boardWidth := state.Board.Width
 	boardHeight := state.Board.Height
 
-	if state.You.Body[0].Y == boardHeight-1 {
+	if snake.Body[0].Y == boardHeight-1 {
 		isMoveSafe["up"] = false
 	}
 
-	if state.You.Body[0].Y == 0 {
-		println("cannot go down")
+	if snake.Body[0].Y == 0 {
 		isMoveSafe["down"] = false
 	}
 
-	if state.You.Body[0].X == 0 {
+	if snake.Body[0].X == 0 {
 		isMoveSafe["left"] = false
 	}
 
-	if state.You.Body[0].X == boardWidth-1 {
+	if snake.Body[0].X == boardWidth-1 {
 		isMoveSafe["right"] = false
 	}
 
 	// TODO: Step 2 - Prevent your Battlesnake from colliding with itself
 	// mybody := state.You.Body
-	mybody := state.You.Body
+	mybody := snake.Body
 	for move, isSafe := range isMoveSafe {
 		if isSafe {
 			nextHead := simulation.ApplyMove(myHead, move)
@@ -95,4 +94,8 @@ func GetSafeMoves(state GameState) []string {
 	}
 
 	return safeMoves
+}
+
+func GetSafeMoves(state GameState) []string {
+	return GetSafeMovesBySnake(state, state.You)
 }
