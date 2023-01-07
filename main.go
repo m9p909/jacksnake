@@ -80,7 +80,7 @@ func determineBestMoveHeuristics(state GameState, safeMoves []string) string {
 }
 
 func determineBestMoveMiniMax(state GameState) string {
-	minimaxAlgo := minmax.NewMiniMax(5, state)
+	minimaxAlgo := minmax.NewMiniMax(10, state)
 	move := minimaxAlgo.Analyze()
 	if move == "unknown" {
 		println("MINIMAX FAILED ;(")

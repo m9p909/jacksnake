@@ -53,7 +53,7 @@ func NewMiniMax(maxDepth int, initialState GameState) MiniMax {
 
 func (minmax *MiniMax) Analyze() string {
 	decision := minmax.minimax(MinimaxDataInput{
-		minmax.numSnakes - 1,
+		minmax.youID,
 		math.Inf(1),
 		math.Inf(-1),
 		minmax.initialState,
@@ -99,6 +99,22 @@ func getPossibleStates(state GameState, turn int) []possibleGameState {
 			move:  move,
 		})
 	}
+
+	if len(moves) == 0 {
+		state.Board.Snakes[turn] = Battlesnake{
+			ID:     state.Board.Snakes[turn].ID,
+			Health: 0,
+			Body:   []Coord{},
+			Head:   Coord{},
+		}
+
+		output = []possibleGameState{
+			{
+				state,
+				"dead",
+			},
+		}
+	}
 	return output
 
 }
@@ -140,6 +156,9 @@ func (minimax *MiniMax) minimax(input MinimaxDataInput) MinimaxDataOutput {
 		bestState := possibleGameState{}
 		states := getPossibleStates(input.state, input.playerId)
 		for _, possibleState := range states {
+			if possibleState.move == "dead" {
+				break
+			}
 
 			minimaxOutput := minimax.minimax(MinimaxDataInput{
 				(input.playerId + 1) % minimax.numSnakes,
@@ -169,7 +188,6 @@ func (minimax *MiniMax) minimax(input MinimaxDataInput) MinimaxDataOutput {
 		worstState := possibleGameState{}
 		states := getPossibleStates(input.state, input.playerId)
 		for _, possibleState := range states {
-
 			minimaxOutput := minimax.minimax(MinimaxDataInput{
 				(input.playerId + 1) % minimax.numSnakes,
 				input.alpha,

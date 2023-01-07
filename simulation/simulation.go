@@ -43,19 +43,30 @@ func addHeadToFront(snek Battlesnake, newHead Coord) Battlesnake {
 }
 
 func updateSnakePosition(snek Battlesnake, move string) Battlesnake {
-	snek = removeEndOfTail(snek)
 	snek.Head = ApplyMove(snek.Head, move)
 	snek = addHeadToFront(snek, snek.Head)
 	return snek
 }
 
-func updateSnakeFood(snek Battlesnake, state GameState) GameState {
-	for _, food := range state.Board.Food {
-		if Equals(snek.Head, food) {
-			state.Board.Food
+// does not maintain order
+func remove(s []Coord, i int) []Coord {
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1]
+}
 
+func updateSnakeFood(snek *Battlesnake, state GameState) GameState {
+	foodEaten := false
+	for index, food := range state.Board.Food {
+		if Equals(snek.Head, food) {
+			state.Board.Food = remove(state.Board.Food, index)
+			snek.Health = 100
+			foodEaten = true
 		}
 	}
+	if !foodEaten {
+		*snek = removeEndOfTail(*snek)
+	}
+
 	return state
 }
 
@@ -73,7 +84,7 @@ func SimulateMoveBySnake(state GameState, move string, snake Battlesnake) GameSt
 	snekRef := findSnake(snake, &state)
 
 	*snekRef = updateSnakePosition(*snekRef, move)
+	state = updateSnakeFood(snekRef, state)
 
 	return state
-
 }
