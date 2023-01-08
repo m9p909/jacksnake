@@ -14,22 +14,41 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"jacksnake/evaluateBoard"
-	"jacksnake/minmax"
+	"jacksnake/minimaxplayer"
 	. "jacksnake/models"
-	safemoves "jacksnake/safemoves"
-	simulate "jacksnake/simulation"
 	"log"
-	"math"
-	"math/rand"
 	"time"
 )
+
+type Player interface {
+	Move(state GameState) string // string is 1 of up down left or right
+	Start(state GameState)
+	End(state GameState)
+}
+
+type MockPlayer struct {
+}
+
+func (*MockPlayer) Move(_ GameState) string {
+	return "down"
+}
+
+func (*MockPlayer) Start(_ GameState) {}
+
+func (*MockPlayer) End(_ GameState) {}
+
+type MainResponder struct {
+	player Player
+}
+
+func (res *MainResponder) init(player Player) {
+	res.player = player
+}
 
 // info is called when you create your Battlesnake on play.battlesnake.com
 // and controls your Battlesnake's appearance
 // TIP: If you open your Battlesnake URL in a browser you should see this data
-func info() BattlesnakeInfoResponse {
+func (*MainResponder) Info() BattlesnakeInfoResponse {
 	log.Println("INFO")
 
 	return BattlesnakeInfoResponse{
@@ -42,80 +61,25 @@ func info() BattlesnakeInfoResponse {
 }
 
 // start is called when your Battlesnake begins a game
-func start(state GameState) {
+func (res *MainResponder) Start(state GameState) {
 	log.Println("GAME START")
+	res.player.Start(state)
 }
 
 // end is called when your Battlesnake finishes a game
-func end(state GameState) {
+func (responder *MainResponder) End(state GameState) {
 	log.Printf("GAME OVER\n\n")
-}
-
-func equal(coord1 Coord, coord2 Coord) bool {
-	return coord1.X == coord2.X && coord1.Y == coord2.Y
-}
-
-func determineBestMoveHeuristics(state GameState, safeMoves []string) string {
-	if len(safeMoves) <= 0 {
-		println("no safe moves")
-		return "down"
-	}
-	max := math.Inf(-1)
-	maxMove := ""
-	for _, move := range safeMoves {
-		newState := simulate.SimulateMoveBySnake(state, move, state.You)
-		val := evaluateboard.EvaluateCurrentState(newState)
-		if val > max {
-			max = val
-			maxMove = move
-		}
-	}
-
-	if maxMove == "" {
-		println("could not determine move, no good moves, picking randomly")
-		return determineRandomMove(safeMoves)
-
-	}
-	return maxMove
-}
-
-func determineBestMoveMiniMax(state GameState) string {
-	minimaxAlgo := minmax.NewMiniMax(10, state)
-	move := minimaxAlgo.Analyze()
-	if move == "unknown" {
-		println("MINIMAX FAILED ;(")
-		return determineBestMoveHeuristics(state, safemoves.GetSafeMoves(state))
-	}
-	return move
-
-}
-
-func determineRandomMove(safeMoves []string) string {
-	return safeMoves[rand.Intn(len(safeMoves))]
-}
-
-func writeStateToFile(state GameState, file string) {
-
-	fileBinary := []byte(fmt.Sprintf("%#v\n", &state))
-	_ = ioutil.WriteFile(file, fileBinary, 0644)
+	responder.player.End(state)
 }
 
 // move is called on every turn and returns your next move
 // Valid moves are "up", "down", "left", or "right"
 // See https://docs.battlesnake.com/api/example-move for available data
-func move(state GameState) BattlesnakeMoveResponse {
+func (responder *MainResponder) Move(state GameState) BattlesnakeMoveResponse {
 
 	t1 := time.Now()
 
-	safeMoves := safemoves.GetSafeMoves(state)
-
-	if len(safeMoves) == 0 {
-		log.Printf("MOVE %d: No safe moves detected! Moving down\n", state.Turn)
-		return BattlesnakeMoveResponse{Move: "down"}
-	}
-
-	// Choose a random move from the safe ones
-	nextMove := determineBestMoveMiniMax(state)
+	nextMove := responder.player.Move(state)
 
 	fmt.Printf("time: %s\n", time.Since(t1))
 
@@ -123,5 +87,10 @@ func move(state GameState) BattlesnakeMoveResponse {
 }
 
 func main() {
-	RunServer()
+	res := MainResponder{}
+	res.init(
+		&minimaxplayer.MinimaxPlayer{},
+	)
+	RunServer(
+		&res)
 }
