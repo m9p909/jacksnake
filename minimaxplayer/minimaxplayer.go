@@ -15,8 +15,9 @@ type MinimaxPlayer struct {
 	player    coreplayer.Player
 }
 
-func (player *MinimaxPlayer) init(conv StateConverter) {
+func (player *MinimaxPlayer) init(conv StateConverter, coreplayer coreplayer.Player) {
 	player.converter = conv
+	player.player = coreplayer
 }
 
 func (player *MinimaxPlayer) Move(state models.GameState) string {

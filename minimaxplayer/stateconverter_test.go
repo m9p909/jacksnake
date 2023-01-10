@@ -106,7 +106,7 @@ func printJsonStruct[T GameState | coreplayer.GameBoard](a T) {
 	println(string(data))
 }
 
-func Test_stateConverter(t *testing.T) {
+func Test_CoreToState(t *testing.T) {
 	conv := minimaxplayer.StateConverterImpl{}
 	var res GameState
 	res = conv.CoreToState(getGameState1Result())
@@ -118,7 +118,23 @@ func Test_stateConverter(t *testing.T) {
 		printJsonStruct(res)
 		println("expected: ")
 		printJsonStruct(expected)
-		t.FailNow()
+		t.Fail()
 	}
 
+}
+
+func Test_StateToCore(t *testing.T) {
+	conv := minimaxplayer.StateConverterImpl{}
+	var res coreplayer.GameBoard
+	res = conv.StateToCore(getGameStateTest1())
+	var expected coreplayer.GameBoard
+	expected = getGameState1Result()
+	if !jsonCompare(res, expected) {
+		println("Could not convert test2 to test1, equality failed")
+		println("res: ")
+		printJsonStruct(res)
+		println("expected: ")
+		printJsonStruct(expected)
+		t.Fail()
+	}
 }

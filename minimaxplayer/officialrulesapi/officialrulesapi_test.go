@@ -13,7 +13,7 @@ import (
 type OfficialRulesAdapter interface {
 	convertToOfficialBoard(state coreplayer.GameBoard) rules.BoardState
 	convertFromOfficialBoard(state rules.BoardState) coreplayer.GameBoard
-	SimulateMove(coreplayer.GameBoard, move string) coreplayer.GameBoard
+	SimulateMove(coreplayer.GameBoard, move string, snakeId string) coreplayer.GameBoard
 	GetValidMoves(board coreplayer.GameBoard, snakeID string) string[]
 }
 

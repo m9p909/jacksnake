@@ -42,7 +42,6 @@ func NewMiniMax(maxDepth int, initialState GameState) MiniMax {
 	if err != nil {
 		println("Is the player in this game?")
 	}
-
 	return MiniMax{
 		maxDepth,
 		getNumSnakes(initialState),
