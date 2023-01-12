@@ -24,7 +24,10 @@ func (adapter *OfficialRulesAdapterImpl) GetValidMoves(board coreplayer.GameBoar
 	moves := adapter.converter.ConvertToOfficialBoard(board)
 	return adapter.rules.GetValidMoves(moves, id)
 }
-func (*OfficialRulesAdapterImpl) SimulateMove(board coreplayer.GameBoard, move string, snakeId string) coreplayer.GameBoard {
+func (adapter *OfficialRulesAdapterImpl) SimulateMove(board coreplayer.GameBoard, move string, snakeId string) coreplayer.GameBoard {
 	// stub
-	return coreplayer.GameBoard{}
+	board1 := adapter.converter.ConvertToOfficialBoard(board)
+	board2 := adapter.rules.SimulateMove(board1, move, snakeId)
+	board3 := adapter.converter.ConvertToCoreBoard(board2)
+	return board3
 }

@@ -5,6 +5,8 @@ import (
 	"jacksnake/minimaxplayer/coreplayer"
 )
 
+// Privacy and Solitude Diana Webb <- cool book
+
 type OfficialRulesConverter struct{}
 
 func (*OfficialRulesConverter) convertRulesPointToCorePoint(point rules.Point) coreplayer.Point {
@@ -47,6 +49,31 @@ func (adaper *OfficialRulesConverter) convertBoardSnakeToRulesSnake(snake []core
 		}
 	}
 	return rulesSnakes
+}
+
+func (adapter *OfficialRulesConverter) convertRulesSnakeToBoardSnake(snakes []rules.Snake) []coreplayer.Snake {
+	rulesSnakes := make([]coreplayer.Snake, len(snakes))
+	for i, snake := range snakes {
+		rulesSnakes[i] = coreplayer.Snake{
+			ID:     snake.ID,
+			Health: snake.Health,
+			Body:   adapter.convertRulesPointsToCorePoints(snake.Body),
+		}
+	}
+	return rulesSnakes
+}
+
+func (adapter *OfficialRulesConverter) ConvertToCoreBoard(state rules.BoardState) coreplayer.GameBoard {
+	newState := coreplayer.GameBoard{
+		Turn:    state.Turn,
+		Height:  state.Height,
+		Width:   state.Width,
+		Food:    adapter.convertRulesPointsToCorePoints(state.Food),
+		Hazards: adapter.convertRulesPointsToCorePoints(state.Hazards),
+		Snakes:  adapter.convertRulesSnakeToBoardSnake(state.Snakes),
+	}
+	return newState
+
 }
 
 func (adapter *OfficialRulesConverter) ConvertToOfficialBoard(state coreplayer.GameBoard) rules.BoardState {
