@@ -88,9 +88,8 @@ func (responder *MainResponder) Move(state GameState) BattlesnakeMoveResponse {
 
 func main() {
 	res := MainResponder{}
-	res.init(
-		&minimaxplayer.MinimaxPlayer{},
-	)
+	player := minimaxplayer.BuildMinimaxPlayer()
+	res.init(player)
 	RunServer(
 		&res)
 }

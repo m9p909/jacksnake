@@ -1,5 +1,7 @@
 package minimaxplayer
 
+// gbooch@us.ibm.com
+
 import (
 	"jacksnake/minimaxplayer/coreplayer"
 	"jacksnake/models"
@@ -7,7 +9,7 @@ import (
 
 type StateConverter interface {
 	StateToCore(state models.GameState) coreplayer.GameBoard
-	CoreToState(state models.GameState) coreplayer.GameBoard
+	CoreToState(state coreplayer.GameBoard) models.GameState
 }
 
 type MinimaxPlayer struct {
@@ -15,7 +17,7 @@ type MinimaxPlayer struct {
 	player    coreplayer.Player
 }
 
-func (player *MinimaxPlayer) init(conv StateConverter, coreplayer coreplayer.Player) {
+func (player *MinimaxPlayer) Init(conv StateConverter, coreplayer coreplayer.Player) {
 	player.converter = conv
 	player.player = coreplayer
 }

@@ -1,37 +1,30 @@
 package officialrulesapi
 
-type OfficialRulesAdapter interface {
-	convertToOfficialBoard(state coreplayer.GameBoard) rules.BoardState
-	convertFromOfficialBoard(state rules.BoardState) coreplayer.GameBoard
-	SimulateMove(board coreplayer.GameBoard, move string, snakeID string) coreplayer.GameBoard
-	GetValidMoves(board coreplayer.GameBoard, snakeID string) []string
-}
+import (
+	"github.com/BattlesnakeOfficial/rules"
+	"jacksnake/minimaxplayer/coreplayer"
+)
 
 type OfficialRules interface {
-	SimulateMove(board rules.GameBoard, move string, snakeID string) rules.GameBoard
-	GetValidMoves(board rules.GameBoard, snakeID string) []string
+	SimulateMove(board rules.BoardState, move string, snakeID string) rules.BoardState
+	GetValidMoves(board rules.BoardState, snakeID string) []string
 }
-
-
-
 
 type OfficialRulesAdapterImpl struct {
-	rules OfficialRules
+	rules     OfficialRules
+	converter OfficialRulesConverter
 }
 
-func (adapter *OfficialRulesAdapter) init(rules OfficialRules) {
+func (adapter *OfficialRulesAdapterImpl) init(rules OfficialRules) {
 	adapter.rules = rules
+	adapter.converter = OfficialRulesConverter{}
 }
 
-func (*OfficialRulesAdapter) convertToOfficialBoard(state coreplayer.GameBoard) rules.BoardState{
-
+func (adapter *OfficialRulesAdapterImpl) GetValidMoves(board coreplayer.GameBoard, id string) []string {
+	moves := adapter.converter.ConvertToOfficialBoard(board)
+	return adapter.rules.GetValidMoves(moves, id)
 }
-
-func (adapter *OfficialRulesAdapter) GetValidMoves(board coreplayer.GameBoard) []string {
-
-}
-
-func (adapter *OfficialRulesAdapter) SimulateMove(coreplayer.GameBoard, move string, snakeId string) coreplayer.GameBoard {
+func (*OfficialRulesAdapterImpl) SimulateMove(board coreplayer.GameBoard, move string, snakeId string) coreplayer.GameBoard {
 	// stub
 	return coreplayer.GameBoard{}
 }

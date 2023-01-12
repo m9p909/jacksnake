@@ -7,7 +7,7 @@ import (
 
 type StateConverterImpl struct{}
 
-func (StateConverterImpl) coordArrToPointArr(coord []models.Coord) []coreplayer.Point {
+func (*StateConverterImpl) coordArrToPointArr(coord []models.Coord) []coreplayer.Point {
 	points := []coreplayer.Point{}
 
 	for _, coord := range coord {
@@ -16,7 +16,7 @@ func (StateConverterImpl) coordArrToPointArr(coord []models.Coord) []coreplayer.
 	return points
 }
 
-func (StateConverterImpl) pointArrToCoordArr(points []coreplayer.Point) []models.Coord {
+func (*StateConverterImpl) pointArrToCoordArr(points []coreplayer.Point) []models.Coord {
 	coords := []models.Coord{}
 
 	for _, point := range points {
