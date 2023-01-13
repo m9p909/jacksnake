@@ -49,6 +49,7 @@ func (conv *StateConverterImpl) snakeToBattlesnake(snake []coreplayer.Snake) []m
 		nextSnake := models.Battlesnake{
 			ID:     snake.ID,
 			Health: snake.Health,
+			Head:   models.Coord(snake.Body[0]),
 			Body:   conv.pointArrToCoordArr(snake.Body),
 		}
 		snakes = append(snakes, nextSnake)

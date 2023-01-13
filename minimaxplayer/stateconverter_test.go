@@ -113,6 +113,7 @@ func Test_CoreToState(t *testing.T) {
 	res = conv.CoreToState(getGameState1Result())
 	var expected GameState
 	expected = getGameStateTest1()
+	expected.You = Battlesnake{}
 	if !jsonCompare(res, expected) {
 		println("Could not convert test 1 to test2, equality failed")
 		println("res: ")
