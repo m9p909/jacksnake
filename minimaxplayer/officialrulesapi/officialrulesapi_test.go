@@ -1,8 +1,10 @@
 package officialrulesapi_test
 
 import (
-	"github.com/BattlesnakeOfficial/rules"
+	"jacksnake/minimaxplayer/officialrulesapi"
 	"testing"
+
+	"github.com/gkampitakis/go-snaps/snaps"
 )
 
 /*
@@ -12,14 +14,8 @@ import (
 	}
 */
 func Test_OfficialRulesAdapter(t *testing.T) {
+	rules := officialrulesapi.GetOfficialRules()
+	moves := rules.GetValidMoves(getCoreState(), "1")
+	snaps.MatchSnapshot(t, moves)
 
-}
-
-var standardRulesetStages = []string{
-	rules.StageGameOverStandard,
-	rules.StageMovementStandard,
-	rules.StageStarvationStandard,
-	rules.StageHazardDamageStandard,
-	rules.StageFeedSnakesStandard,
-	rules.StageEliminationStandard,
 }

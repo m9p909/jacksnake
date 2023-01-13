@@ -1,6 +1,8 @@
 package officialrulesapi
 
 import (
+	"errors"
+
 	"github.com/BattlesnakeOfficial/rules"
 )
 
@@ -18,8 +20,19 @@ type OfficialRulesImpl struct {
 
 var standardRules = rules.NewSettingsWithParams(standardRulesetStages...)
 
+func getSnake(board rules.BoardState, snakeID string) (*rules.Snake, error) {
+	for _, snake := range board.Snakes {
+		if snake.ID == snakeID {
+			return &snake, nil
+		}
+	}
+	return nil, errors.New("cant find snake")
+}
+
 func (*OfficialRulesImpl) rulesSimulateMove(board rules.BoardState, move string, snakeID string) (bool, rules.BoardState, error) {
-	success, err := rules.MoveSnakesStandard(&board, standardRules, []rules.SnakeMove{{ID: snakeID, Move: move}})
+	rules.MoveSnakesStandard(&board, standardRules, []rules.SnakeMove{{ID: snakeID, Move: move}})
+	snake, err := getSnake(board, snakeID)
+	success := snake.EliminatedCause == ""
 	return success, board, err
 }
 

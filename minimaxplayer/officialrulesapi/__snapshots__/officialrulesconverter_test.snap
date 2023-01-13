@@ -40,3 +40,87 @@
     },
 }
 ---
+
+[Test_CoretoRules - 1]
+[]rules.Point{
+    {X:3, Y:1},
+    {X:3, Y:3},
+}
+---
+
+[Test_CoretoRules - 2]
+[]rules.Point{
+    {X:1, Y:0},
+    {X:0, Y:1},
+}
+---
+
+[Test_CoretoRules - 3]
+[]rules.Snake{
+    {
+        ID:   "1",
+        Body: {
+            {X:1, Y:2},
+            {X:1, Y:3},
+        },
+        Health:           99,
+        EliminatedCause:  "",
+        EliminatedOnTurn: 0,
+        EliminatedBy:     "",
+    },
+    {
+        ID:   "2",
+        Body: {
+            {X:3, Y:2},
+            {X:2, Y:2},
+            {X:2, Y:1},
+        },
+        Health:           100,
+        EliminatedCause:  "",
+        EliminatedOnTurn: 0,
+        EliminatedBy:     "",
+    },
+}
+---
+
+[Test_RulestoCore - 1]
+[]rules.Point{
+    {X:3, Y:1},
+    {X:3, Y:3},
+}
+---
+
+[Test_RulestoCore - 2]
+[]rules.Point{
+    {X:1, Y:0},
+    {X:0, Y:1},
+}
+---
+
+[Test_RulestoCore - 3]
+[]rules.Snake{
+    {
+        ID:   "1",
+        Body: {
+            {X:1, Y:2},
+            {X:1, Y:3},
+        },
+        Health:           99,
+        EliminatedCause:  "",
+        EliminatedOnTurn: 0,
+        EliminatedBy:     "",
+    },
+    {
+        ID:   "2",
+        Body: {
+            {X:3, Y:2},
+            {X:2, Y:2},
+            {X:2, Y:1},
+        },
+        Health:           100,
+        EliminatedCause:  "",
+        EliminatedOnTurn: 0,
+        EliminatedBy:     "",
+    },
+}
+---

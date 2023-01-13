@@ -11,6 +11,7 @@ import (
 
 func getGameStateTest1() GameState {
 	/*
+		4 - - - -
 		3 - 0 - f
 		2 - 0 1 1
 		1 x - 1 f

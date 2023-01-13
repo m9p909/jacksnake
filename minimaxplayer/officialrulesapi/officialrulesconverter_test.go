@@ -6,10 +6,19 @@ import (
 	. "jacksnake/minimaxplayer/officialrulesapi"
 	"testing"
 
+	"github.com/BattlesnakeOfficial/rules"
 	"github.com/gkampitakis/go-snaps/snaps"
 )
 
 func getCoreState() coreplayer.GameBoard {
+	/*
+		3 - 0 - f
+		2 - 0 1 1
+		1 x - 1 f
+		0 - x - -
+			0 1 2 3
+	*/
+
 	food := []coreplayer.Point{
 		{X: 3, Y: 1},
 		{X: 3, Y: 3},
