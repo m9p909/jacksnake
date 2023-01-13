@@ -21,8 +21,9 @@ func (adapter *OfficialRulesAdapterImpl) init(rules OfficialRules) {
 }
 
 func (adapter *OfficialRulesAdapterImpl) GetValidMoves(board coreplayer.GameBoard, id string) []string {
-	moves := adapter.converter.ConvertToOfficialBoard(board)
-	return adapter.rules.GetValidMoves(moves, id)
+	newBoard := adapter.converter.ConvertToOfficialBoard(board)
+	println("board", &newBoard)
+	return adapter.rules.GetValidMoves(newBoard, id)
 }
 func (adapter *OfficialRulesAdapterImpl) SimulateMove(board coreplayer.GameBoard, move string, snakeId string) coreplayer.GameBoard {
 	// stub

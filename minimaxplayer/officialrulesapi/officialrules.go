@@ -1,6 +1,7 @@
 package officialrulesapi
 
 import (
+	"encoding/json"
 	"errors"
 
 	"github.com/BattlesnakeOfficial/rules"
@@ -30,8 +31,16 @@ func getSnake(board rules.BoardState, snakeID string) (*rules.Snake, error) {
 }
 
 func (*OfficialRulesImpl) rulesSimulateMove(board rules.BoardState, move string, snakeID string) (bool, rules.BoardState, error) {
+	boardJson, err := json.MarshalIndent(board, "", "   ")
+	println("before: ", boardJson)
 	rules.MoveSnakesStandard(&board, standardRules, []rules.SnakeMove{{ID: snakeID, Move: move}})
+
+	boardJson, err = json.MarshalIndent(board, "", "   ")
+	println("after: ", boardJson)
 	snake, err := getSnake(board, snakeID)
+	if err != nil {
+		println("something went wrong")
+	}
 	success := snake.EliminatedCause == ""
 	return success, board, err
 }
@@ -46,20 +55,22 @@ func (officialRules *OfficialRulesImpl) SimulateMove(board rules.BoardState, mov
 	return board
 }
 
-var moves = []string{"up", "down", "left", "right"}
+var movesConst = []string{"up", "down", "left", "right"}
 
 func (officialRules *OfficialRulesImpl) GetValidMoves(board rules.BoardState, snakeID string) []string {
-	moves := []string{}
-	for _, move := range moves {
+	output := []string{}
+	// board is null
+	for _, move := range movesConst {
 
-		success, _, err := officialRules.rulesSimulateMove(board, move, snakeID)
+		testBoard := board.Clone()
+		success, _, err := officialRules.rulesSimulateMove(*testBoard, move, snakeID)
 		if err != nil {
 			println("could not GetValidMoves")
 		}
 		if success {
-			moves = append(moves, move)
+			output = append(output, move)
 		}
 	}
 
-	return moves
+	return output
 }

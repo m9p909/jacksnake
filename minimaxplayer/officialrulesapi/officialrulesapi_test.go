@@ -17,5 +17,4 @@ func Test_OfficialRulesAdapter(t *testing.T) {
 	rules := officialrulesapi.GetOfficialRules()
 	moves := rules.GetValidMoves(getCoreState(), "1")
 	snaps.MatchSnapshot(t, moves)
-
 }
