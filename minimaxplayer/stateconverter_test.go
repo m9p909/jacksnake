@@ -41,6 +41,7 @@ func getGameStateTest1() GameState {
 
 	state := GameState{
 		Turn: 2,
+		You:  snakes[0],
 		Board: Board{
 			Snakes: []Battlesnake{
 				snakes[0], snakes[1],

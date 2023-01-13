@@ -12,7 +12,7 @@ type Player interface {
 	End(state GameState)
 }
 
-func BuildMinimaxPlayer() Player {
+func BuildRandomPlayer() Player {
 	player := MinimaxPlayer{}
 	conv := StateConverterImpl{}
 	algo := coreplayer.RandomAlgo{}
