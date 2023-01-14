@@ -57,7 +57,7 @@ func getGameStateTest2() GameState {
 
 func randomPlayerTest(t *testing.T, state GameState, badMoves []string) {
 	player := minimaxplayer.BuildRandomPlayer()
-	move := player.Move(getGameStateTest1())
+	move := player.Move(state)
 	for _, badmove := range badMoves {
 		if move == badmove {
 			println("cannot go ", move)
