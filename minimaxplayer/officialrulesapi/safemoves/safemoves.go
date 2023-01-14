@@ -121,6 +121,18 @@ func GetSafeMovesBySnake(state rules.BoardState, snakeID string) []string {
 		}
 	}
 
+	// hazards
+	for move, isSafe := range isMoveSafe {
+		if isSafe {
+			next_head := ApplyMove(myHead, move)
+			for _, hazard := range state.Hazards {
+				if Equals(hazard, next_head) {
+					isMoveSafe[move] = false
+				}
+			}
+		}
+	}
+
 	// Are there any safe moves left?
 	safeMoves := []string{}
 	for move, isSafe := range isMoveSafe {
