@@ -1,4 +1,4 @@
 
 [Test_OfficialRulesAdapter - 1]
-[]string{"left", "down"}
+[]string{"down", "left"}
 ---
