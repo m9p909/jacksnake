@@ -1,0 +1,4 @@
+
+[Test_GetValidMoves - 1]
+[]string{ "down", "left", }
+---

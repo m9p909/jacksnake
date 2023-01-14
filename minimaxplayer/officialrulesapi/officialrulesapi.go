@@ -22,7 +22,7 @@ func (adapter *OfficialRulesAdapterImpl) init(rules OfficialRules) {
 
 func (adapter *OfficialRulesAdapterImpl) GetValidMoves(board coreplayer.GameBoard, id string) []string {
 	newBoard := adapter.converter.ConvertToOfficialBoard(board)
-	println("board", &newBoard)
+	println("board pointer", &newBoard)
 	return adapter.rules.GetValidMoves(newBoard, id)
 }
 func (adapter *OfficialRulesAdapterImpl) SimulateMove(board coreplayer.GameBoard, move string, snakeId string) coreplayer.GameBoard {
