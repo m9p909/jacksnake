@@ -6,7 +6,7 @@ import (
 )
 
 type OfficialRules interface {
-	SimulateMove(board rules.BoardState, move string, snakeID string) rules.BoardState
+	SimulateMoves(board rules.BoardState, moves []rules.SnakeMove) rules.BoardState
 	GetValidMoves(board rules.BoardState, snakeID string) []string
 }
 
@@ -22,13 +22,13 @@ func (adapter *OfficialRulesAdapterImpl) init(rules OfficialRules) {
 
 func (adapter *OfficialRulesAdapterImpl) GetValidMoves(board coreplayer.GameBoard, id string) []string {
 	newBoard := adapter.converter.ConvertToOfficialBoard(board)
-	println("board pointer", &newBoard)
 	return adapter.rules.GetValidMoves(newBoard, id)
 }
-func (adapter *OfficialRulesAdapterImpl) SimulateMove(board coreplayer.GameBoard, move string, snakeId string) coreplayer.GameBoard {
-	// stub
+
+func (adapter *OfficialRulesAdapterImpl) SimulateMoves(board coreplayer.GameBoard, snakeMoves []coreplayer.SnakeMove) coreplayer.GameBoard {
 	board1 := adapter.converter.ConvertToOfficialBoard(board)
-	board2 := adapter.rules.SimulateMove(board1, move, snakeId)
+	moves := adapter.converter.ConvertSnakeMovesToRules(snakeMoves)
+	board2 := adapter.rules.SimulateMoves(board1, moves)
 	board3 := adapter.converter.ConvertToCoreBoard(board2)
 	return board3
 }

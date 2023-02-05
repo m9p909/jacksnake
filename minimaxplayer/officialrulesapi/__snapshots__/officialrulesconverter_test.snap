@@ -82,3 +82,10 @@
     },
 }
 ---
+
+[TestSnakeMovesToCore - 1]
+[]coreplayer.SnakeMove{
+    {ID:"1", Move:"up"},
+    {ID:"2", Move:"down"},
+}
+---

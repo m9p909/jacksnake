@@ -53,6 +53,13 @@ func getCoreState() coreplayer.GameBoard {
 }
 
 func getRulesState() rules.BoardState {
+	/*
+		3 - 0 - f
+		2 - 0 1 1
+		1 x - 1 f
+		0 - x - -
+			0 1 2 3
+	*/
 	food := []rules.Point{
 		{X: 3, Y: 1},
 		{X: 3, Y: 3},
@@ -116,5 +123,25 @@ func Test_RulestoCore(t *testing.T) {
 	snaps.MatchSnapshot(t, board.Food)
 	snaps.MatchSnapshot(t, board.Hazards)
 	snaps.MatchSnapshot(t, board.Snakes)
+
+}
+
+func TestSnakeMovesToCore(t *testing.T) {
+	converter := OfficialRulesConverter{}
+
+	move := []rules.SnakeMove{
+		{
+			ID:   "1",
+			Move: "up",
+		},
+		{
+			ID:   "2",
+			Move: "down",
+		},
+	}
+
+	moveSnake := converter.ConvertSnakeMovesToCore(move)
+
+	snaps.MatchSnapshot(t, moveSnake)
 
 }

@@ -7,6 +7,7 @@ import (
 func GetOfficialRules() coreplayer.Simulator {
 	res := OfficialRulesAdapterImpl{}
 
-	res.init(&OfficialRulesImpl{})
+	res.init(
+		&OfficialRulesImpl{})
 	return &res
 }

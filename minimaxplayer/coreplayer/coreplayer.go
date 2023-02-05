@@ -22,8 +22,13 @@ type GameBoard struct {
 	Hazards []Point
 }
 
+type SnakeMove struct {
+	ID   string
+	Move string
+}
+
 type Simulator interface {
-	SimulateMove(board GameBoard, move string, snakeId string) GameBoard
+	SimulateMoves(board GameBoard, moves []SnakeMove) GameBoard
 	GetValidMoves(board GameBoard, snakeId string) []string
 }
 

@@ -87,3 +87,26 @@ func (adapter *OfficialRulesConverter) ConvertToOfficialBoard(state coreplayer.G
 	}
 	return newState
 }
+
+func (adapter *OfficialRulesConverter) ConvertSnakeMovesToRules(moves []coreplayer.SnakeMove) []rules.SnakeMove {
+	rulesMoves := make([]rules.SnakeMove, len(moves))
+	for i, move := range moves {
+		rulesMoves[i] = rules.SnakeMove{
+			ID:   move.ID,
+			Move: move.Move,
+		}
+	}
+	return rulesMoves
+}
+
+// Function that converts rules Snake Move structure to coreplayer snake move structure
+func (adapter *OfficialRulesConverter) ConvertSnakeMovesToCore(moves []rules.SnakeMove) []coreplayer.SnakeMove {
+	coreMoves := make([]coreplayer.SnakeMove, len(moves))
+	for i, move := range moves {
+		coreMoves[i] = coreplayer.SnakeMove{
+			ID:   move.ID,
+			Move: move.Move,
+		}
+	}
+	return coreMoves
+}
