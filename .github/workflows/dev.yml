@@ -6,7 +6,7 @@ name: Go
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "*", "!master" "!main" ]
 
 jobs:
 
