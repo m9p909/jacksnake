@@ -100,6 +100,20 @@ func evaluateSpaceConstraint(state *GameBoard, snakeId string) float64 {
 	return math.Pow(float64(availableSquares)/float64(state.Height*state.Width), 1.5)
 }
 
+func evaluateDeadSnakes(state *GameBoard, snakeId string) float64 {
+	if len(state.Snakes) > 1 {
+
+		deadSnakes := 0
+		for _, snake := range state.Snakes {
+			if snake.Health <= 0 && snake.ID != snakeId {
+				deadSnakes++
+			}
+		}
+		return float64(deadSnakes) / float64(len(state.Snakes)-1)
+	}
+	return 0.5
+}
+
 func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId string) float64 {
 	snake := findSnakeById(&board.Snakes, snakeId)
 	if snake != nil {
@@ -108,7 +122,8 @@ func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId string) float64 
 		}
 		healthScore := getHealthScore(snake)
 		spaceScore := evaluateSpaceConstraint(board, snakeId)
-		return healthScore*0.5 + spaceScore*0.5
+		deadSnakeScore := evaluateDeadSnakes(board, snakeId)
+		return healthScore*0.3333 + spaceScore*0.3333 + deadSnakeScore*0.3333
 	}
 	println("no snake found, this should never happen")
 	return 0
