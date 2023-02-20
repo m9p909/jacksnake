@@ -8,62 +8,6 @@ import (
 	"os"
 )
 
-// HTTP Handlers
-
-func HandleIndex(w http.ResponseWriter, r *http.Request) {
-	response := info()
-
-	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(response)
-	if err != nil {
-		log.Printf("ERROR: Failed to encode info response, %s", err)
-	}
-}
-
-func HandleStart(w http.ResponseWriter, r *http.Request) {
-	state := GameState{}
-	err := json.NewDecoder(r.Body).Decode(&state)
-	if err != nil {
-		log.Printf("ERROR: Failed to decode start json, %s", err)
-		return
-	}
-
-	start(state)
-
-	// Nothing to respond with here
-}
-
-func HandleMove(w http.ResponseWriter, r *http.Request) {
-	state := GameState{}
-	err := json.NewDecoder(r.Body).Decode(&state)
-	if err != nil {
-		log.Printf("ERROR: Failed to decode move json, %s", err)
-		return
-	}
-
-	response := move(state)
-
-	w.Header().Set("Content-Type", "application/json")
-	err = json.NewEncoder(w).Encode(response)
-	if err != nil {
-		log.Printf("ERROR: Failed to encode move response, %s", err)
-		return
-	}
-}
-
-func HandleEnd(w http.ResponseWriter, r *http.Request) {
-	state := GameState{}
-	err := json.NewDecoder(r.Body).Decode(&state)
-	if err != nil {
-		log.Printf("ERROR: Failed to decode end json, %s", err)
-		return
-	}
-
-	end(state)
-
-	// Nothing to respond with here
-}
-
 // Middleware
 
 const ServerID = "battlesnake/github/starter-snake-go"
@@ -77,16 +21,88 @@ func withServerID(next http.HandlerFunc) http.HandlerFunc {
 
 // Start Battlesnake Server
 
-func RunServer() {
+type Responder interface {
+	Info() BattlesnakeInfoResponse
+	Start(gameState GameState)
+	End(gameState GameState)
+	Move(state GameState) BattlesnakeMoveResponse
+}
+
+func buildHandleIndex(responder Responder) func(http.ResponseWriter, *http.Request) {
+	HandleIndex := func(w http.ResponseWriter, r *http.Request) {
+		response := responder.Info()
+		w.Header().Set("Content-Type", "application/json")
+		err := json.NewEncoder(w).Encode(response)
+		if err != nil {
+			log.Printf("ERROR: Failed to encode info response, %s", err)
+		}
+	}
+	return HandleIndex
+}
+
+func buildHandleStart(responder Responder) func(http.ResponseWriter, *http.Request) {
+	handleStart := func(w http.ResponseWriter, r *http.Request) {
+		state := GameState{}
+		err := json.NewDecoder(r.Body).Decode(&state)
+		if err != nil {
+			log.Printf("ERROR: Failed to decode start json, %s", err)
+			return
+		}
+		responder.Start(state)
+	}
+	return handleStart
+	// Nothing to respond with here
+}
+
+func buildHandleMove(responder Responder) func(http.ResponseWriter, *http.Request) {
+	handleMove := func(w http.ResponseWriter, r *http.Request) {
+		state := GameState{}
+		err := json.NewDecoder(r.Body).Decode(&state)
+		if err != nil {
+			log.Printf("ERROR: Failed to decode move json, %s", err)
+			return
+		}
+
+		response := responder.Move(state)
+
+		w.Header().Set("Content-Type", "application/json")
+		err = json.NewEncoder(w).Encode(response)
+		if err != nil {
+			log.Printf("ERROR: Failed to encode move response, %s", err)
+			return
+		}
+	}
+	return handleMove
+	// Nothing to respond with here
+}
+
+func buildHandleEnd(responder Responder) func(http.ResponseWriter, *http.Request) {
+	handleEnd := func(w http.ResponseWriter, r *http.Request) {
+		state := GameState{}
+		err := json.NewDecoder(r.Body).Decode(&state)
+		if err != nil {
+			log.Printf("ERROR: Failed to decode end json, %s", err)
+			return
+		}
+
+		responder.End(state)
+
+		// Nothing to respond with here
+	}
+	return handleEnd
+	// Nothing to respond with here
+}
+
+func RunServer(responder Responder) {
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
 		port = "8000"
 	}
 
-	http.HandleFunc("/", withServerID(HandleIndex))
-	http.HandleFunc("/start", withServerID(HandleStart))
-	http.HandleFunc("/move", withServerID(HandleMove))
-	http.HandleFunc("/end", withServerID(HandleEnd))
+	http.HandleFunc("/", withServerID(buildHandleIndex(responder)))
+	http.HandleFunc("/start", withServerID(buildHandleStart(responder)))
+	http.HandleFunc("/move", withServerID(buildHandleMove(responder)))
+	http.HandleFunc("/end", withServerID(buildHandleEnd(responder)))
 
 	log.Printf("Running Battlesnake at http://0.0.0.0:%s...\n", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
