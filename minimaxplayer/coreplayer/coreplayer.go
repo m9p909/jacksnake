@@ -32,6 +32,11 @@ type Simulator interface {
 	GetValidMoves(board GameBoard, snakeId string) []string
 }
 
+type Evaluator interface {
+	// evaluates board for a given snake, avaluation should be between 0 and 1
+	EvaluateBoard(board GameBoard, snakeId string)
+}
+
 type Player interface {
 	Move(board GameBoard, youId string) string
 }
