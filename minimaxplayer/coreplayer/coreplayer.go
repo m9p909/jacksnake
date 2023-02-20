@@ -7,6 +7,10 @@ type Point struct {
 	Y int
 }
 
+func Equals(a Point, b Point) bool {
+	return a.X == b.X && a.Y == b.Y
+}
+
 type Snake struct {
 	ID     string
 	Body   []Point
@@ -34,7 +38,7 @@ type Simulator interface {
 
 type Evaluator interface {
 	// evaluates board for a given snake, avaluation should be between 0 and 1
-	EvaluateBoard(board GameBoard, snakeId string)
+	EvaluateBoard(board *GameBoard, snakeId string) float64
 }
 
 type Player interface {

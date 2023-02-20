@@ -26,8 +26,7 @@ type Player interface {
 	End(state GameState)
 }
 
-type MockPlayer struct {
-}
+type MockPlayer struct{}
 
 func (*MockPlayer) Move(_ GameState) string {
 	return "down"
@@ -76,7 +75,6 @@ func (responder *MainResponder) End(state GameState) {
 // Valid moves are "up", "down", "left", or "right"
 // See https://docs.battlesnake.com/api/example-move for available data
 func (responder *MainResponder) Move(state GameState) BattlesnakeMoveResponse {
-
 	t1 := time.Now()
 
 	nextMove := responder.player.Move(state)
@@ -88,7 +86,7 @@ func (responder *MainResponder) Move(state GameState) BattlesnakeMoveResponse {
 
 func main() {
 	res := MainResponder{}
-	player := minimaxplayer.BuildRandomPlayer()
+	player := minimaxplayer.BuildMinimaxPlayer()
 	res.init(player)
 	RunServer(&res)
 }

@@ -2,6 +2,7 @@ package minimaxplayer
 
 import (
 	"jacksnake/minimaxplayer/coreplayer"
+	"jacksnake/minimaxplayer/evaluator"
 	"jacksnake/minimaxplayer/officialrulesapi"
 	. "jacksnake/models"
 )
@@ -19,5 +20,13 @@ func BuildRandomPlayer() Player {
 	standardRulesSimulator := officialrulesapi.GetOfficialRules()
 	algo.Init(standardRulesSimulator)
 	player.Init(&conv, &algo)
+	return &player
+}
+
+func BuildMinimaxPlayer() Player {
+	conv := StateConverterImpl{}
+	algo := coreplayer.NewMinimaxAlgoMove(officialrulesapi.GetOfficialRules(), evaluator.NewSimpleEvaluator(), 4)
+	player := MinimaxPlayer{}
+	player.Init(&conv, algo)
 	return &player
 }
