@@ -2,7 +2,6 @@ package coreplayer_test
 
 import (
 	"encoding/json"
-	"fmt"
 	. "jacksnake/minimaxplayer/coreplayer"
 	"jacksnake/minimaxplayer/evaluator"
 	"jacksnake/minimaxplayer/officialrulesapi"
@@ -54,8 +53,7 @@ func getTestData() []TestData {
 
 func Test_MinimaxPlayer(t *testing.T) {
 	data := getTestData()
-	fmt.Printf("%+v", data)
-	algo := NewMinimaxAlgoMove(officialrulesapi.GetOfficialRules(), evaluator.NewSimpleEvaluator(), 1)
+	algo := NewMinimaxAlgoMove(officialrulesapi.GetOfficialRules(), evaluator.NewSimpleEvaluator(), 5)
 	for _, play := range data {
 		algo.Move(play.board, play.snakeId)
 	}

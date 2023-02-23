@@ -58,19 +58,45 @@ func makeNewSnakeMoves(board *GameBoard) []SnakeMove {
 	return make([]SnakeMove, len(board.Snakes))
 }
 
+type MoveResult struct {
+	score float64
+	move  string
+}
+
+func (minimax *MinimaxAlgoMove) getScores(moves []string, board *GameBoard) []MoveResult {
+	scores := make([]MoveResult, len(moves))
+	chans := make([]chan MoveResult, len(moves))
+	for i := range chans {
+		chans[i] = make(chan MoveResult)
+	}
+	for i, move := range moves {
+		nextMoves := makeNewSnakeMoves(board)
+		nextMoves[minimax.playerIndex] = SnakeMove{ID: minimax.playerId, Move: move}
+		go func(index int, move string) {
+			score := minimax.runMinimax(board, getNextSnakeIndex(board, minimax.playerIndex), 1, nextMoves)
+			result := MoveResult{move: move, score: score}
+			chans[index] <- result
+		}(i, move)
+	}
+	for i := range chans {
+		score := <-chans[i]
+		scores[i] = score
+	}
+	return scores
+}
+
 func (minimax *MinimaxAlgoMove) startMinimax(board *GameBoard) string {
 	moves := minimax.simulator.GetValidMoves(*board, minimax.playerId)
 	max := 0.0
 	bestMove := "down"
-	for _, move := range moves {
-		nextMoves := makeNewSnakeMoves(board)
-		nextMoves[minimax.playerIndex] = SnakeMove{ID: minimax.playerId, Move: move}
-		score := minimax.runMinimax(board, getNextSnakeIndex(board, minimax.playerIndex), 1, nextMoves)
-		if score > max {
-			max = score
-			bestMove = move
+	scores := minimax.getScores(moves, board)
+	for _, score := range scores {
+		if score.score > max {
+			max = score.score
+			bestMove = score.move
 		}
 	}
+
 	return bestMove
 }
 
@@ -83,10 +109,10 @@ func (minimax *MinimaxAlgoMove) runMinimax(board *GameBoard, snakeIndex int, dep
 		return minimax.evaluator.EvaluateBoard(board, minimax.playerId)
 	}
 
-	//println(snakeIndex)
+	// println(snakeIndex)
 	if snakeIndex == minimax.playerIndex {
 		// print the moves structure
-		//fmt.Printf("moves: %v\n", moves)
+		// fmt.Printf("moves: %v\n", moves)
 		newBoard := minimax.simulator.SimulateMoves(*board, moves)
 		max := 0.0
 		validMoves := minimax.simulator.GetValidMoves(newBoard, minimax.playerId)
