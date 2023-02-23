@@ -2,10 +2,12 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	. "jacksnake/models"
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 // Middleware
@@ -17,6 +19,18 @@ func withServerID(next http.HandlerFunc) http.HandlerFunc {
 		w.Header().Set("Server", ServerID)
 		next(w, r)
 	}
+}
+
+func withTimer(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		t := time.Now()
+		next(w, r)
+		fmt.Printf("%s", time.Since(t))
+	}
+}
+
+func withMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return withTimer(withServerID(next))
 }
 
 // Start Battlesnake Server

@@ -1,13 +1,16 @@
 package coreplayer
 
 import (
+	"encoding/json"
 	"math"
 )
 
 type MinimaxAlgoMove struct {
-	simulator Simulator
-	evaluator Evaluator
-	maxDepth  int
+	simulator   Simulator
+	evaluator   Evaluator
+	maxDepth    int
+	playerIndex int
+	playerId    string
 }
 
 func NewMinimaxAlgoMove(sim Simulator, eval Evaluator, maxDepth int) *MinimaxAlgoMove {
@@ -18,13 +21,14 @@ func NewMinimaxAlgoMove(sim Simulator, eval Evaluator, maxDepth int) *MinimaxAlg
 	}
 }
 
-func findSnakeById(snakes *[]Snake, id string) *Snake {
-	for _, snake := range *snakes {
+func findSnakeById(snakes *[]Snake, id string) (int, *Snake) {
+	for i, snake := range *snakes {
 		if snake.ID == id {
-			return &snake
+			return i, &snake
 		}
 	}
-	return nil
+	println("NO SNAKE FOUND")
+	return -1, nil
 }
 
 func movePlayerSnakeToFront(snakes *[]Snake, id string) *[]Snake {
@@ -40,18 +44,28 @@ func movePlayerSnakeToFront(snakes *[]Snake, id string) *[]Snake {
 }
 
 func (minimax *MinimaxAlgoMove) Move(board GameBoard, snakeId string) string {
-	movePlayerSnakeToFront(&board.Snakes, snakeId)
+	println(snakeId)
+	data, _ := json.Marshal(board)
+	println(string(data))
+	var snek *Snake
+	minimax.playerIndex, snek = findSnakeById(&board.Snakes, snakeId)
+	minimax.playerId = snek.ID
 	res := minimax.startMinimax(&board)
 	return res
 }
 
+func makeNewSnakeMoves(board *GameBoard) []SnakeMove {
+	return make([]SnakeMove, len(board.Snakes))
+}
+
 func (minimax *MinimaxAlgoMove) startMinimax(board *GameBoard) string {
-	playerID := board.Snakes[0].ID
-	moves := minimax.simulator.GetValidMoves(*board, playerID)
+	moves := minimax.simulator.GetValidMoves(*board, minimax.playerId)
 	max := 0.0
 	bestMove := "down"
 	for _, move := range moves {
-		score := minimax.runMinimax(board, getNextSnake(board, 0), 1, &[]SnakeMove{{ID: playerID, Move: move}})
+		nextMoves := makeNewSnakeMoves(board)
+		nextMoves[minimax.playerIndex] = SnakeMove{ID: minimax.playerId, Move: move}
+		score := minimax.runMinimax(board, getNextSnakeIndex(board, minimax.playerIndex), 1, nextMoves)
 		if score > max {
 			max = score
 			bestMove = move
@@ -60,34 +74,41 @@ func (minimax *MinimaxAlgoMove) startMinimax(board *GameBoard) string {
 	return bestMove
 }
 
-func getNextSnake(board *GameBoard, currentSnake int) int {
+func getNextSnakeIndex(board *GameBoard, currentSnake int) int {
 	return (currentSnake + 1) % len(board.Snakes)
 }
 
-func (minimax *MinimaxAlgoMove) runMinimax(board *GameBoard, snake int, depth int, moves *[]SnakeMove) float64 {
+func (minimax *MinimaxAlgoMove) runMinimax(board *GameBoard, snakeIndex int, depth int, moves []SnakeMove) float64 {
 	if depth > minimax.maxDepth {
-		return minimax.evaluator.EvaluateBoard(board, board.Snakes[0].ID)
+		return minimax.evaluator.EvaluateBoard(board, minimax.playerId)
 	}
-	if snake == 0 {
-		mainSnakeId := board.Snakes[0].ID
-		newBoard := minimax.simulator.SimulateMoves(*board, *moves)
+
+	//println(snakeIndex)
+	if snakeIndex == minimax.playerIndex {
+		// print the moves structure
+		//fmt.Printf("moves: %v\n", moves)
+		newBoard := minimax.simulator.SimulateMoves(*board, moves)
 		max := 0.0
-		validMoves := minimax.simulator.GetValidMoves(newBoard, mainSnakeId)
+		validMoves := minimax.simulator.GetValidMoves(newBoard, minimax.playerId)
 		for _, move := range validMoves {
-			score := minimax.runMinimax(&newBoard, getNextSnake(board, snake), depth+1, &[]SnakeMove{{ID: mainSnakeId, Move: move}})
+			moves := makeNewSnakeMoves(board)
+			moves[minimax.playerIndex] = SnakeMove{ID: minimax.playerId, Move: move}
+			score := minimax.runMinimax(&newBoard, getNextSnakeIndex(board, snakeIndex), depth+1, moves)
 			if score > max {
 				max = score
 			}
 		}
 		return max
 	} else {
-		snakeId := board.Snakes[snake].ID
+		snakeId := board.Snakes[snakeIndex].ID
 		min := math.Inf(1)
 		validMoves := minimax.simulator.GetValidMoves(*board, snakeId)
-		nextSnake := getNextSnake(board, snake)
 		for _, move := range validMoves {
-			currentmoves := append(*moves, SnakeMove{ID: snakeId, Move: move}) // possible bug, not sure if append modifies moves
-			score := minimax.runMinimax(board, nextSnake, depth, &currentmoves)
+			// append works correctly
+			newMoves := makeNewSnakeMoves(board)
+			copy(newMoves, moves)
+			newMoves[snakeIndex] = SnakeMove{ID: snakeId, Move: move}
+			score := minimax.runMinimax(board, getNextSnakeIndex(board, snakeIndex), depth, newMoves)
 			if score < min {
 				min = score
 			}

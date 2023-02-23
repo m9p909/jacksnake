@@ -20,12 +20,15 @@ func getGameStateTest2() GameState {
 			ID:     "1",
 			Health: 99,
 			Head:   Coord{X: 0, Y: 2},
-			Body:   []Coord{{X: 0, Y: 2}, {X: 1, Y: 2}, {X: 1, Y: 3}}},
+			Body:   []Coord{{X: 0, Y: 2}, {X: 1, Y: 2}, {X: 1, Y: 3}},
+		},
 		{
 			ID:     "2",
 			Health: 100,
 			Head:   Coord{X: 3, Y: 2},
-			Body:   []Coord{{X: 3, Y: 2}, {X: 2, Y: 2}, {X: 2, Y: 1}}}}
+			Body:   []Coord{{X: 3, Y: 2}, {X: 2, Y: 2}, {X: 2, Y: 1}},
+		},
+	}
 
 	food := []Coord{
 		{X: 3, Y: 1},
@@ -52,7 +55,6 @@ func getGameStateTest2() GameState {
 	}
 
 	return state
-
 }
 
 func randomPlayerTest(t *testing.T, state GameState, badMoves []string) {
@@ -64,7 +66,6 @@ func randomPlayerTest(t *testing.T, state GameState, badMoves []string) {
 			t.FailNow()
 		}
 	}
-
 }
 
 func Test_randomPlayer(t *testing.T) {

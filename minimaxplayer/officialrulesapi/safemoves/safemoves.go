@@ -41,7 +41,10 @@ func getSnake(board rules.BoardState, snakeID string) (*rules.Snake, error) {
 }
 
 func GetSafeMovesBySnake(state rules.BoardState, snakeID string) []string {
-	snake, _ := getSnake(state, snakeID)
+	snake, err := getSnake(state, snakeID)
+	if err != nil {
+		return []string{}
+	}
 	isMoveSafe := map[string]bool{
 		"up":    true,
 		"down":  true,

@@ -9,7 +9,7 @@ type FakeSimulator struct {
 	Moves []string
 }
 
-func (*FakeSimulator) SimulateMove(board coreplayer.GameBoard, _ string, _ string) coreplayer.GameBoard {
+func (*FakeSimulator) SimulateMoves(board coreplayer.GameBoard, moves []coreplayer.SnakeMove) coreplayer.GameBoard {
 	return board
 }
 
@@ -26,7 +26,6 @@ func Test_random(t *testing.T) {
 	if move != "up" && move != "down" {
 		t.Fail()
 	}
-
 }
 
 func Test_random1(t *testing.T) {
@@ -38,5 +37,4 @@ func Test_random1(t *testing.T) {
 	if move != "up" {
 		t.Fail()
 	}
-
 }

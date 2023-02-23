@@ -1,0 +1,254 @@
+2023/02/23 17:24:25 Running Battlesnake at http://0.0.0.0:8000...
+2023/02/23 17:24:29 INFO
+2023/02/23 17:24:29 INFO
+2023/02/23 17:24:29 GAME START
+START MINIMAX
+2023/02/23 17:24:29 GAME START
+START MINIMAX
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":0,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":9,"Y":1},{"X":9,"Y":1},{"X":9,"Y":1}],"Health":100},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":1},{"X":1,"Y":1},{"X":1,"Y":1}],"Health":100}],"Hazards":[]}
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":0,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":9,"Y":1},{"X":9,"Y":1},{"X":9,"Y":1}],"Health":100},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":1},{"X":1,"Y":1},{"X":1,"Y":1}],"Health":100}],"Hazards":[]}
+time: 997.427µs
+time: 1.365488ms
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":1,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":10,"Y":1},{"X":9,"Y":1},{"X":9,"Y":1}],"Health":99},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":2},{"X":1,"Y":1},{"X":1,"Y":1}],"Health":99}],"Hazards":[]}
+{"Turn":1,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":10,"Y":1},{"X":9,"Y":1},{"X":9,"Y":1}],"Health":99},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":2},{"X":1,"Y":1},{"X":1,"Y":1}],"Health":99}],"Hazards":[]}
+time: 1.079504ms
+time: 1.243462ms
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":2,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":10,"Y":0},{"X":10,"Y":1},{"X":9,"Y":1}],"Health":98},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":3},{"X":1,"Y":2},{"X":1,"Y":1}],"Health":98}],"Hazards":[]}
+{"Turn":2,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":10,"Y":0},{"X":10,"Y":1},{"X":9,"Y":1}],"Health":98},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":3},{"X":1,"Y":2},{"X":1,"Y":1}],"Health":98}],"Hazards":[]}
+time: 253.426µs
+time: 356.935µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":3,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":9,"Y":0},{"X":10,"Y":0},{"X":10,"Y":1}],"Health":97},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":4},{"X":1,"Y":3},{"X":1,"Y":2}],"Health":97}],"Hazards":[]}
+{"Turn":3,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":9,"Y":0},{"X":10,"Y":0},{"X":10,"Y":1}],"Health":97},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":4},{"X":1,"Y":3},{"X":1,"Y":2}],"Health":97}],"Hazards":[]}
+time: 480.061µs
+time: 572.543µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":4,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":8,"Y":0},{"X":9,"Y":0},{"X":10,"Y":0}],"Health":96},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":5},{"X":1,"Y":4},{"X":1,"Y":3}],"Health":96}],"Hazards":[]}
+{"Turn":4,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":8,"Y":0},{"X":9,"Y":0},{"X":10,"Y":0}],"Health":96},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":5},{"X":1,"Y":4},{"X":1,"Y":3}],"Health":96}],"Hazards":[]}
+time: 319.543µs
+time: 494.785µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":5,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":8,"Y":1},{"X":8,"Y":0},{"X":9,"Y":0}],"Health":95},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":5},{"X":1,"Y":5},{"X":1,"Y":4}],"Health":95}],"Hazards":[]}
+{"Turn":5,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":8,"Y":1},{"X":8,"Y":0},{"X":9,"Y":0}],"Health":95},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":5},{"X":1,"Y":5},{"X":1,"Y":4}],"Health":95}],"Hazards":[]}
+time: 951.762µs
+time: 1.10781ms
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":6,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":1},{"X":8,"Y":1},{"X":8,"Y":0}],"Health":94},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":5},{"X":2,"Y":5},{"X":1,"Y":5}],"Health":94}],"Hazards":[]}
+{"Turn":6,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":1},{"X":8,"Y":1},{"X":8,"Y":0}],"Health":94},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":5},{"X":2,"Y":5},{"X":1,"Y":5}],"Health":94}],"Hazards":[]}
+time: 500.152µs
+time: 630.741µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":7,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":2},{"X":7,"Y":1},{"X":8,"Y":1}],"Health":93},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":4,"Y":5},{"X":3,"Y":5},{"X":2,"Y":5}],"Health":93}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":7,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":2},{"X":7,"Y":1},{"X":8,"Y":1}],"Health":93},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":4,"Y":5},{"X":3,"Y":5},{"X":2,"Y":5}],"Health":93}],"Hazards":[]}
+time: 505.262µs
+time: 844.652µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":8,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":3,"Y":3}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":3},{"X":7,"Y":2},{"X":7,"Y":1}],"Health":92},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":4,"Y":4},{"X":4,"Y":5},{"X":3,"Y":5}],"Health":92}],"Hazards":[]}
+{"Turn":8,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":3,"Y":3}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":3},{"X":7,"Y":2},{"X":7,"Y":1}],"Health":92},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":4,"Y":4},{"X":4,"Y":5},{"X":3,"Y":5}],"Health":92}],"Hazards":[]}
+time: 506.729µs
+time: 705.318µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":9,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":3,"Y":3}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":4},{"X":7,"Y":3},{"X":7,"Y":2}],"Health":91},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":4,"Y":3},{"X":4,"Y":4},{"X":4,"Y":5}],"Health":91}],"Hazards":[]}
+time: 370.45µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":9,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":3,"Y":3}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":4},{"X":7,"Y":3},{"X":7,"Y":2}],"Health":91},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":4,"Y":3},{"X":4,"Y":4},{"X":4,"Y":5}],"Health":91}],"Hazards":[]}
+time: 486.254µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":10,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":5},{"X":7,"Y":4},{"X":7,"Y":3}],"Health":90},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":3},{"X":4,"Y":3},{"X":4,"Y":4},{"X":4,"Y":4}],"Health":100}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":10,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":7,"Y":5},{"X":7,"Y":4},{"X":7,"Y":3}],"Health":90},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":3},{"X":4,"Y":3},{"X":4,"Y":4},{"X":4,"Y":4}],"Health":100}],"Hazards":[]}
+time: 1.536818ms
+time: 1.529782ms
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":11,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":6,"Y":5},{"X":7,"Y":5},{"X":7,"Y":4}],"Health":89},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":2},{"X":3,"Y":3},{"X":4,"Y":3},{"X":4,"Y":4}],"Health":99}],"Hazards":[]}
+{"Turn":11,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":6,"Y":5},{"X":7,"Y":5},{"X":7,"Y":4}],"Health":89},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":2},{"X":3,"Y":3},{"X":4,"Y":3},{"X":4,"Y":4}],"Health":99}],"Hazards":[]}
+time: 629.281µs
+time: 1.086854ms
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":12,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":6,"Y":6},{"X":6,"Y":5},{"X":7,"Y":5}],"Health":88},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":1},{"X":3,"Y":2},{"X":3,"Y":3},{"X":4,"Y":3}],"Health":98}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":12,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":6,"Y":6},{"X":6,"Y":5},{"X":7,"Y":5}],"Health":88},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":1},{"X":3,"Y":2},{"X":3,"Y":3},{"X":4,"Y":3}],"Health":98}],"Hazards":[]}
+time: 622.958µs
+time: 877.237µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":13,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":6},{"X":6,"Y":6},{"X":6,"Y":5}],"Health":87},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":0},{"X":3,"Y":1},{"X":3,"Y":2},{"X":3,"Y":3}],"Health":97}],"Hazards":[]}
+time: 277.7µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":13,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":6},{"X":6,"Y":6},{"X":6,"Y":5}],"Health":87},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":0},{"X":3,"Y":1},{"X":3,"Y":2},{"X":3,"Y":3}],"Health":97}],"Hazards":[]}
+time: 323.952µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":14,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":4,"Y":6},{"X":5,"Y":6},{"X":6,"Y":6}],"Health":86},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":0},{"X":3,"Y":0},{"X":3,"Y":1},{"X":3,"Y":2}],"Health":96}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":14,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":4,"Y":6},{"X":5,"Y":6},{"X":6,"Y":6}],"Health":86},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":0},{"X":3,"Y":0},{"X":3,"Y":1},{"X":3,"Y":2}],"Health":96}],"Hazards":[]}
+time: 1.07382ms
+time: 1.054193ms
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":15,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":4,"Y":7},{"X":4,"Y":6},{"X":5,"Y":6}],"Health":85},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":1},{"X":2,"Y":0},{"X":3,"Y":0},{"X":3,"Y":1}],"Health":95}],"Hazards":[]}
+{"Turn":15,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":4,"Y":7},{"X":4,"Y":6},{"X":5,"Y":6}],"Health":85},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":1},{"X":2,"Y":0},{"X":3,"Y":0},{"X":3,"Y":1}],"Health":95}],"Hazards":[]}
+time: 772.723µs
+time: 1.305546ms
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":16,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":7},{"X":4,"Y":7},{"X":4,"Y":6}],"Health":84},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":1},{"X":2,"Y":1},{"X":2,"Y":0},{"X":3,"Y":0}],"Health":94}],"Hazards":[]}
+{"Turn":16,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":7},{"X":4,"Y":7},{"X":4,"Y":6}],"Health":84},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":1},{"X":2,"Y":1},{"X":2,"Y":0},{"X":3,"Y":0}],"Health":94}],"Hazards":[]}
+time: 578.285µs
+time: 1.021993ms
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":17,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":8},{"X":5,"Y":7},{"X":4,"Y":7}],"Health":83},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":1},{"X":1,"Y":1},{"X":2,"Y":1},{"X":2,"Y":0}],"Health":93}],"Hazards":[]}
+{"Turn":17,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":0,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":8},{"X":5,"Y":7},{"X":4,"Y":7}],"Health":83},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":1},{"X":1,"Y":1},{"X":2,"Y":1},{"X":2,"Y":0}],"Health":93}],"Hazards":[]}
+time: 255.658µs
+2023/02/23 17:24:30 http: panic serving [::1]:32908: runtime error: index out of range [-1]
+goroutine 19 [running]:
+net/http.(*conn).serve.func1()
+	/usr/lib/go/src/net/http/server.go:1854 +0xbf
+panic({0x694fe0, 0xc00018c048})
+	/usr/lib/go/src/runtime/panic.go:890 +0x263
+jacksnake/minimaxplayer/evaluator.buildSnakeBoard({0xc00060e6c0, 0x2, 0x0?}, 0xb, 0xb)
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/evaluator/evaluator.go:46 +0x21a
+jacksnake/minimaxplayer/evaluator.evaluateSpaceConstraint(0xc00060e660, {0xc00001a1e0, 0x24})
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/evaluator/evaluator.go:98 +0xee
+jacksnake/minimaxplayer/evaluator.(*SimpleEvaluator).EvaluateBoard(0xffc4fd09, 0xc00060e660, {0xc00001a1e0, 0x24})
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/evaluator/evaluator.go:124 +0x126
+jacksnake/minimaxplayer/coreplayer.(*MinimaxAlgoMove).runMinimax(0x11?, 0xb?, 0xb?, 0xc00001c9c0?, {0xc00002e880?, 0x4?, 0xc00060e6c0?})
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/coreplayer/minimaxAlgo.go:83 +0x29e
+jacksnake/minimaxplayer/coreplayer.(*MinimaxAlgoMove).runMinimax(0xc0000cc1c0, 0xc00060e240, 0x1, 0x1, {0xc00002e7c0, 0x2, 0x2})
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/coreplayer/minimaxAlgo.go:96 +0x405
+jacksnake/minimaxplayer/coreplayer.(*MinimaxAlgoMove).runMinimax(0xc0000cc1c0, 0xc00060e240, 0x0, 0x1, {0xc00002e740, 0x2, 0xc00060e180?})
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/coreplayer/minimaxAlgo.go:111 +0x5c6
+jacksnake/minimaxplayer/coreplayer.(*MinimaxAlgoMove).startMinimax(0xc0000cc1c0, 0xc00060e240)
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/coreplayer/minimaxAlgo.go:68 +0x211
+jacksnake/minimaxplayer/coreplayer.(*MinimaxAlgoMove).Move(0xc0000cc1c0, {0x11, 0xb, 0xb, {0xc0005046c0, 0x4, 0x4}, {0xc00060e180, 0x2, 0x2}, ...}, ...)
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/coreplayer/minimaxAlgo.go:53 +0x21c
+jacksnake/minimaxplayer.(*MinimaxPlayer).Move(_, {{{0xc0003b2030, 0x24}, {{0xc000022210, 0x8}, {0xc000022218, 0x3}, {0xf, 0x1, 0xe}}, ...}, ...})
+	/home/jack/Documents/HobbyStuff/jacksnake/minimaxplayer/minimaxplayer.go:27 +0xe5
+main.(*MainResponder).Move(_, {{{0xc0003b2030, 0x24}, {{0xc000022210, 0x8}, {0xc000022218, 0x3}, {0xf, 0x1, 0xe}}, ...}, ...})
+	/home/jack/Documents/HobbyStuff/jacksnake/main.go:80 +0x99
+main.buildHandleMove.func1({0x71f250, 0xc0004ae000}, 0xc00039c000)
+	/home/jack/Documents/HobbyStuff/jacksnake/server.go:80 +0x182
+main.withServerID.func1({0x71f250, 0xc0004ae000}, 0xffffffffffffffff?)
+	/home/jack/Documents/HobbyStuff/jacksnake/server.go:20 +0xe2
+net/http.HandlerFunc.ServeHTTP(0xc0004ae000?, {0x71f250?, 0xc0004ae000?}, 0x6ae0a3?)
+	/usr/lib/go/src/net/http/server.go:2122 +0x2f
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x71f250, 0xc0004ae000}, 0xc00039c000)
+	/usr/lib/go/src/net/http/server.go:2500 +0x149
+net/http.serverHandler.ServeHTTP({0x71e590?}, {0x71f250, 0xc0004ae000}, 0xc00039c000)
+	/usr/lib/go/src/net/http/server.go:2936 +0x316
+net/http.(*conn).serve(0xc0000f8000, {0x71f448, 0xc00009ac00})
+	/usr/lib/go/src/net/http/server.go:1995 +0x612
+created by net/http.(*Server).Serve
+	/usr/lib/go/src/net/http/server.go:3089 +0x5ed
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":18,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":9},{"X":5,"Y":8},{"X":5,"Y":7}],"Health":82},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":2},{"X":0,"Y":1},{"X":1,"Y":1},{"X":2,"Y":1},{"X":2,"Y":1}],"Health":100}],"Hazards":[]}
+time: 302.453µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":18,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":9},{"X":5,"Y":8},{"X":5,"Y":7}],"Health":82},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":2},{"X":0,"Y":1},{"X":1,"Y":1},{"X":2,"Y":1},{"X":2,"Y":1}],"Health":100}],"Hazards":[]}
+time: 335.816µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":19,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":6,"Y":9},{"X":5,"Y":9},{"X":5,"Y":8}],"Health":81},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":3},{"X":0,"Y":2},{"X":0,"Y":1},{"X":1,"Y":1},{"X":2,"Y":1}],"Health":99}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":19,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":6,"Y":9},{"X":5,"Y":9},{"X":5,"Y":8}],"Health":81},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":3},{"X":0,"Y":2},{"X":0,"Y":1},{"X":1,"Y":1},{"X":2,"Y":1}],"Health":99}],"Hazards":[]}
+time: 322.146µs
+time: 332.053µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":20,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":6,"Y":10},{"X":6,"Y":9},{"X":5,"Y":9}],"Health":80},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":4},{"X":0,"Y":3},{"X":0,"Y":2},{"X":0,"Y":1},{"X":1,"Y":1}],"Health":98}],"Hazards":[]}
+{"Turn":20,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":6,"Y":10},{"X":6,"Y":9},{"X":5,"Y":9}],"Health":80},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":4},{"X":0,"Y":3},{"X":0,"Y":2},{"X":0,"Y":1},{"X":1,"Y":1}],"Health":98}],"Hazards":[]}
+time: 226.919µs
+time: 236.205µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":21,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":10},{"X":6,"Y":10},{"X":6,"Y":9}],"Health":79},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":5},{"X":0,"Y":4},{"X":0,"Y":3},{"X":0,"Y":2},{"X":0,"Y":1}],"Health":97}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":21,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":10},{"X":6,"Y":10},{"X":6,"Y":9}],"Health":79},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":0,"Y":5},{"X":0,"Y":4},{"X":0,"Y":3},{"X":0,"Y":2},{"X":0,"Y":1}],"Health":97}],"Hazards":[]}
+time: 421.678µs
+time: 497.562µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":22,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":9},{"X":5,"Y":10},{"X":6,"Y":10}],"Health":78},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":5},{"X":0,"Y":5},{"X":0,"Y":4},{"X":0,"Y":3},{"X":0,"Y":2}],"Health":96}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":22,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":9},{"X":5,"Y":10},{"X":6,"Y":10}],"Health":78},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":5},{"X":0,"Y":5},{"X":0,"Y":4},{"X":0,"Y":3},{"X":0,"Y":2}],"Health":96}],"Hazards":[]}
+time: 454.731µs
+time: 737.797µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":23,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":8},{"X":5,"Y":9},{"X":5,"Y":10}],"Health":77},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":6},{"X":1,"Y":5},{"X":0,"Y":5},{"X":0,"Y":4},{"X":0,"Y":3}],"Health":95}],"Hazards":[]}
+{"Turn":23,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":8},{"X":5,"Y":9},{"X":5,"Y":10}],"Health":77},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":6},{"X":1,"Y":5},{"X":0,"Y":5},{"X":0,"Y":4},{"X":0,"Y":3}],"Health":95}],"Hazards":[]}
+time: 732.652µs
+time: 903.468µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":24,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":7},{"X":5,"Y":8},{"X":5,"Y":9}],"Health":76},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":7},{"X":1,"Y":6},{"X":1,"Y":5},{"X":0,"Y":5},{"X":0,"Y":4}],"Health":94}],"Hazards":[]}
+{"Turn":24,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":7},{"X":5,"Y":8},{"X":5,"Y":9}],"Health":76},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":7},{"X":1,"Y":6},{"X":1,"Y":5},{"X":0,"Y":5},{"X":0,"Y":4}],"Health":94}],"Hazards":[]}
+time: 1.188589ms
+time: 1.274454ms
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":25,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":6},{"X":5,"Y":7},{"X":5,"Y":8}],"Health":75},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":8},{"X":1,"Y":7},{"X":1,"Y":6},{"X":1,"Y":5},{"X":0,"Y":5}],"Health":93}],"Hazards":[]}
+{"Turn":25,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":5,"Y":5},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":6},{"X":5,"Y":7},{"X":5,"Y":8}],"Health":75},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":8},{"X":1,"Y":7},{"X":1,"Y":6},{"X":1,"Y":5},{"X":0,"Y":5}],"Health":93}],"Hazards":[]}
+time: 424.963µs
+time: 1.098338ms
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":26,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":5},{"X":5,"Y":6},{"X":5,"Y":7},{"X":5,"Y":7}],"Health":100},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":9},{"X":1,"Y":8},{"X":1,"Y":7},{"X":1,"Y":6},{"X":1,"Y":5}],"Health":92}],"Hazards":[]}
+{"Turn":26,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":5},{"X":5,"Y":6},{"X":5,"Y":7},{"X":5,"Y":7}],"Health":100},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":9},{"X":1,"Y":8},{"X":1,"Y":7},{"X":1,"Y":6},{"X":1,"Y":5}],"Health":92}],"Hazards":[]}
+time: 655.09µs
+time: 621.674µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":27,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":4},{"X":5,"Y":5},{"X":5,"Y":6},{"X":5,"Y":7}],"Health":99},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":10},{"X":1,"Y":9},{"X":1,"Y":8},{"X":1,"Y":7},{"X":1,"Y":6}],"Health":91}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":27,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":4},{"X":5,"Y":5},{"X":5,"Y":6},{"X":5,"Y":7}],"Health":99},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":1,"Y":10},{"X":1,"Y":9},{"X":1,"Y":8},{"X":1,"Y":7},{"X":1,"Y":6}],"Health":91}],"Hazards":[]}
+time: 514.909µs
+time: 577.261µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":28,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":3},{"X":5,"Y":4},{"X":5,"Y":5},{"X":5,"Y":6}],"Health":98},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":10},{"X":1,"Y":10},{"X":1,"Y":9},{"X":1,"Y":8},{"X":1,"Y":7}],"Health":90}],"Hazards":[]}
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":28,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":5,"Y":3},{"X":5,"Y":4},{"X":5,"Y":5},{"X":5,"Y":6}],"Health":98},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":10},{"X":1,"Y":10},{"X":1,"Y":9},{"X":1,"Y":8},{"X":1,"Y":7}],"Health":90}],"Hazards":[]}
+time: 1.244523ms
+time: 1.292132ms
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":29,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":4,"Y":3},{"X":5,"Y":3},{"X":5,"Y":4},{"X":5,"Y":5}],"Health":97},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":9},{"X":2,"Y":10},{"X":1,"Y":10},{"X":1,"Y":9},{"X":1,"Y":8}],"Health":89}],"Hazards":[]}
+{"Turn":29,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":4,"Y":3},{"X":5,"Y":3},{"X":5,"Y":4},{"X":5,"Y":5}],"Health":97},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":9},{"X":2,"Y":10},{"X":1,"Y":10},{"X":1,"Y":9},{"X":1,"Y":8}],"Health":89}],"Hazards":[]}
+time: 422.271µs
+time: 482.193µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":30,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":3,"Y":3},{"X":4,"Y":3},{"X":5,"Y":3},{"X":5,"Y":4}],"Health":96},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":8},{"X":2,"Y":9},{"X":2,"Y":10},{"X":1,"Y":10},{"X":1,"Y":9}],"Health":88}],"Hazards":[]}
+{"Turn":30,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":3,"Y":3},{"X":4,"Y":3},{"X":5,"Y":3},{"X":5,"Y":4}],"Health":96},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":2,"Y":8},{"X":2,"Y":9},{"X":2,"Y":10},{"X":1,"Y":10},{"X":1,"Y":9}],"Health":88}],"Hazards":[]}
+time: 812.516µs
+time: 900.265µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":31,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":3,"Y":4},{"X":3,"Y":3},{"X":4,"Y":3},{"X":5,"Y":3}],"Health":95},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":8},{"X":2,"Y":8},{"X":2,"Y":9},{"X":2,"Y":10},{"X":1,"Y":10}],"Health":87}],"Hazards":[]}
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":31,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":3,"Y":4},{"X":3,"Y":3},{"X":4,"Y":3},{"X":5,"Y":3}],"Health":95},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":8},{"X":2,"Y":8},{"X":2,"Y":9},{"X":2,"Y":10},{"X":1,"Y":10}],"Health":87}],"Hazards":[]}
+time: 547.381µs
+time: 622.21µs
+e80f0120-711c-4770-a0d0-0dc792d32055
+{"Turn":32,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":3,"Y":5},{"X":3,"Y":4},{"X":3,"Y":3},{"X":4,"Y":3}],"Health":94},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":7},{"X":3,"Y":8},{"X":2,"Y":8},{"X":2,"Y":9},{"X":2,"Y":10}],"Health":86}],"Hazards":[]}
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":32,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"e80f0120-711c-4770-a0d0-0dc792d32055","Body":[{"X":3,"Y":5},{"X":3,"Y":4},{"X":3,"Y":3},{"X":4,"Y":3}],"Health":94},{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":7},{"X":3,"Y":8},{"X":2,"Y":8},{"X":2,"Y":9},{"X":2,"Y":10}],"Health":86}],"Hazards":[]}
+time: 759.294µs
+time: 734.662µs
+d6b5a4a9-4909-4bef-a236-ef41cc975a46
+{"Turn":33,"Height":11,"Width":11,"Food":[{"X":10,"Y":2},{"X":9,"Y":0},{"X":0,"Y":8},{"X":5,"Y":8}],"Snakes":[{"ID":"d6b5a4a9-4909-4bef-a236-ef41cc975a46","Body":[{"X":3,"Y":6},{"X":3,"Y":7},{"X":3,"Y":8},{"X":2,"Y":8},{"X":2,"Y":9}],"Health":85}],"Hazards":[]}
+time: 194.764µs
+2023/02/23 17:24:30 GAME OVER
+
+END MINIMAX
+2023/02/23 17:24:30 GAME OVER
+
+END MINIMAX
+signal: interrupt
