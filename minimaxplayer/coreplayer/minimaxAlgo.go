@@ -1,7 +1,6 @@
 package coreplayer
 
 import (
-	"encoding/json"
 	"math"
 )
 
@@ -44,9 +43,12 @@ func movePlayerSnakeToFront(snakes *[]Snake, id string) *[]Snake {
 }
 
 func (minimax *MinimaxAlgoMove) Move(board GameBoard, snakeId string) string {
-	println(snakeId)
-	data, _ := json.Marshal(board)
-	println(string(data))
+	// for collecting test data
+	/*
+		println(snakeId)
+		data, _ := json.Marshal(board)
+		println(string(data))
+	*/
 	var snek *Snake
 	minimax.playerIndex, snek = findSnakeById(&board.Snakes, snakeId)
 	minimax.playerId = snek.ID

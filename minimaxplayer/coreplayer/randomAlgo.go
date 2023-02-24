@@ -20,3 +20,7 @@ func (minimax *RandomAlgo) Move(board GameBoard, youId string) string {
 	}
 	return safeMoves[rand.Intn(len(safeMoves))]
 }
+
+func (algo *RandomAlgo) Clone() RandomAlgo {
+	return *algo
+}
