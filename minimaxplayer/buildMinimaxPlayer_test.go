@@ -2,11 +2,12 @@ package minimaxplayer_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"jacksnake/minimaxplayer"
 	"jacksnake/models"
 	. "jacksnake/models"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func getGameStateTest2() GameState {
@@ -76,29 +77,72 @@ func Test_randomPlayer(t *testing.T) {
 	randomPlayerTest(t, getGameStateTest2(), []string{"left", "down", "right"})
 }
 
-func getRealTestData() []models.GameState {
-	data := []string{
-		"{\"game\":{\"id\":\"e68dab7c-e39d-4639-873a-5fa0466f4ec2\",\"ruleset\":{\"name\":\"standard\",\"version\":\"cli\",\"settings\":{\"foodSpawnChance\":\n15,\"minimumFood\":1,\"hazardDamagePerTurn\":14}},\"map\":\"standard\",\"source\":\"\",\"timeout\":500},\"turn\":8,\"board\":{\"height\":11,\"width\":\n11,\"food\":[{\"x\":2,\"y\":0},{\"x\":5,\"y\":5}],\"hazards\":[],\"snakes\":[{\"id\":\"641ca4d3-db28-4bec-8123-b89be513c2fb\",\"name\":\"jacksnake1\",\n\"health\":100,\"body\":[{\"x\":0,\"y\":8},{\"x\":0,\"y\":9},{\"x\":0,\"y\":10},{\"x\":0,\"y\":10}],\"head\":{\"x\":0,\"y\":8},\"length\":4,\"latency\":\"0\",\"s\nhout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}},{\"id\":\"47da1b3b-7798-47b1-b6d5-b38470cc3d9b\",\"n\name\":\"jacksnake2\",\"health\":92,\"body\":[{\"x\":1,\"y\":7},{\"x\":1,\"y\":6},{\"x\":2,\"y\":6}],\"head\":{\"x\":1,\"y\":7},\"length\":3,\"latency\":\"1\",\"\nshout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}]},\"you\":{\"id\":\"641ca4d3-db28-4bec-8123-b89be51\n3c2fb\",\"name\":\"jacksnake1\",\"health\":100,\"body\":[{\"x\":0,\"y\":8},{\"x\":0,\"y\":9},{\"x\":0,\"y\":10},{\"x\":0,\"y\":10}],\"head\":{\"x\":0,\"y\":8},\n\"length\":4,\"latency\":\"0\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}}",
-		"{\"game\":{\"id\":\"e68dab7c-e39d-4639-873a-5fa0466f4ec2\",\"ruleset\":{\"name\":\"standard\",\"version\":\"cli\",\"settings\":{\"foodSpawnChance\":\n15,\"minimumFood\":1,\"hazardDamagePerTurn\":14}},\"map\":\"standard\",\"source\":\"\",\"timeout\":500},\"turn\":7,\"board\":{\"height\":11,\"width\":\n11,\"food\":[{\"x\":0,\"y\":8},{\"x\":2,\"y\":0},{\"x\":5,\"y\":5}],\"hazards\":[],\"snakes\":[{\"id\":\"641ca4d3-db28-4bec-8123-b89be513c2fb\",\"name\"\n:\"jacksnake1\",\"health\":93,\"body\":[{\"x\":0,\"y\":9},{\"x\":0,\"y\":10},{\"x\":1,\"y\":10}],\"head\":{\"x\":0,\"y\":9},\"length\":3,\"latency\":\"0\",\"sh\nout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}},{\"id\":\"47da1b3b-7798-47b1-b6d5-b38470cc3d9b\",\"na\nme\":\"jacksnake2\",\"health\":93,\"body\":[{\"x\":1,\"y\":6},{\"x\":2,\"y\":6},{\"x\":2,\"y\":5}],\"head\":{\"x\":1,\"y\":6},\"length\":3,\"latency\":\"0\",\"s\nhout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}]},\"you\":{\"id\":\"641ca4d3-db28-4bec-8123-b89be513\nc2fb\",\"name\":\"jacksnake1\",\"health\":93,\"body\":[{\"x\":0,\"y\":9},{\"x\":0,\"y\":10},{\"x\":1,\"y\":10}],\"head\":{\"x\":0,\"y\":9},\"length\":3,\"late\nncy\":\"0\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}}",
-	}
-	result := []models.GameState{}
+type TestData struct {
+	data   models.GameState
+	result []string
+}
 
-	for _, str := range data {
+type RawTestData struct {
+	data   string
+	result []string
+}
+
+func getRealTestData() []TestData {
+	rawDates := []RawTestData{{
+		"{\"game\":{\"id\":\"aa5568d6-5c84-4564-8cbf-f69151334b81\",\"ruleset\":{\"name\":\"standard\",\"version\":\"cli\",\"settings\":{\"foodSpawnChance\":15,\"minimumFood\":1,\"hazardDamagePerTurn\":14}},\"map\":\"standard\",\"source\":\"\",\"timeout\":500},\"turn\":43,\"board\":{\"height\":11,\"width\":11,\"food\":[{\"x\":6,\"y\":0},{\"x\":8,\"y\":6},{\"x\":8,\"y\":4},{\"x\":7,\"y\":5}],\"hazards\":[],\"snakes\":[{\"id\":\"d58b8a75-38af-4d9a-9b07-9a5eeab76d0c\",\"name\":\"jacksnake2\",\"health\":59,\"body\":[{\"x\":3,\"y\":8},{\"x\":3,\"y\":9},{\"x\":3,\"y\":10},{\"x\":4,\"y\":10}],\"head\":{\"x\":3,\"y\":8},\"length\":4,\"latency\":\"52\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}},{\"id\":\"cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0\",\"name\":\"jacksnake1\",\"health\":66,\"body\":[{\"x\":1,\"y\":8},{\"x\":1,\"y\":7},{\"x\":1,\"y\":6},{\"x\":0,\"y\":6},{\"x\":0,\"y\":5}],\"head\":{\"x\":1,\"y\":8},\"length\":5,\"latency\":\"57\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}]},\"you\":{\"id\":\"d58b8a75-38af-4d9a-9b07-9a5eeab76d0c\",\"name\":\"jacksnake2\",\"health\":59,\"body\":[{\"x\":3,\"y\":8},{\"x\":3,\"y\":9},{\"x\":3,\"y\":10},{\"x\":4,\"y\":10}],\"head\":{\"x\":3,\"y\":8},\"length\":4,\"latency\":\"0\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}}\r\n",
+		[]string{"down", "right"},
+	}, {
+		"{\"game\":{\"id\":\"aa5568d6-5c84-4564-8cbf-f69151334b81\",\"ruleset\":{\"name\":\"standard\",\"version\":\"cli\",\"settings\":{\"foodSpawnChance\":15,\"minimumFood\":1,\"hazardDamagePerTurn\":14}},\"map\":\"standard\",\"source\":\"\",\"timeout\":500},\"turn\":43,\"board\":{\"height\":11,\"width\":11,\"food\":[{\"x\":6,\"y\":0},{\"x\":8,\"y\":6},{\"x\":8,\"y\":4},{\"x\":7,\"y\":5}],\"hazards\":[],\"snakes\":[{\"id\":\"d58b8a75-38af-4d9a-9b07-9a5eeab76d0c\",\"name\":\"jacksnake2\",\"health\":59,\"body\":[{\"x\":3,\"y\":8},{\"x\":3,\"y\":9},{\"x\":3,\"y\":10},{\"x\":4,\"y\":10}],\"head\":{\"x\":3,\"y\":8},\"length\":4,\"latency\":\"52\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}},{\"id\":\"cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0\",\"name\":\"jacksnake1\",\"health\":66,\"body\":[{\"x\":1,\"y\":8},{\"x\":1,\"y\":7},{\"x\":1,\"y\":6},{\"x\":0,\"y\":6},{\"x\":0,\"y\":5}],\"head\":{\"x\":1,\"y\":8},\"length\":5,\"latency\":\"57\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}]},\"you\":{\"id\":\"cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0\",\"name\":\"jacksnake1\",\"health\":66,\"body\":[{\"x\":1,\"y\":8},{\"x\":1,\"y\":7},{\"x\":1,\"y\":6},{\"x\":0,\"y\":6},{\"x\":0,\"y\":5}],\"head\":{\"x\":1,\"y\":8},\"length\":5,\"latency\":\"0\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}}\r\n",
+		[]string{"left", "up"},
+	}}
+	result := []TestData{}
+
+	for _, rawDate := range rawDates {
 		var state GameState
-		json.Unmarshal([]byte(str), &state)
-		result = append(result, state)
-		fmt.Printf("%+v", state) // state is not getting set
+		json.Unmarshal([]byte(rawDate.data), &state)
+
+		result = append(result, TestData{
+			data:   state,
+			result: rawDate.result,
+		})
 	}
 
 	return result
 }
 
+func stringInArray(arr []string, str string) bool {
+	status := false
+	for _, value := range arr {
+		if str == value {
+			status = true
+		}
+	}
+	return status
+}
+
 // integrationTest
-func Test_PlayerCanRespondToMultipleRequests(t *testing.T) {
+func Test_playerCanRespondToMultipleRequests(t *testing.T) {
 	testData := getRealTestData()
 	player := minimaxplayer.BuildMinimaxPlayer()
 
-	for _, state := range testData {
-		player.Move(state)
+	chans := make([]chan string, len(testData))
+	for i := range chans {
+		chans[i] = make(chan string)
+	}
+	for i, data := range testData {
+		go func(state GameState, out chan string) {
+			res := player.Move(state)
+			out <- res
+		}(data.data, chans[i])
+	}
+
+	result := make([]string, len(testData))
+
+	for i := range chans {
+		result[i] = <-chans[i]
+	}
+
+	for i := range result {
+		assert.Contains(t, testData[i].result, result[i])
 	}
 }

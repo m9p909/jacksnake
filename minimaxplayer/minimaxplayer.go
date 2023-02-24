@@ -27,9 +27,8 @@ func (player *MinimaxPlayer) Move(state models.GameState) string {
 	// clone the player
 	jsonState, _ := json.Marshal(state)
 	println(string(jsonState))
-	currentPlayer := player.player
 	core := player.converter.StateToCore(state)
-	move := currentPlayer.Move(core, state.You.ID)
+	move := player.player.Move(core, state.You.ID)
 	return move
 }
 

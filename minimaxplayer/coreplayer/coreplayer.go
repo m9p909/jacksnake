@@ -65,6 +65,7 @@ func (player *PlayerImpl) Move(board GameBoard, youId string) string {
 		println("No valid moves, moving down")
 		return "down"
 	}
-	move := player.movingAlgo.Move(board, youId)
+	algo := player.movingAlgo
+	move := algo.Move(board, youId)
 	return move
 }

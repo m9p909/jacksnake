@@ -22,7 +22,7 @@ func findSnakeById(snakes *[]Snake, id string) *Snake {
 }
 
 func getHealthScore(snake *Snake) float64 {
-	return float64(snake.Health / 100)
+	return math.Abs(0.8 - float64(snake.Health/100))
 }
 
 func makeEmptyBoard(height int, width int) [][]string {
@@ -123,7 +123,7 @@ func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId string) float64 
 		healthScore := getHealthScore(snake)
 		spaceScore := evaluateSpaceConstraint(board, snakeId)
 		deadSnakeScore := evaluateDeadSnakes(board, snakeId)
-		return healthScore*0.3333 + spaceScore*0.3333 + deadSnakeScore*0.3333
+		return healthScore*0.1 + spaceScore*0.5 + deadSnakeScore*0.3
 	}
 	println("no snake found, this should never happen")
 	return 0
