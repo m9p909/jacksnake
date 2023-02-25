@@ -2,8 +2,9 @@ package officialrulesapi
 
 import (
 	"errors"
-	"github.com/BattlesnakeOfficial/rules"
 	"jacksnake/minimaxplayer/officialrulesapi/safemoves"
+
+	"github.com/BattlesnakeOfficial/rules"
 )
 
 var standardRulesetStages = []string{
@@ -15,8 +16,7 @@ var standardRulesetStages = []string{
 	rules.StageEliminationStandard,
 }
 
-type OfficialRulesImpl struct {
-}
+type OfficialRulesImpl struct{}
 
 var standardRules = rules.NewSettingsWithParams(standardRulesetStages...)
 
@@ -30,8 +30,8 @@ func getSnake(board rules.BoardState, snakeID string) (*rules.Snake, error) {
 }
 
 func (*OfficialRulesImpl) rulesSimulateMove(board rules.BoardState,
-	snakeMoves []rules.SnakeMove) (rules.BoardState, error) {
-
+	snakeMoves []rules.SnakeMove,
+) (rules.BoardState, error) {
 	_, err := rules.MoveSnakesStandard(&board, standardRules, snakeMoves)
 	return board, err
 }
@@ -46,11 +46,6 @@ func (officialRules *OfficialRulesImpl) SimulateMoves(board rules.BoardState, sn
 }
 
 var movesConst = []string{"up", "down", "left", "right"}
-
-func (rules *OfficialRulesImpl) snakeIsDead(board *rules.BoardState, snakeID string) bool {
-	snek, _ := getSnake(*board, snakeID)
-	return snek.EliminatedBy != ""
-}
 
 func (officialRules *OfficialRulesImpl) GetValidMoves(board rules.BoardState, snakeID string) []string {
 	return safemoves.GetSafeMovesBySnake(board, snakeID)

@@ -2,7 +2,8 @@
 
 test: 
 	go test ./...
-
+test-nocache:
+	go test -count=1 ./...
 run: 
 	go run .
 
