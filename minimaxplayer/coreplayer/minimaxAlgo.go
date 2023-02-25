@@ -136,7 +136,6 @@ func (minimax *MinimaxAlgoMove) runMinimax(board *GameBoard, snakeIndex int, dep
 		min := math.Inf(1)
 		validMoves := minimax.simulator.GetValidMoves(*board, snakeId)
 		for _, move := range validMoves {
-			// append works correctly
 			newMoves := makeNewSnakeMoves(board)
 			copy(newMoves, moves)
 			newMoves[snakeIndex] = SnakeMove{ID: snakeId, Move: move}
