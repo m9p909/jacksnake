@@ -1,8 +1,9 @@
 package officialrulesapi
 
 import (
-	"github.com/BattlesnakeOfficial/rules"
 	"jacksnake/minimaxplayer/coreplayer"
+
+	"github.com/BattlesnakeOfficial/rules"
 )
 
 // Privacy and Solitude Diana Webb <- cool book
@@ -54,6 +55,9 @@ func (adaper *OfficialRulesConverter) convertBoardSnakeToRulesSnake(snake []core
 func (adapter *OfficialRulesConverter) convertRulesSnakeToBoardSnake(snakes []rules.Snake) []coreplayer.Snake {
 	rulesSnakes := make([]coreplayer.Snake, len(snakes))
 	for i, snake := range snakes {
+		if snake.EliminatedCause != rules.NotEliminated {
+			snake.Health = 0
+		}
 		rulesSnakes[i] = coreplayer.Snake{
 			ID:     snake.ID,
 			Health: snake.Health,
@@ -73,7 +77,6 @@ func (adapter *OfficialRulesConverter) ConvertToCoreBoard(state rules.BoardState
 		Snakes:  adapter.convertRulesSnakeToBoardSnake(state.Snakes),
 	}
 	return newState
-
 }
 
 func (adapter *OfficialRulesConverter) ConvertToOfficialBoard(state coreplayer.GameBoard) rules.BoardState {
