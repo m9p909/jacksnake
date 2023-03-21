@@ -31,6 +31,13 @@ type SnakeMove struct {
 	Move string
 }
 
+const (
+	LEFT  = 0
+	UP    = 1
+	RIGHT = 2
+	DOWN  = 3
+)
+
 type Simulator interface {
 	SimulateMoves(board GameBoard, moves []SnakeMove) GameBoard
 	GetValidMoves(board GameBoard, snakeId string) []string

@@ -55,6 +55,7 @@ func (minimax *MinimaxAlgoMove) Move(board GameBoard, snakeId string) string {
 	playerIds := PlayerIds{}
 	var snek *Snake
 	playerIds.playerIndex, snek = findSnakeById(&board.Snakes, snakeId)
+	println(playerIds.playerIndex)
 	playerIds.playerId = snek.ID
 	res := minimax.startMinimax(&board, &playerIds)
 	return res
@@ -120,6 +121,9 @@ func (minimax *MinimaxAlgoMove) runMinimax(board *GameBoard, snakeIndex int, dep
 		// print the moves structure
 		// fmt.Printf("moves: %v\n", moves)
 		newBoard := minimax.simulator.SimulateMoves(*board, moves)
+		if newBoard.Snakes[snakeIndex].Health == 0 {
+			return 0
+		}
 		max := 0.0
 		validMoves := minimax.simulator.GetValidMoves(newBoard, ids.playerId)
 		for _, move := range validMoves {
