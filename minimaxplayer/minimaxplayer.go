@@ -8,8 +8,7 @@ import (
 )
 
 type StateConverter interface {
-	StateToCore(state models.GameState) coreplayer.GameBoard
-	CoreToState(state coreplayer.GameBoard) models.GameState
+	StateToCore(state models.GameState) (coreplayer.GameBoard, coreplayer.SnakeID)
 }
 
 type MinimaxPlayer struct {
@@ -26,9 +25,9 @@ func (player *MinimaxPlayer) Move(state models.GameState) string {
 	// clone the player
 	//	jsonState, _ := json.Marshal(state)
 	//	println(string(jsonState))
-	core := player.converter.StateToCore(state)
-	move := player.player.Move(core, state.You.ID)
-	return move
+	core, id := player.converter.StateToCore(state)
+	move := player.player.Move(core, id)
+	return coreplayer.DirectionToString(move)
 }
 
 func (player *MinimaxPlayer) Start(state models.GameState) {

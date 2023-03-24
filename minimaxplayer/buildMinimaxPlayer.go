@@ -2,8 +2,8 @@ package minimaxplayer
 
 import (
 	"jacksnake/minimaxplayer/coreplayer"
+	"jacksnake/minimaxplayer/customsimulator"
 	"jacksnake/minimaxplayer/evaluator"
-	"jacksnake/minimaxplayer/officialrulesapi"
 	. "jacksnake/models"
 )
 
@@ -16,16 +16,14 @@ type Player interface {
 func BuildRandomPlayer() Player {
 	player := MinimaxPlayer{}
 	conv := StateConverterImpl{}
-	algo := coreplayer.RandomAlgo{}
-	standardRulesSimulator := officialrulesapi.GetOfficialRules()
-	algo.Init(standardRulesSimulator)
-	player.Init(&conv, &algo)
+	algo := coreplayer.NewRandomAlgo(customsimulator.New())
+	player.Init(&conv, algo)
 	return &player
 }
 
 func BuildMinimaxPlayer() Player {
 	conv := StateConverterImpl{}
-	algo := coreplayer.NewMinimaxAlgoMove(officialrulesapi.GetOfficialRules(), evaluator.NewSimpleEvaluator(), 3)
+	algo := coreplayer.NewMinimaxAlgoMove(customsimulator.New(), evaluator.NewSimpleEvaluator(), 4)
 	player := MinimaxPlayer{}
 	player.Init(&conv, algo)
 	return &player

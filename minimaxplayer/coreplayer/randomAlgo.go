@@ -8,15 +8,17 @@ type RandomAlgo struct {
 	simulator Simulator
 }
 
-func (rand *RandomAlgo) Init(simulator Simulator) {
-	rand.simulator = simulator
+func NewRandomAlgo(simulator Simulator) Player {
+	return &RandomAlgo{
+		simulator: simulator,
+	}
 }
 
-func (minimax *RandomAlgo) Move(board GameBoard, youId string) string {
-	safeMoves := minimax.simulator.GetValidMoves(board, youId)
+func (minimax *RandomAlgo) Move(board GameBoard, youId SnakeID) Direction {
+	safeMoves := minimax.simulator.GetValidMoves(&board, youId)
 	if len(safeMoves) <= 0 {
 		println("NO safe moves detected")
-		return "down"
+		return DOWN
 	}
 	return safeMoves[rand.Intn(len(safeMoves))]
 }

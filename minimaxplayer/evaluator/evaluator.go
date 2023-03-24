@@ -12,7 +12,7 @@ func NewSimpleEvaluator() Evaluator {
 	return &SimpleEvaluator{}
 }
 
-func findSnakeById(snakes *[]Snake, id string) *Snake {
+func findSnakeById(snakes *[]Snake, id SnakeID) *Snake {
 	for _, snake := range *snakes {
 		if snake.ID == id {
 			return &snake
@@ -22,13 +22,10 @@ func findSnakeById(snakes *[]Snake, id string) *Snake {
 }
 
 func getHealthScore(snake *Snake) float64 {
-	target := 80.0
-	value := float64(snake.Health)
-	difference := math.Abs(target-value) / target
-	return math.Abs(1 - difference)
+	return float64(snake.Health) / 100
 }
 
-func makeEmptyBoard(height int, width int) [][]string {
+func makeEmptyBoard(height uint8, width uint8) [][]string {
 	board := make([][]string, height)
 	for b := range board {
 		row := make([]string, width)
@@ -41,7 +38,7 @@ func makeEmptyBoard(height int, width int) [][]string {
 	return board
 }
 
-func buildSnakeBoard(snakes []Snake, height int, width int) [][]string {
+func buildSnakeBoard(snakes []Snake, height uint8, width uint8) [][]string {
 	board := makeEmptyBoard(height, width)
 
 	for i, snake := range snakes {
@@ -54,13 +51,13 @@ func buildSnakeBoard(snakes []Snake, height int, width int) [][]string {
 }
 
 func countAvailableSquares(snakes [][]string, head Point) int {
-	width := len(snakes[0])
-	height := len(snakes[1])
+	width := uint8(len(snakes[0]))
+	height := uint8(len(snakes[1]))
 	data := make([][]int, len(snakes))
 	for i := range data {
 		row := make([]int, len(snakes[0]))
 		for j := range row {
-			row[j] = 2000
+			row[j] = 250
 		}
 		data[i] = row
 	}
@@ -76,7 +73,7 @@ func countAvailableSquares(snakes [][]string, head Point) int {
 				front.X < 0 ||
 				front.Y >= height ||
 				front.Y < 0 ||
-				data[front.Y][front.X] != 2000 ||
+				data[front.Y][front.X] != 250 ||
 				(snakes[front.Y][front.X] != "-" && !Equals(front, head)) {
 				continue
 			}
@@ -95,7 +92,7 @@ func countAvailableSquares(snakes [][]string, head Point) int {
 	return size
 }
 
-func evaluateSpaceConstraint(state *GameBoard, snakeId string) float64 {
+func evaluateSpaceConstraint(state *GameBoard, snakeId SnakeID) float64 {
 	snake := findSnakeById(&state.Snakes, snakeId)
 	snakes := state.Snakes
 	snakesBoard := buildSnakeBoard(snakes, state.Height, state.Width)
@@ -103,7 +100,7 @@ func evaluateSpaceConstraint(state *GameBoard, snakeId string) float64 {
 	return math.Pow(float64(availableSquares)/float64(state.Height*state.Width), 1.5)
 }
 
-func evaluateDeadSnakes(state *GameBoard, snakeId string) float64 {
+func evaluateDeadSnakes(state *GameBoard, snakeId SnakeID) float64 {
 	if len(state.Snakes) > 1 {
 
 		deadSnakes := 0
@@ -117,24 +114,37 @@ func evaluateDeadSnakes(state *GameBoard, snakeId string) float64 {
 	return 0.5
 }
 
-func getOtherSnakeHealthScore(board *GameBoard, snek *Snake) float64 {
+func getOtherSnakeHealthScore(board *GameBoard, targetSnake *Snake) float64 {
 	score := 0.0
+	if len(board.Snakes) == 1 {
+		return 1
+	}
 
-	for _, snake := range board.Snakes {
-		if snake.ID != snek.ID {
-			score += getHealthScore(&snake)
+	for i := range board.Snakes {
+		if board.Snakes[i].ID != targetSnake.ID {
+			score += getHealthScore(&board.Snakes[i])
 		}
 	}
+
 	return 1 - (score / float64(len(board.Snakes)-1))
 }
 
-func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId string) float64 {
+func evaluateDeathScore(snake *Snake) float64 {
+	if snake.Health == 0 {
+		return 0
+	} else {
+		return 1
+	}
+}
+
+func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId SnakeID) float64 {
 	snake := findSnakeById(&board.Snakes, snakeId)
 	if snake != nil {
-		healthScore := getHealthScore(snake)
-		otherSnakesHealth := getOtherSnakeHealthScore(board, snake)
+		// healthScore := getHealthScore(snake)
+		// otherSnakesHealth := getOtherSnakeHealthScore(board, snake)
 		// spaceScore := evaluateSpaceConstraint(board, snakeId)
-		return healthScore*0.8 + otherSnakesHealth*0.2
+		deathScore := evaluateDeathScore(snake)
+		return deathScore
 	}
 	println("no snake found, this should never happen")
 	return 0

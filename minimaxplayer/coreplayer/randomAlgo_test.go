@@ -6,24 +6,24 @@ import (
 )
 
 type FakeSimulator struct {
-	Moves []string
+	Moves []coreplayer.Direction
 }
 
 func (*FakeSimulator) SimulateMoves(board coreplayer.GameBoard, moves []coreplayer.SnakeMove) coreplayer.GameBoard {
 	return board
 }
 
-func (sim *FakeSimulator) GetValidMoves(board coreplayer.GameBoard, snakeId string) []string {
+func (sim *FakeSimulator) GetValidMoves(board coreplayer.GameBoard, snakeId coreplayer.SnakeID) []coreplayer.Direction {
 	return sim.Moves
 }
 
 func Test_random(t *testing.T) {
 	random := coreplayer.RandomAlgo{}
 	sim := FakeSimulator{}
-	sim.Moves = []string{"up", "down"}
+	sim.Moves = []coreplayer.Direction{coreplayer.UP, coreplayer.DOWN}
 	random.Init(&sim)
-	move := random.Move(coreplayer.GameBoard{}, "1")
-	if move != "up" && move != "down" {
+	move := random.Move(coreplayer.GameBoard{}, 1)
+	if move != coreplayer.UP && move != coreplayer.DOWN {
 		t.Fail()
 	}
 }
