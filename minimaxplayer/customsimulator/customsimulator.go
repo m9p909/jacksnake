@@ -26,7 +26,9 @@ func (*CustomSimulator) SimulateMoves(board *GameBoard, moves []SnakeMove) {
 }
 
 func (*CustomSimulator) GetValidMoves(board *GameBoard, snakeId SnakeID) []Direction {
-	return GetSafeMovesBySnake(board, snakeId)
+	return []Direction{UP, DOWN, LEFT, RIGHT}
+	// broken
+	// return GetSafeMovesBySnake(board, snakeId)
 }
 
 func New() Simulator {
