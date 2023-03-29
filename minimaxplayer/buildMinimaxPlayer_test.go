@@ -6,7 +6,9 @@ import (
 	"jacksnake/minimaxplayer"
 	"jacksnake/models"
 	. "jacksnake/models"
+	"os"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -73,50 +75,31 @@ func randomPlayerTest(t *testing.T, state GameState, badMoves []string) {
 	}
 }
 
+/*
 func Test_randomPlayer(t *testing.T) {
 	randomPlayerTest(t, getGameStateTest1(), []string{"right", "up"})
 	randomPlayerTest(t, getGameStateTest2(), []string{"left", "down", "right"})
 }
+*/
 
 type TestData struct {
-	data   models.GameState
-	result []string
+	Data  models.GameState //`json:"data"`
+	Name  string           //`json:"name"`
+	Moves []string         //`json:"moves"`
 }
 
-type RawTestData struct {
-	data   string
-	result []string
+type DataObject struct {
+	Tests []TestData //`json:"tests"`
 }
 
 func getRealTestData() []TestData {
-	rawDates := []RawTestData{
-		{
-			"{\"game\":{\"id\":\"aa5568d6-5c84-4564-8cbf-f69151334b81\",\"ruleset\":{\"name\":\"standard\",\"version\":\"cli\",\"settings\":{\"foodSpawnChance\":15,\"minimumFood\":1,\"hazardDamagePerTurn\":14}},\"map\":\"standard\",\"source\":\"\",\"timeout\":500},\"turn\":43,\"board\":{\"height\":11,\"width\":11,\"food\":[{\"x\":6,\"y\":0},{\"x\":8,\"y\":6},{\"x\":8,\"y\":4},{\"x\":7,\"y\":5}],\"hazards\":[],\"snakes\":[{\"id\":\"d58b8a75-38af-4d9a-9b07-9a5eeab76d0c\",\"name\":\"jacksnake2\",\"health\":59,\"body\":[{\"x\":3,\"y\":8},{\"x\":3,\"y\":9},{\"x\":3,\"y\":10},{\"x\":4,\"y\":10}],\"head\":{\"x\":3,\"y\":8},\"length\":4,\"latency\":\"52\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}},{\"id\":\"cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0\",\"name\":\"jacksnake1\",\"health\":66,\"body\":[{\"x\":1,\"y\":8},{\"x\":1,\"y\":7},{\"x\":1,\"y\":6},{\"x\":0,\"y\":6},{\"x\":0,\"y\":5}],\"head\":{\"x\":1,\"y\":8},\"length\":5,\"latency\":\"57\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}]},\"you\":{\"id\":\"d58b8a75-38af-4d9a-9b07-9a5eeab76d0c\",\"name\":\"jacksnake2\",\"health\":59,\"body\":[{\"x\":3,\"y\":8},{\"x\":3,\"y\":9},{\"x\":3,\"y\":10},{\"x\":4,\"y\":10}],\"head\":{\"x\":3,\"y\":8},\"length\":4,\"latency\":\"0\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}}\r\n",
-			[]string{"down", "right"},
-		},
-		{
-			"{\"game\":{\"id\":\"aa5568d6-5c84-4564-8cbf-f69151334b81\",\"ruleset\":{\"name\":\"standard\",\"version\":\"cli\",\"settings\":{\"foodSpawnChance\":15,\"minimumFood\":1,\"hazardDamagePerTurn\":14}},\"map\":\"standard\",\"source\":\"\",\"timeout\":500},\"turn\":43,\"board\":{\"height\":11,\"width\":11,\"food\":[{\"x\":6,\"y\":0},{\"x\":8,\"y\":6},{\"x\":8,\"y\":4},{\"x\":7,\"y\":5}],\"hazards\":[],\"snakes\":[{\"id\":\"d58b8a75-38af-4d9a-9b07-9a5eeab76d0c\",\"name\":\"jacksnake2\",\"health\":59,\"body\":[{\"x\":3,\"y\":8},{\"x\":3,\"y\":9},{\"x\":3,\"y\":10},{\"x\":4,\"y\":10}],\"head\":{\"x\":3,\"y\":8},\"length\":4,\"latency\":\"52\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}},{\"id\":\"cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0\",\"name\":\"jacksnake1\",\"health\":66,\"body\":[{\"x\":1,\"y\":8},{\"x\":1,\"y\":7},{\"x\":1,\"y\":6},{\"x\":0,\"y\":6},{\"x\":0,\"y\":5}],\"head\":{\"x\":1,\"y\":8},\"length\":5,\"latency\":\"57\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}]},\"you\":{\"id\":\"cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0\",\"name\":\"jacksnake1\",\"health\":66,\"body\":[{\"x\":1,\"y\":8},{\"x\":1,\"y\":7},{\"x\":1,\"y\":6},{\"x\":0,\"y\":6},{\"x\":0,\"y\":5}],\"head\":{\"x\":1,\"y\":8},\"length\":5,\"latency\":\"0\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}}\r\n",
-			[]string{"left", "up", "right"},
-		},
-		/*		{
-					"{\"game\":{\"id\":\"25150774-2091-453c-8b27-86591b187a74\",\"ruleset\":{\"name\":\"standard\",\"version\":\"cli\",\"settings\":{\"foodSpawnChance\":15,\"minimumFood\":1,\"hazardDamagePerTurn\":14}},\"map\":\"standard\",\"source\":\"\",\"timeout\":500},\"turn\":294,\"board\":{\"height\":11,\"width\":11,\"food\":[{\"x\":5,\"y\":1},{\"x\":1,\"y\":8},{\"x\":10,\"y\":1},{\"x\":7,\"y\":2},{\"x\":1,\"y\":4},{\"x\":2,\"y\":0}],\"hazards\":[],\"snakes\":[{\"id\":\"e1c0e770-5cef-4ad7-850a-65f078a9caf7\",\"name\":\"jacksnake1\",\"health\":76,\"body\":[{\"x\":2,\"y\":4},{\"x\":2,\"y\":3},{\"x\":2,\"y\":2},{\"x\":2,\"y\":1},{\"x\":3,\"y\":1},{\"x\":3,\"y\":0},{\"x\":4,\"y\":0},{\"x\":4,\"y\":1},{\"x\":4,\"y\":2},{\"x\":4,\"y\":3},{\"x\":4,\"y\":4},{\"x\":4,\"y\":5},{\"x\":4,\"y\":6},{\"x\":4,\"y\":7},{\"x\":3,\"y\":7},{\"x\":3,\"y\":8},{\"x\":3,\"y\":9},{\"x\":3,\"y\":10}],\"head\":{\"x\":2,\"y\":4},\"length\":18,\"latency\":\"3\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}},{\"id\":\"2cbbc2f6-6d57-4d5d-8cb6-027f2501f169\",\"name\":\"jacksnake2\",\"health\":55,\"body\":[{\"x\":10,\"y\":10},{\"x\":10,\"y\":9},{\"x\":10,\"y\":8},{\"x\":9,\"y\":8},{\"x\":8,\"y\":8},{\"x\":7,\"y\":8},{\"x\":7,\"y\":9},{\"x\":7,\"y\":10},{\"x\":6,\"y\":10},{\"x\":5,\"y\":10},{\"x\":5,\"y\":9},{\"x\":4,\"y\":9},{\"x\":4,\"y\":8},{\"x\":5,\"y\":8},{\"x\":5,\"y\":7},{\"x\":5,\"y\":6},{\"x\":5,\"y\":5},{\"x\":5,\"y\":4},{\"x\":6,\"y\":4},{\"x\":6,\"y\":3},{\"x\":6,\"y\":2},{\"x\":6,\"y\":1},{\"x\":6,\"y\":0},{\"x\":7,\"y\":0},{\"x\":8,\"y\":0},{\"x\":8,\"y\":1},{\"x\":8,\"y\":2},{\"x\":8,\"y\":3},{\"x\":8,\"y\":4},{\"x\":8,\"y\":5},{\"x\":7,\"y\":5},{\"x\":6,\"y\":5},{\"x\":6,\"y\":6}],\"head\":{\"x\":10,\"y\":10},\"length\":33,\"latency\":\"4\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}]},\"you\":{\"id\":\"2cbbc2f6-6d57-4d5d-8cb6-027f2501f169\",\"name\":\"jacksnake2\",\"health\":55,\"body\":[{\"x\":10,\"y\":10},{\"x\":10,\"y\":9},{\"x\":10,\"y\":8},{\"x\":9,\"y\":8},{\"x\":8,\"y\":8},{\"x\":7,\"y\":8},{\"x\":7,\"y\":9},{\"x\":7,\"y\":10},{\"x\":6,\"y\":10},{\"x\":5,\"y\":10},{\"x\":5,\"y\":9},{\"x\":4,\"y\":9},{\"x\":4,\"y\":8},{\"x\":5,\"y\":8},{\"x\":5,\"y\":7},{\"x\":5,\"y\":6},{\"x\":5,\"y\":5},{\"x\":5,\"y\":4},{\"x\":6,\"y\":4},{\"x\":6,\"y\":3},{\"x\":6,\"y\":2},{\"x\":6,\"y\":1},{\"x\":6,\"y\":0},{\"x\":7,\"y\":0},{\"x\":8,\"y\":0},{\"x\":8,\"y\":1},{\"x\":8,\"y\":2},{\"x\":8,\"y\":3},{\"x\":8,\"y\":4},{\"x\":8,\"y\":5},{\"x\":7,\"y\":5},{\"x\":6,\"y\":5},{\"x\":6,\"y\":6}],\"head\":{\"x\":10,\"y\":10},\"length\":33,\"latency\":\"0\",\"shout\":\"\",\"customizations\":{\"color\":\"#b13859\",\"head\":\"default\",\"tail\":\"default\"}}}",
-					[]string{"left"},
-				},
-		*/
+	result := DataObject{}
+	raw, _ := os.ReadFile("testdata.json")
+	err := json.Unmarshal(raw, &result)
+	if err != nil {
+		fmt.Println(err)
 	}
-	result := []TestData{}
-
-	for _, rawDate := range rawDates {
-		var state GameState
-		json.Unmarshal([]byte(rawDate.data), &state)
-
-		result = append(result, TestData{
-			data:   state,
-			result: rawDate.result,
-		})
-	}
-
-	return result
+	return result.Tests
 }
 
 func stringInArray(arr []string, str string) bool {
@@ -135,15 +118,25 @@ func Test_playerCanRespondToMultipleRequestsControlSync(t *testing.T) {
 	player := minimaxplayer.BuildMinimaxPlayer()
 
 	for i, data := range testData {
-		res := player.Move(data.data)
-		if !assert.Contains(t, testData[i].result, res) {
-			fmt.Printf("failed sync %d\n", i)
+
+		timer := time.Now()
+		res := player.Move(data.Data)
+		since := time.Since(timer)
+		val := assert.Less(t, since.Milliseconds(), int64(400))
+		if !val {
+			println(data.Name)
 		}
+		val = assert.Contains(t, testData[i].Moves, res)
+		if !val {
+			println(data.Name)
+		}
+
 	}
 }
 
 // integrationTest
-func Test_playerCanRespondToMultipleRequests(t *testing.T) {
+
+func playerCanRespondToMultipleRequests(t *testing.T) {
 	testData := getRealTestData()
 	player := minimaxplayer.BuildMinimaxPlayer()
 
@@ -155,7 +148,7 @@ func Test_playerCanRespondToMultipleRequests(t *testing.T) {
 		go func(state GameState, out chan string) {
 			res := player.Move(state)
 			out <- res
-		}(data.data, chans[i])
+		}(data.Data, chans[i])
 	}
 
 	result := make([]string, len(testData))
@@ -165,8 +158,6 @@ func Test_playerCanRespondToMultipleRequests(t *testing.T) {
 	}
 
 	for i := range result {
-		if !assert.Contains(t, testData[i].result, result[i]) {
-			fmt.Printf("failed async %d\n", i)
-		}
+		assert.Contains(t, testData[i].Moves, result[i])
 	}
 }

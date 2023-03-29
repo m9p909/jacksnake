@@ -1,0 +1,1606 @@
+{
+  "tests": [
+    {
+      "name": "test1",
+      "data": {
+        "game": {
+          "id": "aa5568d6-5c84-4564-8cbf-f69151334b81",
+          "ruleset": {
+            "name": "standard",
+            "version": "cli",
+            "settings": {
+              "foodSpawnChance": 15,
+              "minimumFood": 1,
+              "hazardDamagePerTurn": 14
+            }
+          },
+          "map": "standard",
+          "source": "",
+          "timeout": 500
+        },
+        "turn": 43,
+        "board": {
+          "height": 11,
+          "width": 11,
+          "food": [
+            {
+              "x": 6,
+              "y": 0
+            },
+            {
+              "x": 8,
+              "y": 6
+            },
+            {
+              "x": 8,
+              "y": 4
+            },
+            {
+              "x": 7,
+              "y": 5
+            }
+          ],
+          "hazards": [],
+          "snakes": [
+            {
+              "id": "d58b8a75-38af-4d9a-9b07-9a5eeab76d0c",
+              "name": "jacksnake2",
+              "health": 59,
+              "body": [
+                {
+                  "x": 3,
+                  "y": 8
+                },
+                {
+                  "x": 3,
+                  "y": 9
+                },
+                {
+                  "x": 3,
+                  "y": 10
+                },
+                {
+                  "x": 4,
+                  "y": 10
+                }
+              ],
+              "head": {
+                "x": 3,
+                "y": 8
+              },
+              "length": 4,
+              "latency": "52",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0",
+              "name": "jacksnake1",
+              "health": 66,
+              "body": [
+                {
+                  "x": 1,
+                  "y": 8
+                },
+                {
+                  "x": 1,
+                  "y": 7
+                },
+                {
+                  "x": 1,
+                  "y": 6
+                },
+                {
+                  "x": 0,
+                  "y": 6
+                },
+                {
+                  "x": 0,
+                  "y": 5
+                }
+              ],
+              "head": {
+                "x": 1,
+                "y": 8
+              },
+              "length": 5,
+              "latency": "57",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            }
+          ]
+        },
+        "you": {
+          "id": "d58b8a75-38af-4d9a-9b07-9a5eeab76d0c",
+          "name": "jacksnake2",
+          "health": 59,
+          "body": [
+            {
+              "x": 3,
+              "y": 8
+            },
+            {
+              "x": 3,
+              "y": 9
+            },
+            {
+              "x": 3,
+              "y": 10
+            },
+            {
+              "x": 4,
+              "y": 10
+            }
+          ],
+          "head": {
+            "x": 3,
+            "y": 8
+          },
+          "length": 4,
+          "latency": "0",
+          "shout": "",
+          "customizations": {
+            "color": "#b13859",
+            "head": "default",
+            "tail": "default"
+          }
+        }
+      },
+      "moves": [
+        "down",
+        "right"
+      ]
+    },
+    {
+      "name": "test2",
+      "data": {
+        "game": {
+          "id": "aa5568d6-5c84-4564-8cbf-f69151334b81",
+          "ruleset": {
+            "name": "standard",
+            "version": "cli",
+            "settings": {
+              "foodSpawnChance": 15,
+              "minimumFood": 1,
+              "hazardDamagePerTurn": 14
+            }
+          },
+          "map": "standard",
+          "source": "",
+          "timeout": 500
+        },
+        "turn": 43,
+        "board": {
+          "height": 11,
+          "width": 11,
+          "food": [
+            {
+              "x": 6,
+              "y": 0
+            },
+            {
+              "x": 8,
+              "y": 6
+            },
+            {
+              "x": 8,
+              "y": 4
+            },
+            {
+              "x": 7,
+              "y": 5
+            }
+          ],
+          "hazards": [],
+          "snakes": [
+            {
+              "id": "d58b8a75-38af-4d9a-9b07-9a5eeab76d0c",
+              "name": "jacksnake2",
+              "health": 59,
+              "body": [
+                {
+                  "x": 3,
+                  "y": 8
+                },
+                {
+                  "x": 3,
+                  "y": 9
+                },
+                {
+                  "x": 3,
+                  "y": 10
+                },
+                {
+                  "x": 4,
+                  "y": 10
+                }
+              ],
+              "head": {
+                "x": 3,
+                "y": 8
+              },
+              "length": 4,
+              "latency": "52",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0",
+              "name": "jacksnake1",
+              "health": 66,
+              "body": [
+                {
+                  "x": 1,
+                  "y": 8
+                },
+                {
+                  "x": 1,
+                  "y": 7
+                },
+                {
+                  "x": 1,
+                  "y": 6
+                },
+                {
+                  "x": 0,
+                  "y": 6
+                },
+                {
+                  "x": 0,
+                  "y": 5
+                }
+              ],
+              "head": {
+                "x": 1,
+                "y": 8
+              },
+              "length": 5,
+              "latency": "57",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            }
+          ]
+        },
+        "you": {
+          "id": "cf9f556a-9fd9-4f0b-93ba-89e6bf0c4bc0",
+          "name": "jacksnake1",
+          "health": 66,
+          "body": [
+            {
+              "x": 1,
+              "y": 8
+            },
+            {
+              "x": 1,
+              "y": 7
+            },
+            {
+              "x": 1,
+              "y": 6
+            },
+            {
+              "x": 0,
+              "y": 6
+            },
+            {
+              "x": 0,
+              "y": 5
+            }
+          ],
+          "head": {
+            "x": 1,
+            "y": 8
+          },
+          "length": 5,
+          "latency": "0",
+          "shout": "",
+          "customizations": {
+            "color": "#b13859",
+            "head": "default",
+            "tail": "default"
+          }
+        }
+      },
+      "moves": [
+        "left",
+        "up",
+        "right"
+      ]
+    },
+    {
+      "name": "test 3: snake is dead, but it should still try to live as long as possible",
+      "data": {
+        "game": {
+          "id": "25150774-2091-453c-8b27-86591b187a74",
+          "ruleset": {
+            "name": "standard",
+            "version": "cli",
+            "settings": {
+              "foodSpawnChance": 15,
+              "minimumFood": 1,
+              "hazardDamagePerTurn": 14
+            }
+          },
+          "map": "standard",
+          "source": "",
+          "timeout": 500
+        },
+        "turn": 294,
+        "board": {
+          "height": 11,
+          "width": 11,
+          "food": [
+            {
+              "x": 5,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 8
+            },
+            {
+              "x": 10,
+              "y": 1
+            },
+            {
+              "x": 7,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 4
+            },
+            {
+              "x": 2,
+              "y": 0
+            }
+          ],
+          "hazards": [],
+          "snakes": [
+            {
+              "id": "e1c0e770-5cef-4ad7-850a-65f078a9caf7",
+              "name": "jacksnake1",
+              "health": 76,
+              "body": [
+                {
+                  "x": 2,
+                  "y": 4
+                },
+                {
+                  "x": 2,
+                  "y": 3
+                },
+                {
+                  "x": 2,
+                  "y": 2
+                },
+                {
+                  "x": 2,
+                  "y": 1
+                },
+                {
+                  "x": 3,
+                  "y": 1
+                },
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 4,
+                  "y": 0
+                },
+                {
+                  "x": 4,
+                  "y": 1
+                },
+                {
+                  "x": 4,
+                  "y": 2
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 6
+                },
+                {
+                  "x": 4,
+                  "y": 7
+                },
+                {
+                  "x": 3,
+                  "y": 7
+                },
+                {
+                  "x": 3,
+                  "y": 8
+                },
+                {
+                  "x": 3,
+                  "y": 9
+                },
+                {
+                  "x": 3,
+                  "y": 10
+                }
+              ],
+              "head": {
+                "x": 2,
+                "y": 4
+              },
+              "length": 18,
+              "latency": "3",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "2cbbc2f6-6d57-4d5d-8cb6-027f2501f169",
+              "name": "jacksnake2",
+              "health": 55,
+              "body": [
+                {
+                  "x": 10,
+                  "y": 10
+                },
+                {
+                  "x": 10,
+                  "y": 9
+                },
+                {
+                  "x": 10,
+                  "y": 8
+                },
+                {
+                  "x": 9,
+                  "y": 8
+                },
+                {
+                  "x": 8,
+                  "y": 8
+                },
+                {
+                  "x": 7,
+                  "y": 8
+                },
+                {
+                  "x": 7,
+                  "y": 9
+                },
+                {
+                  "x": 7,
+                  "y": 10
+                },
+                {
+                  "x": 6,
+                  "y": 10
+                },
+                {
+                  "x": 5,
+                  "y": 10
+                },
+                {
+                  "x": 5,
+                  "y": 9
+                },
+                {
+                  "x": 4,
+                  "y": 9
+                },
+                {
+                  "x": 4,
+                  "y": 8
+                },
+                {
+                  "x": 5,
+                  "y": 8
+                },
+                {
+                  "x": 5,
+                  "y": 7
+                },
+                {
+                  "x": 5,
+                  "y": 6
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 6,
+                  "y": 4
+                },
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 6,
+                  "y": 2
+                },
+                {
+                  "x": 6,
+                  "y": 1
+                },
+                {
+                  "x": 6,
+                  "y": 0
+                },
+                {
+                  "x": 7,
+                  "y": 0
+                },
+                {
+                  "x": 8,
+                  "y": 0
+                },
+                {
+                  "x": 8,
+                  "y": 1
+                },
+                {
+                  "x": 8,
+                  "y": 2
+                },
+                {
+                  "x": 8,
+                  "y": 3
+                },
+                {
+                  "x": 8,
+                  "y": 4
+                },
+                {
+                  "x": 8,
+                  "y": 5
+                },
+                {
+                  "x": 7,
+                  "y": 5
+                },
+                {
+                  "x": 6,
+                  "y": 5
+                },
+                {
+                  "x": 6,
+                  "y": 6
+                }
+              ],
+              "head": {
+                "x": 10,
+                "y": 10
+              },
+              "length": 33,
+              "latency": "4",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            }
+          ]
+        },
+        "you": {
+          "id": "2cbbc2f6-6d57-4d5d-8cb6-027f2501f169",
+          "name": "jacksnake2",
+          "health": 55,
+          "body": [
+            {
+              "x": 10,
+              "y": 10
+            },
+            {
+              "x": 10,
+              "y": 9
+            },
+            {
+              "x": 10,
+              "y": 8
+            },
+            {
+              "x": 9,
+              "y": 8
+            },
+            {
+              "x": 8,
+              "y": 8
+            },
+            {
+              "x": 7,
+              "y": 8
+            },
+            {
+              "x": 7,
+              "y": 9
+            },
+            {
+              "x": 7,
+              "y": 10
+            },
+            {
+              "x": 6,
+              "y": 10
+            },
+            {
+              "x": 5,
+              "y": 10
+            },
+            {
+              "x": 5,
+              "y": 9
+            },
+            {
+              "x": 4,
+              "y": 9
+            },
+            {
+              "x": 4,
+              "y": 8
+            },
+            {
+              "x": 5,
+              "y": 8
+            },
+            {
+              "x": 5,
+              "y": 7
+            },
+            {
+              "x": 5,
+              "y": 6
+            },
+            {
+              "x": 5,
+              "y": 5
+            },
+            {
+              "x": 5,
+              "y": 4
+            },
+            {
+              "x": 6,
+              "y": 4
+            },
+            {
+              "x": 6,
+              "y": 3
+            },
+            {
+              "x": 6,
+              "y": 2
+            },
+            {
+              "x": 6,
+              "y": 1
+            },
+            {
+              "x": 6,
+              "y": 0
+            },
+            {
+              "x": 7,
+              "y": 0
+            },
+            {
+              "x": 8,
+              "y": 0
+            },
+            {
+              "x": 8,
+              "y": 1
+            },
+            {
+              "x": 8,
+              "y": 2
+            },
+            {
+              "x": 8,
+              "y": 3
+            },
+            {
+              "x": 8,
+              "y": 4
+            },
+            {
+              "x": 8,
+              "y": 5
+            },
+            {
+              "x": 7,
+              "y": 5
+            },
+            {
+              "x": 6,
+              "y": 5
+            },
+            {
+              "x": 6,
+              "y": 6
+            }
+          ],
+          "head": {
+            "x": 10,
+            "y": 10
+          },
+          "length": 33,
+          "latency": "0",
+          "shout": "",
+          "customizations": {
+            "color": "#b13859",
+            "head": "default",
+            "tail": "default"
+          }
+        }
+      },
+      "moves": [
+        "left"
+      ]
+    },
+    {
+      "name": "test4: does not consume too much time 2 snakes",
+      "data": {
+        "game": {
+          "id": "3d0f21c1-538e-425b-9ae3-f821fd076951",
+          "ruleset": {
+            "name": "standard",
+            "version": "cli",
+            "settings": {
+              "foodSpawnChance": 15,
+              "minimumFood": 1,
+              "hazardDamagePerTurn": 14
+            }
+          },
+          "map": "standard",
+          "source": "",
+          "timeout": 500
+        },
+        "turn": 0,
+        "board": {
+          "height": 11,
+          "width": 11,
+          "food": [
+            {
+              "x": 10,
+              "y": 4
+            },
+            {
+              "x": 6,
+              "y": 10
+            },
+            {
+              "x": 5,
+              "y": 5
+            }
+          ],
+          "hazards": [],
+          "snakes": [
+            {
+              "id": "8e0b0de3-0828-4b0e-9682-32dbe100fc0b",
+              "name": "jacksnake1",
+              "health": 100,
+              "body": [
+                {
+                  "x": 9,
+                  "y": 5
+                },
+                {
+                  "x": 9,
+                  "y": 5
+                },
+                {
+                  "x": 9,
+                  "y": 5
+                }
+              ],
+              "head": {
+                "x": 9,
+                "y": 5
+              },
+              "length": 3,
+              "latency": "0",
+              "snhout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "d3e4d5d8-b8c7-4756-a318-7524abb36fcc",
+              "name": "jacksnake2",
+              "health": 100,
+              "body": [
+                {
+                  "x": 5,
+                  "y": 9
+                },
+                {
+                  "x": 5,
+                  "y": 9
+                },
+                {
+                  "x": 5,
+                  "y": 9
+                }
+              ],
+              "head": {
+                "x": 5,
+                "y": 9
+              },
+              "length": 3,
+              "latency": "0",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            }
+          ]
+        },
+        "you": {
+          "id": "8e0b0de3-0828-4b0e-9682-32dbe100fc0b",
+          "name": "jacksnake1",
+          "health": 100,
+          "body": [
+            {
+              "x": 9,
+              "y": 5
+            },
+            {
+              "x": 9,
+              "y": 5
+            },
+            {
+              "x": 9,
+              "y": 5
+            }
+          ],
+          "head": {
+            "x": 9,
+            "y": 5
+          },
+          "length": 3,
+          "latency": "0",
+          "shout": "",
+          "customizations": {
+            "color": "#b13859",
+            "head": "default",
+            "tail": "default"
+          }
+        }
+      },
+      "moves": [
+        "left",
+        "right",
+        "up"
+      ]
+    },
+    {
+      "name": "test 5: does not eat tail",
+      "data": {
+        "game": {
+          "id": "82428695-8152-45f4-ba4c-948895c0d4de",
+          "ruleset": {
+            "name": "standard",
+            "version": "cli",
+            "settings": {
+              "foodSpawnChance": 15,
+              "minimumFood": 1,
+              "hazardDamagePerTurn": 14
+            }
+          },
+          "map": "standard",
+          "source": "",
+          "timeout": 500
+        },
+        "turn": 124,
+        "board": {
+          "height": 11,
+          "width": 11,
+          "food": [
+            {
+              "x": 5,
+              "y": 5
+            },
+            {
+              "x": 8,
+              "y": 2
+            },
+            {
+              "x": 5,
+              "y": 7
+            },
+            {
+              "x": 8,
+              "y": 7
+            },
+            {
+              "x": 1,
+              "y": 8
+            },
+            {
+              "x": 2,
+              "y": 9
+            },
+            {
+              "x": 7,
+              "y": 2
+            },
+            {
+              "x": 7,
+              "y": 9
+            },
+            {
+              "x": 6,
+              "y": 3
+            },
+            {
+              "x": 0,
+              "y": 8
+            },
+            {
+              "x": 5,
+              "y": 1
+            },
+            {
+              "x": 4,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 9
+            },
+            {
+              "x": 4,
+              "y": 10
+            },
+            {
+              "x": 4,
+              "y": 0
+            },
+            {
+              "x": 10,
+              "y": 0
+            }
+          ],
+          "hazards": [],
+          "snakes": [
+            {
+              "id": "399bfbc5-d684-4ceb-8444-01b2367dacfe",
+              "name": "jacksnake1",
+              "health": 100,
+              "body": [
+                {
+                  "x": 9,
+                  "y": 5
+                },
+                {
+                  "x": 9,
+                  "y": 6
+                },
+                {
+                  "x": 9,
+                  "y": 7
+                },
+                {
+                  "x": 9,
+                  "y": 8
+                },
+                {
+                  "x": 9,
+                  "y": 9
+                },
+                {
+                  "x": 9,
+                  "y": 10
+                },
+                {
+                  "x": 10,
+                  "y": 10
+                },
+                {
+                  "x": 10,
+                  "y": 9
+                },
+                {
+                  "x": 10,
+                  "y": 8
+                },
+                {
+                  "x": 10,
+                  "y": 7
+                },
+                {
+                  "x": 10,
+                  "y": 6
+                },
+                {
+                  "x": 10,
+                  "y": 5
+                },
+                {
+                  "x": 10,
+                  "y": 5
+                }
+              ],
+              "head": {
+                "x": 9,
+                "y": 5
+              },
+              "length": 13,
+              "latency": "0",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            }
+          ]
+        },
+        "you": {
+          "id": "399bfbc5-d684-4ceb-8444-01b2367dacfe",
+          "name": "jacksnake1",
+          "health": 100,
+          "body": [
+            {
+              "x": 9,
+              "y": 5
+            },
+            {
+              "x": 9,
+              "y": 6
+            },
+            {
+              "x": 9,
+              "y": 7
+            },
+            {
+              "x": 9,
+              "y": 8
+            },
+            {
+              "x": 9,
+              "y": 9
+            },
+            {
+              "x": 9,
+              "y": 10
+            },
+            {
+              "x": 10,
+              "y": 10
+            },
+            {
+              "x": 10,
+              "y": 9
+            },
+            {
+              "x": 10,
+              "y": 8
+            },
+            {
+              "x": 10,
+              "y": 7
+            },
+            {
+              "x": 10,
+              "y": 6
+            },
+            {
+              "x": 10,
+              "y": 5
+            },
+            {
+              "x": 10,
+              "y": 5
+            }
+          ],
+          "head": {
+            "x": 9,
+            "y": 5
+          },
+          "length": 13,
+          "latency": "0",
+          "shout": "",
+          "customizations": {
+            "color": "#b13859",
+            "head": "default",
+            "tail": "default"
+          }
+        }
+      },
+      "moves": [
+        "left",
+        "down"
+      ]
+    },
+    {
+      "name": "works with 4 snakes",
+      "data": {
+        "game": {
+          "id": "96950953-40dc-44cc-b782-ec5189a9961d",
+          "ruleset": {
+            "name": "standard",
+            "version": "cli",
+            "settings": {
+              "foodSpawnChance": 15,
+              "minimumFood": 1,
+              "hazardDamagePerTurn": 14
+            }
+          },
+          "map": "standard",
+          "source": "",
+          "timeout": 500
+        },
+        "turn": 0,
+        "board": {
+          "height": 11,
+          "width": 11,
+          "food": [
+            {
+              "x": 4,
+              "y": 0
+            },
+            {
+              "x": 6,
+              "y": 10
+            },
+            {
+              "x": 0,
+              "y": 4
+            },
+            {
+              "x": 10,
+              "y": 4
+            },
+            {
+              "x": 5,
+              "y": 5
+            }
+          ],
+          "hazards": [],
+          "snakes": [
+            {
+              "id": "37120b8c-a928-4b9a-8af1-de75f216c452",
+              "name": "jacksnake1",
+              "health": 100,
+              "body": [
+                {
+                  "x": 5,
+                  "y": 1
+                },
+                {
+                  "x": 5,
+                  "y": 1
+                },
+                {
+                  "x": 5,
+                  "y": 1
+                }
+              ],
+              "head": {
+                "x": 5,
+                "y": 1
+              },
+              "length": 3,
+              "latency": "0",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "05cdc216-33fd-463c-a1e9-707c1aaebf69",
+              "name": "jacksnake2",
+              "health": 100,
+              "body": [
+                {
+                  "x": 5,
+                  "y": 9
+                },
+                {
+                  "x": 5,
+                  "y": 9
+                },
+                {
+                  "x": 5,
+                  "y": 9
+                }
+              ],
+              "head": {
+                "x": 5,
+                "y": 9
+              },
+              "length": 3,
+              "latency": "0",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "dee3d1fd-de75-466e-9fe1-55268212b502",
+              "name": "jacksnake3",
+              "health": 100,
+              "body": [
+                {
+                  "x": 1,
+                  "y": 5
+                },
+                {
+                  "x": 1,
+                  "y": 5
+                },
+                {
+                  "x": 1,
+                  "y": 5
+                }
+              ],
+              "head": {
+                "x": 1,
+                "y": 5
+              },
+              "length": 3,
+              "latency": "0",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "50cb385e-9590-464c-bc5c-d0c72ec60a1f",
+              "name": "jacksnake4",
+              "health": 100,
+              "body": [
+                {
+                  "x": 9,
+                  "y": 5
+                },
+                {
+                  "x": 9,
+                  "y": 5
+                },
+                {
+                  "x": 9,
+                  "y": 5
+                }
+              ],
+              "head": {
+                "x": 9,
+                "y": 5
+              },
+              "length": 3,
+              "latency": "0",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            }
+          ]
+        },
+        "you": {
+          "id": "50cb385e-9590-464c-bc5c-d0c72ec60a1f",
+          "name": "jacksnake4",
+          "health": 100,
+          "body": [
+            {
+              "x": 9,
+              "y": 5
+            },
+            {
+              "x": 9,
+              "y": 5
+            },
+            {
+              "x": 9,
+              "y": 5
+            }
+          ],
+          "head": {
+            "x": 9,
+            "y": 5
+          },
+          "length": 3,
+          "latency": "0",
+          "shout": "",
+          "customizations": {
+            "color": "#b13859",
+            "head": "default",
+            "tail": "default"
+          }
+        }
+      },
+      "moves": [
+        "left",
+        "right",
+        "up",
+        "down"
+      ]
+    },
+    {
+      "name": "test7: does not give up",
+      "data": {
+        "game": {
+          "id": "e268ee6f-7e3b-4d57-a2cb-6c72cb9f7f7c",
+          "ruleset": {
+            "name": "standard",
+            "version": "cli",
+            "settings": {
+              "foodSpawnChance": 15,
+              "minimumFood": 1,
+              "hazardDamagePerTurn": 14
+            }
+          },
+          "map": "standard",
+          "source": "",
+          "timeout": 500
+        },
+        "turn": 114,
+        "board": {
+          "height": 11,
+          "width": 11,
+          "food": [
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 9
+            },
+            {
+              "x": 0,
+              "y": 3
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 4,
+              "y": 3
+            },
+            {
+              "x": 5,
+              "y": 4
+            },
+            {
+              "x": 5,
+              "y": 3
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 3,
+              "y": 6
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 5
+            },
+            {
+              "x": 0,
+              "y": 7
+            },
+            {
+              "x": 4,
+              "y": 5
+            },
+            {
+              "x": 6,
+              "y": 1
+            },
+            {
+              "x": 4,
+              "y": 1
+            },
+            {
+              "x": 8,
+              "y": 5
+            },
+            {
+              "x": 6,
+              "y": 9
+            },
+            {
+              "x": 9,
+              "y": 2
+            }
+          ],
+          "hazards": [],
+          "snakes": [
+            {
+              "id": "cbf9c256-d5ac-4be9-b857-63b46378afba",
+              "name": "jacksnake3",
+              "health": 21,
+              "body": [
+                {
+                  "x": 10,
+                  "y": 6
+                },
+                {
+                  "x": 10,
+                  "y": 5
+                },
+                {
+                  "x": 9,
+                  "y": 5
+                },
+                {
+                  "x": 9,
+                  "y": 6
+                },
+                {
+                  "x": 9,
+                  "y": 7
+                }
+              ],
+              "head": {
+                "x": 10,
+                "y": 6
+              },
+              "length": 5,
+              "latency": "0",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "da346772-2f52-41e2-8454-2d5bd45d2ad5",
+              "name": "jacksnake1",
+              "health": 48,
+              "body": [
+                {
+                  "x": 8,
+                  "y": 8
+                },
+                {
+                  "x": 8,
+                  "y": 7
+                },
+                {
+                  "x": 7,
+                  "y": 7
+                },
+                {
+                  "x": 6,
+                  "y": 7
+                },
+                {
+                  "x": 5,
+                  "y": 7
+                },
+                {
+                  "x": 5,
+                  "y": 8
+                },
+                {
+                  "x": 5,
+                  "y": 9
+                },
+                {
+                  "x": 5,
+                  "y": 10
+                }
+              ],
+              "head": {
+                "x": 8,
+                "y": 8
+              },
+              "length": 8,
+              "latency": "0",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            }
+          ]
+        },
+        "you": {
+          "id": "cbf9c256-d5ac-4be9-b857-63b46378afba",
+          "name": "jacksnake3",
+          "health": 21,
+          "body": [
+            {
+              "x": 10,
+              "y": 6
+            },
+            {
+              "x": 10,
+              "y": 5
+            },
+            {
+              "x": 9,
+              "y": 5
+            },
+            {
+              "x": 9,
+              "y": 6
+            },
+            {
+              "x": 9,
+              "y": 7
+            }
+          ],
+          "head": {
+            "x": 10,
+            "y": 6
+          },
+          "length": 5,
+          "latency": "0",
+          "shout": "",
+          "customizations": {
+            "color": "#b13859",
+            "head": "default",
+            "tail": "default"
+          }
+        }
+      },
+      "moves": [
+        "up"
+      ]
+    }
+  ]
+}

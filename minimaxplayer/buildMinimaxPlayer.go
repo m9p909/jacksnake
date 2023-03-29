@@ -16,14 +16,15 @@ type Player interface {
 func BuildRandomPlayer() Player {
 	player := MinimaxPlayer{}
 	conv := StateConverterImpl{}
-	algo := coreplayer.NewRandomAlgo(customsimulator.New())
+	simulator := customsimulator.New()
+	algo := coreplayer.NewRandomAlgo(simulator)
 	player.Init(&conv, algo)
 	return &player
 }
 
 func BuildMinimaxPlayer() Player {
 	conv := StateConverterImpl{}
-	algo := coreplayer.NewMinimaxAlgoMove(customsimulator.New(), evaluator.NewSimpleEvaluator(), 4)
+	algo := coreplayer.NewMinimaxAlgoMove(customsimulator.New(), evaluator.NewSimpleEvaluator(), 3)
 	player := MinimaxPlayer{}
 	player.Init(&conv, algo)
 	return &player

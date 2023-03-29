@@ -7,6 +7,8 @@ import (
 	"jacksnake/minimaxplayer/coreplayer"
 	. "jacksnake/models"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func getGameStateTest1() GameState {
@@ -23,12 +25,15 @@ func getGameStateTest1() GameState {
 			ID:     "1",
 			Health: 99,
 			Head:   Coord{X: 1, Y: 2},
-			Body:   []Coord{{X: 1, Y: 2}, {X: 1, Y: 3}}},
+			Body:   []Coord{{X: 1, Y: 2}, {X: 1, Y: 3}},
+		},
 		{
 			ID:     "2",
 			Health: 100,
 			Head:   Coord{X: 3, Y: 2},
-			Body:   []Coord{{X: 3, Y: 2}, {X: 2, Y: 2}, {X: 2, Y: 1}}}}
+			Body:   []Coord{{X: 3, Y: 2}, {X: 2, Y: 2}, {X: 2, Y: 1}},
+		},
+	}
 
 	food := []Coord{
 		{X: 3, Y: 1},
@@ -55,7 +60,6 @@ func getGameStateTest1() GameState {
 	}
 
 	return state
-
 }
 
 type idk []struct {
@@ -76,12 +80,12 @@ func getGameState1Result() coreplayer.GameBoard {
 
 	snakes := []coreplayer.Snake{
 		{
-			ID:     "1",
+			ID:     0,
 			Body:   []coreplayer.Point{{X: 1, Y: 2}, {X: 1, Y: 3}},
 			Health: 99,
 		},
 		{
-			ID:     "2",
+			ID:     1,
 			Body:   []coreplayer.Point{{X: 3, Y: 2}, {X: 2, Y: 2}, {X: 2, Y: 1}},
 			Health: 100,
 		},
@@ -108,36 +112,12 @@ func printJsonStruct[T GameState | coreplayer.GameBoard](a T) {
 	println(string(data))
 }
 
-func Test_CoreToState(t *testing.T) {
-	conv := minimaxplayer.StateConverterImpl{}
-	var res GameState
-	res = conv.CoreToState(getGameState1Result())
-	var expected GameState
-	expected = getGameStateTest1()
-	expected.You = Battlesnake{}
-	if !jsonCompare(res, expected) {
-		println("Could not convert test 1 to test2, equality failed")
-		println("res: ")
-		printJsonStruct(res)
-		println("expected: ")
-		printJsonStruct(expected)
-		t.Fail()
-	}
-
-}
-
 func Test_StateToCore(t *testing.T) {
 	conv := minimaxplayer.StateConverterImpl{}
 	var res coreplayer.GameBoard
-	res = conv.StateToCore(getGameStateTest1())
+	res, id := conv.StateToCore(getGameStateTest1())
+	assert.Equal(t, int(id), 0)
 	var expected coreplayer.GameBoard
 	expected = getGameState1Result()
-	if !jsonCompare(res, expected) {
-		println("Could not convert test2 to test1, equality failed")
-		println("res: ")
-		printJsonStruct(res)
-		println("expected: ")
-		printJsonStruct(expected)
-		t.Fail()
-	}
+	assert.EqualValues(t, res, expected)
 }

@@ -20,6 +20,18 @@ func (*StateConverterImpl) coordArrToPointArr(coords []models.Coord) []coreplaye
 	return points
 }
 
+func removeDuplicates(arr []coreplayer.Point) []coreplayer.Point {
+	keys := make(map[coreplayer.Point]bool)
+	list := []coreplayer.Point{}
+	for _, item := range arr {
+		if _, value := keys[item]; !value {
+			keys[item] = true
+			list = append(list, item)
+		}
+	}
+	return list
+}
+
 func (conv *StateConverterImpl) battleSnakeToSnake(snake []models.Battlesnake, youId string) ([]coreplayer.Snake, coreplayer.SnakeID) {
 	snakes := []coreplayer.Snake{}
 
@@ -31,6 +43,7 @@ func (conv *StateConverterImpl) battleSnakeToSnake(snake []models.Battlesnake, y
 			Health: uint8(snake.Health),
 			Body:   conv.coordArrToPointArr(snake.Body),
 		}
+		nextSnake.Body = removeDuplicates(nextSnake.Body)
 		snakes = append(snakes, nextSnake)
 		if snake.ID == youId {
 			outId = id

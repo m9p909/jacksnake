@@ -7,6 +7,13 @@ type Point struct {
 	Y uint8
 }
 
+func (this *Point) Clone() Point {
+	return Point{
+		X: this.X,
+		Y: this.Y,
+	}
+}
+
 func Equals(a Point, b Point) bool {
 	return a.X == b.X && a.Y == b.Y
 }
@@ -17,6 +24,18 @@ type Snake struct {
 	Health uint8 // 0 - 100
 }
 
+func (this *Snake) clone() Snake {
+	newBody := make([]Point, len(this.Body))
+	for i := range this.Body {
+		newBody[i] = this.Body[i].Clone()
+	}
+	return Snake{
+		ID:     this.ID,
+		Body:   newBody,
+		Health: this.Health,
+	}
+}
+
 type GameBoard struct {
 	Turn    int
 	Height  uint8
@@ -24,6 +43,31 @@ type GameBoard struct {
 	Food    []Point
 	Snakes  []Snake
 	Hazards []Point
+}
+
+func (this *GameBoard) Clone() GameBoard {
+	food := make([]Point, len(this.Food))
+	for i := range food {
+		food[i] = this.Food[i].Clone()
+	}
+	hazards := make([]Point, len(this.Hazards))
+	for i := range hazards {
+		hazards[i] = this.Hazards[i].Clone()
+	}
+	snakes := make([]Snake, len(this.Snakes))
+
+	for i := range this.Snakes {
+		snakes[i] = this.Snakes[i].clone()
+	}
+
+	return GameBoard{
+		Turn:    this.Turn,
+		Height:  this.Height,
+		Width:   this.Width,
+		Hazards: hazards,
+		Snakes:  snakes,
+		Food:    food,
+	}
 }
 
 type SnakeMove struct {

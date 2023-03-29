@@ -3,6 +3,7 @@ package minimaxplayer
 // gbooch@us.ibm.com
 
 import (
+	"encoding/json"
 	"jacksnake/minimaxplayer/coreplayer"
 	"jacksnake/models"
 )
@@ -21,10 +22,14 @@ func (player *MinimaxPlayer) Init(conv StateConverter, coreplayer coreplayer.Pla
 	player.player = coreplayer
 }
 
+func printJson(state models.GameState) {
+	data, _ := json.Marshal(state)
+	println(string(data))
+}
+
 func (player *MinimaxPlayer) Move(state models.GameState) string {
+	// printJson(state)
 	// clone the player
-	//	jsonState, _ := json.Marshal(state)
-	//	println(string(jsonState))
 	core, id := player.converter.StateToCore(state)
 	move := player.player.Move(core, id)
 	return coreplayer.DirectionToString(move)

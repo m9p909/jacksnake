@@ -3,7 +3,6 @@ package evaluator
 import (
 	. "jacksnake/minimaxplayer/coreplayer"
 	"math"
-	"strconv"
 )
 
 type SimpleEvaluator struct{}
@@ -25,12 +24,18 @@ func getHealthScore(snake *Snake) float64 {
 	return float64(snake.Health) / 100
 }
 
-func makeEmptyBoard(height uint8, width uint8) [][]string {
-	board := make([][]string, height)
+const (
+	FOOD Elem = iota
+	HAZARD
+	NONE
+)
+
+func makeEmptyBoard(height uint8, width uint8) [][]uint8 {
+	board := make([][]uint8, height)
 	for b := range board {
-		row := make([]string, width)
+		row := make([]uint8, width)
 		for val := range row {
-			row[val] = "-"
+			row[val] = uint8(NONE)
 		}
 		board[b] = row
 	}
@@ -38,30 +43,21 @@ func makeEmptyBoard(height uint8, width uint8) [][]string {
 	return board
 }
 
-func buildSnakeBoard(snakes []Snake, height uint8, width uint8) [][]string {
+type Elem uint8
+
+func buildSnakeBoard(snakes []Snake, height uint8, width uint8) [][]uint8 {
 	board := makeEmptyBoard(height, width)
 
-	for i, snake := range snakes {
+	for _, snake := range snakes {
 		for _, body := range snake.Body {
-			board[body.Y][body.X] = strconv.Itoa(i)
+			board[body.Y][body.X] = uint8(snake.ID)
 		}
 	}
 
 	return board
 }
 
-func countAvailableSquares(snakes [][]string, head Point) int {
-	width := uint8(len(snakes[0]))
-	height := uint8(len(snakes[1]))
-	data := make([][]int, len(snakes))
-	for i := range data {
-		row := make([]int, len(snakes[0]))
-		for j := range row {
-			row[j] = 250
-		}
-		data[i] = row
-	}
-
+func countAvailableSquares(snakes [][]uint8, head Point, b *GameBoard) int {
 	q := []Point{head}
 
 	size := 0
@@ -69,15 +65,15 @@ func countAvailableSquares(snakes [][]string, head Point) int {
 		nextCoords := []Point{}
 
 		for _, front := range q {
-			if front.X >= width ||
+			if front.X >= b.Width ||
 				front.X < 0 ||
-				front.Y >= height ||
+				front.Y >= b.Height ||
 				front.Y < 0 ||
-				data[front.Y][front.X] != 250 ||
-				(snakes[front.Y][front.X] != "-" && !Equals(front, head)) {
+				snakes[front.Y][front.X] == 250 ||
+				(snakes[front.Y][front.X] != uint8(NONE) && !Equals(front, head)) {
 				continue
 			}
-			data[front.Y][front.X] = 1
+			snakes[front.Y][front.X] = 250
 			size++
 			nextQ := []Point{
 				{X: front.X + 1, Y: front.Y},
@@ -96,7 +92,7 @@ func evaluateSpaceConstraint(state *GameBoard, snakeId SnakeID) float64 {
 	snake := findSnakeById(&state.Snakes, snakeId)
 	snakes := state.Snakes
 	snakesBoard := buildSnakeBoard(snakes, state.Height, state.Width)
-	availableSquares := countAvailableSquares(snakesBoard, snake.Body[0])
+	availableSquares := countAvailableSquares(snakesBoard, snake.Body[0], state)
 	return math.Pow(float64(availableSquares)/float64(state.Height*state.Width), 1.5)
 }
 
@@ -140,11 +136,11 @@ func evaluateDeathScore(snake *Snake) float64 {
 func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId SnakeID) float64 {
 	snake := findSnakeById(&board.Snakes, snakeId)
 	if snake != nil {
-		// healthScore := getHealthScore(snake)
+		healthScore := getHealthScore(snake)
 		// otherSnakesHealth := getOtherSnakeHealthScore(board, snake)
 		// spaceScore := evaluateSpaceConstraint(board, snakeId)
 		deathScore := evaluateDeathScore(snake)
-		return deathScore
+		return healthScore*0.75 + deathScore*0.25
 	}
 	println("no snake found, this should never happen")
 	return 0

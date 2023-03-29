@@ -4,14 +4,13 @@ import (
 	"encoding/json"
 	. "jacksnake/minimaxplayer/coreplayer"
 	"jacksnake/minimaxplayer/evaluator"
-	"jacksnake/minimaxplayer/officialrulesapi"
 	"testing"
 )
 
 // integration
 type TestData struct {
 	board   GameBoard
-	snakeId string
+	snakeId SnakeID
 }
 
 type TestDataRaw struct {

@@ -2,18 +2,26 @@ package customsimulator
 
 import (
 	"errors"
+	"fmt"
 	. "jacksnake/minimaxplayer/coreplayer"
 	"sort"
-
-	"github.com/thoas/go-funk"
 )
 
 type CustomSimulator struct{}
 
 func (*CustomSimulator) SimulateMoves(board *GameBoard, moves []SnakeMove) {
-	MoveSnakesStandard(board, moves)
-	ReduceSnakeHealthStandard(board, moves)
-	DamageHazardsStandard(board, moves)
+	_, err := MoveSnakesStandard(board, moves)
+	if err != nil {
+		fmt.Println(err)
+	}
+	_, err = ReduceSnakeHealthStandard(board, moves)
+	if err != nil {
+		fmt.Println(err)
+	}
+	_, err = DamageHazardsStandard(board, moves)
+	if err != nil {
+		fmt.Println(err)
+	}
 	EliminateSnakesStandard(board, moves)
 }
 
@@ -67,18 +75,21 @@ func GetSafeMovesBySnake(state *GameBoard, snakeID SnakeID) []Direction {
 
 	// We've included code to prevent your Battlesnake from moving backwards
 	myHead := snake.Body[0] // Coordinates of your head
-	myNeck := snake.Body[1] // Coordinates of your "neck"
+	if len(snake.Body) > 1 {
 
-	if myNeck.X < myHead.X { // Neck is left of head, don't move left
-		isMoveSafe[LEFT] = false
-	} else if myNeck.X > myHead.X { // Neck is right of head, don't move right
-		isMoveSafe[RIGHT] = false
-	} else if myNeck.Y < myHead.Y { // Neck is below head, don't move down
-		isMoveSafe[DOWN] = false
-	} else if myNeck.Y > myHead.Y { // Neck is above head, don't move up
-		isMoveSafe[UP] = false
+		myNeck := snake.Body[1] // Coordinates of your "neck"
+
+		if myNeck.X < myHead.X { // Neck is left of head, don't move left
+			isMoveSafe[LEFT] = false
+		} else if myNeck.X > myHead.X { // Neck is right of head, don't move right
+			isMoveSafe[RIGHT] = false
+		} else if myNeck.Y < myHead.Y { // Neck is below head, don't move down
+			isMoveSafe[DOWN] = false
+		} else if myNeck.Y > myHead.Y { // Neck is above head, don't move up
+			isMoveSafe[UP] = false
+		}
+
 	}
-
 	// TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
 	boardWidth := state.Width
 	boardHeight := state.Height
@@ -105,7 +116,13 @@ func GetSafeMovesBySnake(state *GameBoard, snakeID SnakeID) []Direction {
 	for move, isSafe := range isMoveSafe {
 		if isSafe {
 			nextHead := ApplyMove(myHead, move)
-			for index, coord := range mybody {
+			var body []Point
+			if snake.Health == 100 {
+				body = mybody
+			} else {
+				body = mybody[:len(mybody)-1]
+			}
+			for index, coord := range body {
 				if index != 0 {
 					if Equals(nextHead, coord) {
 						isMoveSafe[move] = false
@@ -191,7 +208,7 @@ func MoveSnakesStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
 
 	for i := 0; i < len(b.Snakes); i++ {
 		snake := &b.Snakes[i]
-		if snake.Health != 0 {
+		if snake.Health == 0 {
 			continue
 		}
 
@@ -223,7 +240,12 @@ func MoveSnakesStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
 				}
 
 				// Append new head, pop old tail
-				snake.Body = append([]Point{newHead}, snake.Body[:len(snake.Body)-1]...)
+				// if health is 100 assume just ate, no reduction in length
+				if snake.Health == 100 {
+					snake.Body = append([]Point{newHead}, snake.Body...)
+				} else {
+					snake.Body = append([]Point{newHead}, snake.Body[:len(snake.Body)-1]...)
+				}
 			}
 		}
 	}
@@ -258,7 +280,7 @@ func getDefaultMove(snakeBody []Point) Direction {
 	return UP
 }
 
-func ReduceSnakeHealthStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
+func ReduceSnakeHealthStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 	for i := 0; i < len(b.Snakes); i++ {
 		if b.Snakes[i].Health >= 0 {
 			b.Snakes[i].Health = b.Snakes[i].Health - 1
@@ -267,12 +289,12 @@ func ReduceSnakeHealthStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
 	return false, nil
 }
 
-func DamageHazardsStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
+func DamageHazardsStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 	var hazardDamage uint8 = 1
 	var SnakeMaxHealth uint8 = 100
 	for i := 0; i < len(b.Snakes); i++ {
 		snake := &b.Snakes[i]
-		if snake.Health > 0 {
+		if snake.Health == 0 {
 			continue
 		}
 		head := snake.Body[0]
@@ -345,7 +367,7 @@ func EliminateSnakesStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 	collisionEliminations := []SnakeID{}
 	for i := 0; i < len(b.Snakes); i++ {
 		snake := &b.Snakes[i]
-		if snake.Health > 0 {
+		if snake.Health == 0 {
 			continue
 		}
 		if len(snake.Body) <= 0 {
@@ -362,7 +384,7 @@ func EliminateSnakesStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 		hasBodyCollided := false
 		for _, otherIndex := range snakeIndicesByLength {
 			other := &b.Snakes[otherIndex]
-			if snake.Health == 0 {
+			if other.Health == 0 {
 				continue
 			}
 			if snake.ID != other.ID && snakeHasBodyCollided(snake, other) {
@@ -388,11 +410,11 @@ func EliminateSnakesStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 	}
 
 	// kill the snakes
-	for i, snake := range b.Snakes {
-		if funk.Some(collisionEliminations, func(id SnakeID) bool {
-			return id == snake.ID
-		}) {
-			b.Snakes[i].Health = 0
+	for i := range b.Snakes {
+		for j := range collisionEliminations {
+			if b.Snakes[i].ID == collisionEliminations[j] {
+				b.Snakes[i].Health = 0
+			}
 		}
 	}
 	return false, nil
@@ -433,7 +455,7 @@ func snakeHasLostHeadToHead(s *Snake, other *Snake) bool {
 	return false
 }
 
-func FeedSnakesStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
+func FeedSnakesStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 	newFood := []Point{}
 	for _, food := range b.Food {
 		foodHasBeenEaten := false
