@@ -72,6 +72,7 @@ func (minimax *MinimaxAlgoMove) getScores(moves []Direction, board *GameBoard, i
 	for i := range moves {
 		scores[i] = <-ch
 	}
+	// fmt.Println(scores)
 
 	return scores
 }
@@ -115,12 +116,14 @@ func (minimax *MinimaxAlgoMove) getBestMove(args *minimaxArgs) float64 {
 		moves := makeNewSnakeMoves(args.board)
 		moves[args.ids.playerIndex] = SnakeMove{ID: args.ids.playerId, Move: move}
 		score := minimax.runMinimax(minimaxArgs{args.board, getNextSnakeIndex(args.board, args.snakeIndex), args.depth + 1, moves, args.ids, args.alpha, args.beta, args.count + 1})
-		if score > args.beta {
-			break
-		}
 		if score > max {
 			max = score
 		}
+
+		if score > args.beta {
+			break
+		}
+
 		if score > args.alpha {
 			args.alpha = score
 		}
@@ -137,12 +140,13 @@ func (minimax *MinimaxAlgoMove) doMinimizingPlayer(args *minimaxArgs) float64 {
 		copy(newMoves, args.moves)
 		newMoves[args.snakeIndex] = SnakeMove{ID: snakeId, Move: move}
 		score := minimax.runMinimax(minimaxArgs{args.board, getNextSnakeIndex(args.board, args.snakeIndex), args.depth, newMoves, args.ids, args.alpha, args.beta, args.count + 1})
-		if score < args.alpha {
-			break
-		}
 		if score < min {
 			min = score
 		}
+		if score < args.alpha {
+			break
+		}
+
 		if score < args.beta {
 			args.beta = score
 		}
@@ -152,7 +156,8 @@ func (minimax *MinimaxAlgoMove) doMinimizingPlayer(args *minimaxArgs) float64 {
 
 func (minimax *MinimaxAlgoMove) runMinimax(args minimaxArgs) float64 {
 	if args.count > minimax.maxDepth {
-		eval := minimax.evaluator.EvaluateBoard(args.board, args.ids.playerId)
+		// I feel like this is always  true
+		eval := minimax.evaluator.EvaluateBoard(args.board, args.ids.playerId, true, 0)
 		// println(args.count)
 		return eval
 	}
@@ -164,7 +169,8 @@ func (minimax *MinimaxAlgoMove) runMinimax(args minimaxArgs) float64 {
 		// prune the branch because health is 0
 		if newBoard.Snakes[args.ids.playerIndex].Health == 0 {
 			// println("found dead path")
-			return minimax.evaluator.EvaluateBoard(args.board, args.ids.playerId) * 0.01 // should be super weak
+			// should be super weak, but prefer cases where it dies later
+			return minimax.evaluator.EvaluateBoard(args.board, args.ids.playerId, false, args.count)
 		}
 		args.board = &newBoard
 		res := minimax.getBestMove(&args)

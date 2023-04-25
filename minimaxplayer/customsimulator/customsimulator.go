@@ -75,23 +75,6 @@ func GetSafeMovesBySnake(state *GameBoard, snakeID SnakeID) []Direction {
 		RIGHT: true,
 	}
 
-	// We've included code to prevent your Battlesnake from moving backwards
-	myHead := snake.Body[0] // Coordinates of your head
-	if len(snake.Body) > 1 {
-
-		myNeck := snake.Body[1] // Coordinates of your "neck"
-
-		if myNeck.X < myHead.X { // Neck is left of head, don't move left
-			isMoveSafe[LEFT] = false
-		} else if myNeck.X > myHead.X { // Neck is right of head, don't move right
-			isMoveSafe[RIGHT] = false
-		} else if myNeck.Y < myHead.Y { // Neck is below head, don't move down
-			isMoveSafe[DOWN] = false
-		} else if myNeck.Y > myHead.Y { // Neck is above head, don't move up
-			isMoveSafe[UP] = false
-		}
-
-	}
 	// TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
 	boardWidth := state.Width
 	boardHeight := state.Height
@@ -117,8 +100,9 @@ func GetSafeMovesBySnake(state *GameBoard, snakeID SnakeID) []Direction {
 	mybody := snake.Body
 	for move, isSafe := range isMoveSafe {
 		if isSafe {
-			nextHead := ApplyMove(myHead, move)
+			nextHead := ApplyMove(snake.Body[0], move)
 			var body []Point
+			// if snake health is 100, does that mean it just ate
 			if snake.Health == 100 {
 				body = mybody
 			} else {
@@ -139,9 +123,15 @@ func GetSafeMovesBySnake(state *GameBoard, snakeID SnakeID) []Direction {
 
 	for move, isSafe := range isMoveSafe {
 		if isSafe {
-			next_head := ApplyMove(myHead, move)
+			next_head := ApplyMove(snake.Body[0], move)
 			for _, snake := range opponents {
-				for _, body := range snake.Body {
+				var body []Point
+				if snake.Health == 100 {
+					body = mybody
+				} else {
+					body = mybody[:len(mybody)-1]
+				}
+				for _, body := range body {
 					if next_head == body {
 						if Equals(next_head, body) {
 							isMoveSafe[move] = false
@@ -155,7 +145,7 @@ func GetSafeMovesBySnake(state *GameBoard, snakeID SnakeID) []Direction {
 	// hazards
 	for move, isSafe := range isMoveSafe {
 		if isSafe {
-			next_head := ApplyMove(myHead, move)
+			next_head := ApplyMove(snake.Body[0], move)
 			for _, hazard := range state.Hazards {
 				if Equals(hazard, next_head) {
 					isMoveSafe[move] = false
@@ -171,7 +161,6 @@ func GetSafeMovesBySnake(state *GameBoard, snakeID SnakeID) []Direction {
 			safeMoves = append(safeMoves, move)
 		}
 	}
-
 	return safeMoves
 }
 
@@ -284,7 +273,7 @@ func getDefaultMove(snakeBody []Point) Direction {
 
 func ReduceSnakeHealthStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 	for i := 0; i < len(b.Snakes); i++ {
-		if b.Snakes[i].Health >= 0 {
+		if b.Snakes[i].Health > 0 {
 			b.Snakes[i].Health = b.Snakes[i].Health - 1
 		}
 	}

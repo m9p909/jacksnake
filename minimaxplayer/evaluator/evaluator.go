@@ -1,6 +1,7 @@
 package evaluator
 
 import (
+	"fmt"
 	. "jacksnake/minimaxplayer/coreplayer"
 	"math"
 )
@@ -21,7 +22,12 @@ func findSnakeById(snakes *[]Snake, id SnakeID) *Snake {
 }
 
 func getHealthScore(snake *Snake) float64 {
-	return float64(snake.Health) / 100
+	res := math.Pow(float64(snake.Health)/100, 2)
+	if res > 1 {
+		fmt.Println("Snake", snake)
+		panic(res)
+	}
+	return res
 }
 
 const (
@@ -112,17 +118,26 @@ func evaluateDeadSnakes(state *GameBoard, snakeId SnakeID) float64 {
 
 func getOtherSnakeHealthScore(board *GameBoard, targetSnake *Snake) float64 {
 	score := 0.0
+	count := 0.0
 	if len(board.Snakes) == 1 {
 		return 1
 	}
 
-	for i := range board.Snakes {
+	for i, snake := range board.Snakes {
 		if board.Snakes[i].ID != targetSnake.ID {
-			score += getHealthScore(&board.Snakes[i])
+			score = score + getHealthScore(&snake) // between 0 and 1
+			count++
 		}
 	}
-
-	return 1 - (score / (float64(len(board.Snakes) - 1)))
+	numSnakes := (float64(len(board.Snakes) - 1))
+	final := 1 - score/count
+	if final < 0 {
+		fmt.Println(board)
+		fmt.Println("Snakes: ", numSnakes)
+		fmt.Println("score: ", score)
+		panic(final)
+	}
+	return final
 }
 
 func evaluateDeathScore(snake *Snake) float64 {
@@ -133,15 +148,34 @@ func evaluateDeathScore(snake *Snake) float64 {
 	}
 }
 
-func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId SnakeID) float64 {
+func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId SnakeID, complete bool, count int) float64 {
 	snake := findSnakeById(&board.Snakes, snakeId)
 	if snake != nil {
 		healthScore := getHealthScore(snake)
+		if healthScore < 0 || healthScore > 1 {
+			fmt.Println(healthScore)
+			panic("bad health score")
+		}
 		otherSnakesHealth := getOtherSnakeHealthScore(board, snake)
 		// spaceScore := evaluateSpaceConstraint(board, snakeId)
 		// deathScore := evaluateDeathScore(snake)
-		return healthScore*0.8 + otherSnakesHealth*0.2
+		score := healthScore*0.8 + otherSnakesHealth*0.2
+		// if the max depth is reached
+		if score < 0 {
+			println("neg score")
+		}
+
+		if score > 1 {
+			println("score too big")
+		}
+		if !complete {
+			score = score * 0.01 * (float64(count) + 1)
+		}
+		if score <= 0 || score > 1 {
+			panic("Invalid score")
+		}
+		return score
 	}
-	println("no snake found, this should never happen")
+	// println("no snake found, this should never happen")
 	return 0
 }

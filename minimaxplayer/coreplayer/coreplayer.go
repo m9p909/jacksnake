@@ -125,7 +125,7 @@ type Simulator interface {
 
 type Evaluator interface {
 	// evaluates board for a given snake, avaluation should be between 0 and 1
-	EvaluateBoard(board *GameBoard, snakeId SnakeID) float64
+	EvaluateBoard(board *GameBoard, snakeId SnakeID, complete bool, count int) float64
 }
 
 type Player interface {

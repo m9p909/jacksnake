@@ -1601,6 +1601,304 @@
       "moves": [
         "up"
       ]
+    },
+    {
+      "name": "Test 10: shouldn't go off the board",
+      "data": {
+        "game": {
+          "id": "33fdb934-1dcf-4083-bbbd-35b527690902",
+          "ruleset": {
+            "name": "standard",
+            "version": "cli",
+            "settings": {
+              "foodSpawnChance": 15,
+              "minimumFood": 1,
+              "hazardDamagePerTurn": 14
+            }
+          },
+          "map": "standard",
+          "source": "",
+          "timeout": 500
+        },
+        "turn": 160,
+        "board": {
+          "height": 11,
+          "width": 11,
+          "food": [
+            {
+              "x": 5,
+              "y": 5
+            },
+            {
+              "x": 9,
+              "y": 3
+            },
+            {
+              "x": 4,
+              "y": 9
+            },
+            {
+              "x": 6,
+              "y": 7
+            },
+            {
+              "x": 8,
+              "y": 2
+            },
+            {
+              "x": 4,
+              "y": 6
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 3,
+              "y": 2
+            },
+            {
+              "x": 2,
+              "y": 3
+            },
+            {
+              "x": 7,
+              "y": 6
+            },
+            {
+              "x": 4,
+              "y": 3
+            },
+            {
+              "x": 7,
+              "y": 3
+            },
+            {
+              "x": 4,
+              "y": 7
+            },
+            {
+              "x": 8,
+              "y": 3
+            },
+            {
+              "x": 3,
+              "y": 5
+            },
+            {
+              "x": 7,
+              "y": 1
+            },
+            {
+              "x": 5,
+              "y": 6
+            },
+            {
+              "x": 6,
+              "y": 2
+            },
+            {
+              "x": 4,
+              "y": 1
+            },
+            {
+              "x": 4,
+              "y": 2
+            },
+            {
+              "x": 6,
+              "y": 1
+            },
+            {
+              "x": 5,
+              "y": 2
+            },
+            {
+              "x": 4,
+              "y": 4
+            },
+            {
+              "x": 7,
+              "y": 7
+            },
+            {
+              "x": 0,
+              "y": 9
+            },
+            {
+              "x": 2,
+              "y": 5
+            },
+            {
+              "x": 0,
+              "y": 10
+            }
+          ],
+          "hazards": [],
+          "snakes": [
+            {
+              "id": "c17cfd19-e91c-4acc-8667-eb7fad745987",
+              "name": "jacksnake1",
+              "health": 88,
+              "body": [
+                {
+                  "x": 10,
+                  "y": 10
+                },
+                {
+                  "x": 10,
+                  "y": 9
+                },
+                {
+                  "x": 10,
+                  "y": 8
+                },
+                {
+                  "x": 10,
+                  "y": 7
+                },
+                {
+                  "x": 9,
+                  "y": 7
+                },
+                {
+                  "x": 9,
+                  "y": 8
+                },
+                {
+                  "x": 9,
+                  "y": 9
+                },
+                {
+                  "x": 9,
+                  "y": 10
+                }
+              ],
+              "head": {
+                "x": 10,
+                "y": 10
+              },
+              "length": 8,
+              "latency": "9",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            },
+            {
+              "id": "db804f64-cdf5-41a6-9f89-ec0e5f1e4de8",
+              "name": "jacksnake2",
+              "health": 100,
+              "body": [
+                {
+                  "x": 8,
+                  "y": 8
+                },
+                {
+                  "x": 8,
+                  "y": 7
+                },
+                {
+                  "x": 8,
+                  "y": 6
+                },
+                {
+                  "x": 8,
+                  "y": 5
+                },
+                {
+                  "x": 8,
+                  "y": 4
+                },
+                {
+                  "x": 9,
+                  "y": 4
+                },
+                {
+                  "x": 9,
+                  "y": 5
+                },
+                {
+                  "x": 9,
+                  "y": 6
+                },
+                {
+                  "x": 9,
+                  "y": 6
+                }
+              ],
+              "head": {
+                "x": 8,
+                "y": 8
+              },
+              "length": 9,
+              "latency": "53",
+              "shout": "",
+              "customizations": {
+                "color": "#b13859",
+                "head": "default",
+                "tail": "default"
+              }
+            }
+          ]
+        },
+        "you": {
+          "id": "c17cfd19-e91c-4acc-8667-eb7fad745987",
+          "name": "jacksnake1",
+          "health": 88,
+          "body": [
+            {
+              "x": 10,
+              "y": 10
+            },
+            {
+              "x": 10,
+              "y": 9
+            },
+            {
+              "x": 10,
+              "y": 8
+            },
+            {
+              "x": 10,
+              "y": 7
+            },
+            {
+              "x": 9,
+              "y": 7
+            },
+            {
+              "x": 9,
+              "y": 8
+            },
+            {
+              "x": 9,
+              "y": 9
+            },
+            {
+              "x": 9,
+              "y": 10
+            }
+          ],
+          "head": {
+            "x": 10,
+            "y": 10
+          },
+          "length": 8,
+          "latency": "0",
+          "shout": "",
+          "customizations": {
+            "color": "#b13859",
+            "head": "default",
+            "tail": "default"
+          }
+        }
+      },
+      "moves": [
+        "left"
+      ]
     }
   ]
 }

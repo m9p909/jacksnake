@@ -25,7 +25,7 @@ func getTestBoard() GameBoard {
 		 0 1 2 3 4 5 6 7 8 9 10
 	*/
 
-	boardjson := "{\"Turn\":0,\"Height\":11,\"Width\":11,\"Food\":[{\"X\":8,\"Y\":10},{\"X\":8,\"Y\":9},{\"X\":8,\"Y\":8}],\"Snakes\":[{\"ID\":0,\"Body\":[{\"X\":8,\"Y\":10},{\"X\":8,\"Y\":9},{\"X\":8,\"Y\":8}],\"Health\":100},{\"ID\":1,\"Body\":[{\"X\":9,\"Y\":10},{\"X\":9,\"Y\":9},{\"X\":9,\"Y\":8}],\"Health\":100}],\"Hazards\":[]}"
+	boardjson := "{\"Turn\":0,\"Height\":11,\"Width\":11,\"Food\":[{\"X\":8,\"Y\":10},{\"X\":8,\"Y\":9},{\"X\":8,\"Y\":8}],\"Snakes\":[{\"ID\":0,\"Body\":[{\"X\":8,\"Y\":10},{\"X\":8,\"Y\":9},{\"X\":8,\"Y\":8}],\"Health\":99},{\"ID\":1,\"Body\":[{\"X\":9,\"Y\":10},{\"X\":9,\"Y\":9},{\"X\":9,\"Y\":8}],\"Health\":99}],\"Hazards\":[]}"
 	var res GameBoard
 	json.Unmarshal([]byte(boardjson), &res)
 	return res
