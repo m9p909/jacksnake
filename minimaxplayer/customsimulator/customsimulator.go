@@ -230,6 +230,11 @@ func MoveSnakesStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
 					newHead.Y = snake.Body[0].Y
 				}
 
+				if(len(snake.Body) == 2 && Equals(snake.Body[1], newHead)) {
+					snake.Health = 0
+				}
+
+
 				// Append new head, pop old tail
 				// if health is 100 assume just ate, no reduction in length
 				if snake.Health == 100 {
@@ -237,6 +242,7 @@ func MoveSnakesStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
 				} else {
 					snake.Body = append([]Point{newHead}, snake.Body[:len(snake.Body)-1]...)
 				}
+				// handle edge case when snake body has length 2
 			}
 		}
 	}

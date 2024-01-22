@@ -24,7 +24,17 @@ func BuildRandomPlayer() Player {
 
 func BuildMinimaxPlayer() Player {
 	conv := StateConverterImpl{}
-	algo := coreplayer.NewMinimaxAlgoMove(customsimulator.New(), evaluator.NewSimpleEvaluator(), 6)
+	algo := coreplayer.NewMinimaxAlgoMove(customsimulator.New(),
+		evaluator.NewAgroEvaluator(), 6)
+	player := MinimaxPlayer{}
+	player.Init(&conv, algo)
+	return &player
+}
+
+func BuildHeuristicPlayer() Player {
+	conv := StateConverterImpl{}
+	algo := coreplayer.NewHeuristicAlgo(customsimulator.New(),
+		evaluator.NewAgroEvaluator())
 	player := MinimaxPlayer{}
 	player.Init(&conv, algo)
 	return &player

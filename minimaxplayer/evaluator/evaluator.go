@@ -51,12 +51,18 @@ func makeEmptyBoard(height uint8, width uint8) [][]uint8 {
 
 type Elem uint8
 
+func inRange(start uint8, end uint8, value uint8) bool {
+	return value >= start && value < end
+}
+
 func buildSnakeBoard(snakes []Snake, height uint8, width uint8) [][]uint8 {
 	board := makeEmptyBoard(height, width)
 
 	for _, snake := range snakes {
-		for _, body := range snake.Body {
-			board[body.Y][body.X] = uint8(snake.ID)
+		if snake.Health > 0 {
+			for _, body := range snake.Body {
+				board[body.Y][body.X] = uint8(snake.ID)
+			}
 		}
 	}
 
@@ -65,6 +71,7 @@ func buildSnakeBoard(snakes []Snake, height uint8, width uint8) [][]uint8 {
 
 func countAvailableSquares(snakes [][]uint8, head Point, b *GameBoard) int {
 	q := []Point{head}
+	halfTheBoard := int(b.Height*b.Width/2)
 
 	size := 0
 	for len(q) > 0 {
@@ -90,6 +97,9 @@ func countAvailableSquares(snakes [][]uint8, head Point, b *GameBoard) int {
 			nextCoords = append(nextCoords, nextQ...)
 		}
 		q = nextCoords
+		if(size >= halfTheBoard) {
+			return halfTheBoard;
+		}
 	}
 	return size
 }
@@ -99,7 +109,7 @@ func evaluateSpaceConstraint(state *GameBoard, snakeId SnakeID) float64 {
 	snakes := state.Snakes
 	snakesBoard := buildSnakeBoard(snakes, state.Height, state.Width)
 	availableSquares := countAvailableSquares(snakesBoard, snake.Body[0], state)
-	return math.Pow(float64(availableSquares)/float64(state.Height*state.Width), 1.5)
+	return math.Pow(float64(availableSquares)/float64(state.Height*state.Width/2 + 1), 1.5)
 }
 
 func evaluateDeadSnakes(state *GameBoard, snakeId SnakeID) float64 {
@@ -168,6 +178,7 @@ func (*SimpleEvaluator) EvaluateBoard(board *GameBoard, snakeId SnakeID, complet
 		if score > 1 {
 			println("score too big")
 		}
+		// reduce weight of score if not at end of game
 		if !complete {
 			score = score * 0.01 * (float64(count) + 1)
 		}

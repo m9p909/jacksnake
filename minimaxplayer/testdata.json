@@ -1899,6 +1899,15 @@
       "moves": [
         "left"
       ]
-    }
+    },
+      {
+          "name": "Weird HeuristicsFailure",
+          "data": {"game":{"id":"da49de06-be59-43ca-add9-186b9cb37a05","ruleset":{"name":"standard","version":"cli","settings":{"foodSpawnChance":15,"minimumFood":1,"hazardDamagePerTurn":14}},"map":"standard","source":"","timeout":500},"turn":1,"board":{"height":11,"width":11,"food":[{"x":0,"y":4},{"x":5,"y":5}],"hazards":[],"snakes":[{"id":"55a15e28-d93d-4cbe-8677-772741383ba1","name":"jacksnake1","health":99,"body":[{"x":0,"y":5},{"x":1,"y":5},{"x":1,"y":5}],"head":{"x":0,"y":5},"length":3,"latency":"0","shout":"","customizations":{"color":"#b13859","head":"default","tail":"default"}}]},"you":{"id":"55a15e28-d93d-4cbe-8677-772741383ba1","name":"jacksnake1","health":99,"body":[{"x":0,"y":5},{"x":1,"y":5},{"x":1,"y":5}],"head":{"x":0,"y":5},"length":3,"latency":"0","shout":"","customizations":{"color":"#b13859","head":"default","tail":"default"}}},
+          "moves": [
+              "up",
+              "down"
+          ]
+
+      }
   ]
 }
