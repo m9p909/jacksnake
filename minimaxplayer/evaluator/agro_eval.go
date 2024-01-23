@@ -39,7 +39,7 @@ func (*AgroEvaluator) EvaluateBoard(board *GameBoard, snakeId SnakeID, complete 
 		lenScore := lengthScore(board, snakeId)
 		var score float64
 		if(healthScore < 0.25) {
-			score = healthScore * 0.99 + spaceScore * 0.01
+			score = healthScore
 		} else if lenScore > 0.8 {
 			score = otherSnakesHealth * 0.4+ healthScore*0.5 + spaceScore * 0.1
 		} else {
