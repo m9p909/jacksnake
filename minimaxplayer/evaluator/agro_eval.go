@@ -36,7 +36,15 @@ func (*AgroEvaluator) EvaluateBoard(board *GameBoard, snakeId SnakeID, complete 
 		}
 		otherSnakesHealth := getOtherSnakeHealthScore(board, snake)
 		spaceScore := evaluateSpaceConstraint(board, snakeId)
-		score := otherSnakesHealth * 0.2+ healthScore*0.4 + spaceScore * 0.2 + lengthScore(board, snakeId) * 0.2
+		lenScore := lengthScore(board, snakeId)
+		var score float64
+		if(healthScore < 0.25) {
+			score = healthScore
+		} else if lenScore > 0.8 {
+			score = otherSnakesHealth * 0.4+ healthScore*0.5 + spaceScore * 0.1
+		} else {
+			score = healthScore * 0.5 + lenScore * 0.2 + spaceScore * 0.3
+		}
 		// if the max depth is reached
 		if score < 0 {
 			println("neg score")
