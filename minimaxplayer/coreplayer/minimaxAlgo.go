@@ -79,12 +79,12 @@ func (minimax *MinimaxAlgoMove) getScores(moves []Direction, board *GameBoard, i
 
 func (minimax *MinimaxAlgoMove) startMinimax(board *GameBoard, ids *PlayerIds) Direction {
 	moves := minimax.simulator.GetValidMoves(board, ids.playerId)
-	max := 0.0
+	m := 0.0
 	bestMove := DOWN
 	scores := minimax.getScores(moves, board, ids)
 	for _, score := range scores {
-		if score.score > max {
-			max = score.score
+		if score.score > m {
+			m = score.score
 			bestMove = score.move
 		}
 	}
@@ -110,14 +110,14 @@ type minimaxArgs struct {
 }
 
 func (minimax *MinimaxAlgoMove) getBestMove(args *minimaxArgs) float64 {
-	max := 0.0
+	m := 0.0
 	validMoves := minimax.simulator.GetValidMoves(args.board, args.ids.playerId)
 	for _, move := range validMoves {
 		moves := makeNewSnakeMoves(args.board)
 		moves[args.ids.playerIndex] = SnakeMove{ID: args.ids.playerId, Move: move}
 		score := minimax.runMinimax(minimaxArgs{args.board, getNextSnakeIndex(args.board, args.snakeIndex), args.depth + 1, moves, args.ids, args.alpha, args.beta, args.count + 1})
-		if score > max {
-			max = score
+		if score > m {
+			m = score
 		}
 
 		if score > args.beta {
@@ -128,20 +128,20 @@ func (minimax *MinimaxAlgoMove) getBestMove(args *minimaxArgs) float64 {
 			args.alpha = score
 		}
 	}
-	return max
+	return m
 }
 
 func (minimax *MinimaxAlgoMove) doMinimizingPlayer(args *minimaxArgs) float64 {
 	snakeId := args.board.Snakes[args.snakeIndex].ID
-	min := math.Inf(1)
+	mini := math.Inf(1)
 	validMoves := minimax.simulator.GetValidMoves(args.board, snakeId)
 	for _, move := range validMoves {
 		newMoves := makeNewSnakeMoves(args.board)
 		copy(newMoves, args.moves)
 		newMoves[args.snakeIndex] = SnakeMove{ID: snakeId, Move: move}
 		score := minimax.runMinimax(minimaxArgs{args.board, getNextSnakeIndex(args.board, args.snakeIndex), args.depth, newMoves, args.ids, args.alpha, args.beta, args.count + 1})
-		if score < min {
-			min = score
+		if score < mini {
+			mini = score
 		}
 		if score < args.alpha {
 			break
@@ -151,7 +151,7 @@ func (minimax *MinimaxAlgoMove) doMinimizingPlayer(args *minimaxArgs) float64 {
 			args.beta = score
 		}
 	}
-	return min
+	return mini
 }
 
 func (minimax *MinimaxAlgoMove) runMinimax(args minimaxArgs) float64 {

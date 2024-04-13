@@ -230,10 +230,9 @@ func MoveSnakesStandard(b *GameBoard, moves []SnakeMove) (bool, error) {
 					newHead.Y = snake.Body[0].Y
 				}
 
-				if(len(snake.Body) == 2 && Equals(snake.Body[1], newHead)) {
+				if len(snake.Body) == 2 && Equals(snake.Body[1], newHead) {
 					snake.Health = 0
 				}
-
 
 				// Append new head, pop old tail
 				// if health is 100 assume just ate, no reduction in length
@@ -378,7 +377,7 @@ func EliminateSnakesStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 		}
 
 		// Check for body collisions with other snakes second
-		hasBodyCollided := false
+
 		for _, otherIndex := range snakeIndicesByLength {
 			other := &b.Snakes[otherIndex]
 			if other.Health == 0 {
@@ -388,9 +387,6 @@ func EliminateSnakesStandard(b *GameBoard, _ []SnakeMove) (bool, error) {
 				collisionEliminations = append(collisionEliminations, snake.ID)
 				break
 			}
-		}
-		if hasBodyCollided {
-			continue
 		}
 
 		// Check for head-to-heads last

@@ -1,7 +1,5 @@
 package minimaxplayer
 
-// gbooch@us.ibm.com
-
 import (
 	"encoding/json"
 	"jacksnake/minimaxplayer/coreplayer"
