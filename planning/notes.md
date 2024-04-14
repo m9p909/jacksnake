@@ -76,6 +76,6 @@ In the MaxN algorithm we assume that all the other snakes are trying to maximize
 
 To use alpha beta, we need pruning. MaxN should be more accurate, but much slower. Alpha beta pruning does not work in maxN. 
 
-For this algorithm, I think I'll use alpha beta because It will have better performance. 
+For this algorithm, I think I'll use alpha beta because It will have better performance.
 
 
