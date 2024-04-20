@@ -53,7 +53,7 @@ func (*MainResponder) Info() BattlesnakeInfoResponse {
 	return BattlesnakeInfoResponse{
 		APIVersion: "1",
 		Author:     "m9p909",   // TODO: Your Battlesnake username
-		Color:      "#b1388b",  // TODO: Choose color
+		Color:      "#b13887",  // TODO: Choose color
 		Head:       "dead",     // TODO: Choose head
 		Tail:       "mlh-gene", // TODO: Choose tail
 	}
@@ -86,7 +86,7 @@ func (responder *MainResponder) Move(state GameState) BattlesnakeMoveResponse {
 
 func main() {
 	res := MainResponder{}
-	player := minimaxplayer.BuildMinimaxPlayer()
+	player := minimaxplayer.BuildPerRequestPlayer()
 	res.init(player)
 	RunServer(&res)
 }

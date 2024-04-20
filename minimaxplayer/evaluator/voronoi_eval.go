@@ -3,12 +3,37 @@ package evaluator
 import (
 	"github.com/emirpasic/gods/queues/circularbuffer"
 	. "jacksnake/minimaxplayer/coreplayer"
+	"sync"
 )
 
-type VoronoiEval struct{}
+type BoardCache struct {
+	m    map[*GameBoard][]float64
+	lock sync.RWMutex
+}
+
+func (c *BoardCache) read(v *GameBoard) ([]float64, bool) {
+	c.lock.RLock()
+	defer c.lock.RUnlock()
+	val, foo := c.m[v]
+	return val, foo
+}
+
+func (c *BoardCache) write(v *GameBoard, float642 []float64) {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	c.m[v] = float642
+}
+
+func NewBordCache() *BoardCache {
+	return &BoardCache{m: make(map[*GameBoard][]float64)}
+}
+
+type VoronoiEval struct {
+	cache *BoardCache
+}
 
 func NewVoronoiEval() Evaluator {
-	return &VoronoiEval{}
+	return &VoronoiEval{cache: NewBordCache()}
 }
 
 type voronoiIndex struct {
@@ -56,7 +81,11 @@ type qNode struct {
 	dist uint8
 }
 
-func VoronoiScore(board *GameBoard) []float64 {
+func VoronoiScore(board *GameBoard, cache *BoardCache) []float64 {
+	val, ok := cache.read(board)
+	if ok {
+		return val
+	}
 	arrBoard := buildVoronoiSnakeBoard(board.Snakes, board.Height, board.Width)
 	for _, snake := range board.Snakes {
 		if snake.Health <= 0 {
@@ -107,6 +136,7 @@ func VoronoiScore(board *GameBoard) []float64 {
 		}
 		results[snake.ID] = float64(int(float64(sum)/float64(board.Width*board.Height)*1000)) / 1000
 	}
+	cache.write(board, results)
 	return results
 }
 
@@ -152,14 +182,15 @@ func enqueueNextPoints(board *GameBoard, pvalue qNode, qPoint *circularbuffer.Qu
 	}
 }
 
-func (v VoronoiEval) EvaluateBoard(board *GameBoard, snakeId SnakeID, complete bool, count int) float64 {
-	scores := VoronoiScore(board)
-	res := scores[snakeId]
-
+func (v *VoronoiEval) EvaluateBoard(board *GameBoard, snakeId SnakeID, complete bool, count int) float64 {
 	healthscore := getHealthScore(&board.Snakes[snakeId])
 	if healthscore == 0 {
 		return 0
 	}
+
+	scores := VoronoiScore(board, v.cache)
+	res := scores[snakeId]
+
 	//s := lengthScore(board, snakeId)
 	score := healthscore*0.5 + res*0.5
 	if !complete {
