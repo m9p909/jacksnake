@@ -59,22 +59,17 @@ type qNode struct {
 func VoronoiScore(board *GameBoard) []float64 {
 	arrBoard := buildVoronoiSnakeBoard(board.Snakes, board.Height, board.Width)
 	for _, snake := range board.Snakes {
-		visited := make([]Point, 122)
-		hasVisted := func(p Point) bool {
-			for _, p2 := range visited {
-				if Equals(p2, p) {
-					return true
-				}
-			}
-			return false
-		}
-
 		if snake.Health <= 0 {
 			continue
 		}
+		visited := make(map[Point]bool, 20)
+		hasVisted := func(p Point) bool {
+			_, ok := visited[p]
+			return ok
+		}
 		head := snake.Body[0]
 		qPoint := circularbuffer.New(int(board.Height+board.Width) * 2)
-		qPoint.Enqueue(qNode{head, 0})
+		enqueueNextPoints(board, qNode{head, 0}, hasVisted, qPoint, visited)
 		for qPoint.Size() > 0 {
 			p, ok := qPoint.Dequeue()
 			if !ok {
@@ -83,48 +78,22 @@ func VoronoiScore(board *GameBoard) []float64 {
 			pvalue := p.(qNode)
 
 			current := arrBoard[pvalue.p.Y][pvalue.p.X]
-			if current.snakeId == 255 {
-				if pvalue.dist < current.dist {
-					current.dist = pvalue.dist
-					current.closestSnake = snake.ID
-				} else if pvalue.dist == current.dist {
-					current.dist = pvalue.dist
-					// nobody gets it
-					current.closestSnake = 67
-				}
+			if !(current.snakeId == 255) {
+				continue
+			}
+
+			if pvalue.dist < current.dist {
+				current.dist = pvalue.dist
+				current.closestSnake = snake.ID
+			} else if pvalue.dist == current.dist {
+				current.dist = pvalue.dist
+				// nobody gets it
+				current.closestSnake = 67
 			}
 
 			// determine nexxt point
-			nextDist := pvalue.dist + 1
 
-			//up
-			nextPoint := pvalue.p.Clone()
-			nextPoint.Y += 1
-			if inRange(0, board.Height, nextPoint.Y) && !hasVisted(nextPoint) {
-				qPoint.Enqueue(qNode{nextPoint, nextDist})
-				visited = append(visited, nextPoint)
-			}
-			//down
-			nextPoint = pvalue.p.Clone()
-			nextPoint.Y -= 1
-			if inRange(0, board.Height, nextPoint.Y) && !hasVisted(nextPoint) {
-				qPoint.Enqueue(qNode{nextPoint, nextDist})
-				visited = append(visited, nextPoint)
-			}
-			// left
-			nextPoint = pvalue.p.Clone()
-			nextPoint.X -= 1
-			if inRange(0, board.Width, nextPoint.X) && !hasVisted(nextPoint) {
-				qPoint.Enqueue(qNode{nextPoint, nextDist})
-				visited = append(visited, nextPoint)
-			}
-			// right
-			nextPoint = pvalue.p.Clone()
-			nextPoint.X += 1
-			if inRange(0, board.Width, nextPoint.X) && !hasVisted(nextPoint) {
-				qPoint.Enqueue(qNode{nextPoint, nextDist})
-				visited = append(visited, nextPoint)
-			}
+			enqueueNextPoints(board, pvalue, hasVisted, qPoint, visited)
 		}
 	}
 	var results = make([]float64, 4)
@@ -144,8 +113,43 @@ func VoronoiScore(board *GameBoard) []float64 {
 	return results
 }
 
+func enqueueNextPoints(board *GameBoard, pvalue qNode, hasVisted func(p Point) bool, qPoint *circularbuffer.Queue, visited map[Point]bool) {
+
+	nextDist := pvalue.dist + 1
+	//up
+	nextPoint := pvalue.p.Clone()
+	nextPoint.Y += 1
+	if inRange(0, board.Height, nextPoint.Y) && !hasVisted(nextPoint) {
+		qPoint.Enqueue(qNode{nextPoint, nextDist})
+		visited[nextPoint] = true
+	}
+	//down
+	nextPoint = pvalue.p.Clone()
+	nextPoint.Y -= 1
+	if inRange(0, board.Height, nextPoint.Y) && !hasVisted(nextPoint) {
+		qPoint.Enqueue(qNode{nextPoint, nextDist})
+		visited[nextPoint] = true
+	}
+	// left
+	nextPoint = pvalue.p.Clone()
+	nextPoint.X -= 1
+	if inRange(0, board.Width, nextPoint.X) && !hasVisted(nextPoint) {
+		qPoint.Enqueue(qNode{nextPoint, nextDist})
+		visited[nextPoint] = true
+	}
+	// right
+	nextPoint = pvalue.p.Clone()
+	nextPoint.X += 1
+	if inRange(0, board.Width, nextPoint.X) && !hasVisted(nextPoint) {
+		qPoint.Enqueue(qNode{nextPoint, nextDist})
+		visited[nextPoint] = true
+	}
+}
+
 func (v VoronoiEval) EvaluateBoard(board *GameBoard, snakeId SnakeID, complete bool, count int) float64 {
 	scores := VoronoiScore(board)
+
+	healthscore := getHealthScore(&board.Snakes[snakeId])
 	res := scores[snakeId]
-	return res
+	return res*0.5 + healthscore*0.5
 }
