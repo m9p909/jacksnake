@@ -3,7 +3,6 @@ package coreplayer
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
 )
 
 type HeuristicAlgo struct {
@@ -29,10 +28,6 @@ func (h *HeuristicAlgo) scoreAllPossibleGameBoards(board *GameBoard, snakeId Sna
 	down := 00.0
 	for _, combination := range BuildProductOfDirections(len(board.Snakes)) {
 		// shuffle
-		for i := range combination {
-			j := rand.Intn(i + 1)
-			combination[i], combination[j] = combination[j], combination[i]
-		}
 		boardCopy := board.Clone()
 		moves := func() []SnakeMove {
 			var res []SnakeMove

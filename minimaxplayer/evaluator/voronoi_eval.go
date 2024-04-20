@@ -161,6 +161,9 @@ func (v VoronoiEval) EvaluateBoard(board *GameBoard, snakeId SnakeID, complete b
 	res := scores[snakeId]
 
 	healthscore := getHealthScore(&board.Snakes[snakeId])
+	if healthscore == 0 {
+		return 0
+	}
 	//s := lengthScore(board, snakeId)
 	score := healthscore*0.5 + res*0.5
 	if !complete {
