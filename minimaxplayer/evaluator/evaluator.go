@@ -31,9 +31,9 @@ func getHealthScore(snake *Snake) float64 {
 }
 
 const (
-	FOOD Elem = iota
+	NONE Elem = iota
+	FOOD
 	HAZARD
-	NONE
 )
 
 func makeEmptyBoard(height uint8, width uint8) [][]uint8 {

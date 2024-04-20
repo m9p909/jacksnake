@@ -62,14 +62,10 @@ func VoronoiScore(board *GameBoard) []float64 {
 		if snake.Health <= 0 {
 			continue
 		}
-		visited := make(map[Point]bool, 20)
-		hasVisted := func(p Point) bool {
-			_, ok := visited[p]
-			return ok
-		}
+		visited := makeEmptyBoard(board.Height, board.Width)
 		head := snake.Body[0]
 		qPoint := circularbuffer.New(int(board.Height+board.Width) * 2)
-		enqueueNextPoints(board, qNode{head, 0}, hasVisted, qPoint, visited)
+		enqueueNextPoints(board, qNode{head, 0}, qPoint, visited)
 		for qPoint.Size() > 0 {
 			p, ok := qPoint.Dequeue()
 			if !ok {
@@ -93,7 +89,7 @@ func VoronoiScore(board *GameBoard) []float64 {
 
 			// determine nexxt point
 
-			enqueueNextPoints(board, pvalue, hasVisted, qPoint, visited)
+			enqueueNextPoints(board, pvalue, qPoint, visited)
 		}
 	}
 	var results = make([]float64, 4)
@@ -123,36 +119,36 @@ func cellHasFood(board *GameBoard, point Point) bool {
 	return false
 }
 
-func enqueueNextPoints(board *GameBoard, pvalue qNode, hasVisted func(p Point) bool, qPoint *circularbuffer.Queue, visited map[Point]bool) {
+func enqueueNextPoints(board *GameBoard, pvalue qNode, qPoint *circularbuffer.Queue, visited [][]uint8) {
 
 	nextDist := pvalue.dist + 1
 	//up
 	nextPoint := pvalue.p.Clone()
 	nextPoint.Y += 1
-	if inRange(0, board.Height, nextPoint.Y) && !hasVisted(nextPoint) {
+	if inRange(0, board.Height, nextPoint.Y) && (visited[nextPoint.Y][nextPoint.X] == 0) {
 		qPoint.Enqueue(qNode{nextPoint, nextDist})
-		visited[nextPoint] = true
+		visited[nextPoint.Y][nextPoint.X] = 1
 	}
 	//down
 	nextPoint = pvalue.p.Clone()
 	nextPoint.Y -= 1
-	if inRange(0, board.Height, nextPoint.Y) && !hasVisted(nextPoint) {
+	if inRange(0, board.Height, nextPoint.Y) && (visited[nextPoint.Y][nextPoint.X] == 0) {
 		qPoint.Enqueue(qNode{nextPoint, nextDist})
-		visited[nextPoint] = true
+		visited[nextPoint.Y][nextPoint.X] = 1
 	}
 	// left
 	nextPoint = pvalue.p.Clone()
 	nextPoint.X -= 1
-	if inRange(0, board.Width, nextPoint.X) && !hasVisted(nextPoint) {
+	if inRange(0, board.Width, nextPoint.X) && (visited[nextPoint.Y][nextPoint.X] == 0) {
 		qPoint.Enqueue(qNode{nextPoint, nextDist})
-		visited[nextPoint] = true
+		visited[nextPoint.Y][nextPoint.X] = 1
 	}
 	// right
 	nextPoint = pvalue.p.Clone()
 	nextPoint.X += 1
-	if inRange(0, board.Width, nextPoint.X) && !hasVisted(nextPoint) {
+	if inRange(0, board.Width, nextPoint.X) && (visited[nextPoint.Y][nextPoint.X] == 0) {
 		qPoint.Enqueue(qNode{nextPoint, nextDist})
-		visited[nextPoint] = true
+		visited[nextPoint.Y][nextPoint.X] = 1
 	}
 }
 

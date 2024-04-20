@@ -116,51 +116,6 @@ type minimaxArgs struct {
 	count      int
 }
 
-func (minimax *MinimaxAlgoMove) getBestMove(args *minimaxArgs) float64 {
-	m := 0.0
-	validMoves := minimax.simulator.GetValidMoves(args.board, args.ids.playerId)
-	for _, move := range validMoves {
-		moves := makeNewSnakeMoves(args.board)
-		moves[args.ids.playerIndex] = SnakeMove{ID: args.ids.playerId, Move: move}
-		score := minimax.runMinimax(minimaxArgs{args.board, getNextSnakeIndex(args.board, args.snakeIndex), args.depth + 1, moves, args.ids, args.alpha, args.beta, args.count + 1})
-		if score > m {
-			m = score
-		}
-
-		if score > args.beta {
-			break
-		}
-
-		if score > args.alpha {
-			args.alpha = score
-		}
-	}
-	return m
-}
-
-func (minimax *MinimaxAlgoMove) doMinimizingPlayer(args *minimaxArgs) float64 {
-	snakeId := args.board.Snakes[args.snakeIndex].ID
-	mini := math.Inf(1)
-	validMoves := minimax.simulator.GetValidMoves(args.board, snakeId)
-	for _, move := range validMoves {
-		newMoves := makeNewSnakeMoves(args.board)
-		copy(newMoves, args.moves)
-		newMoves[args.snakeIndex] = SnakeMove{ID: snakeId, Move: move}
-		score := minimax.runMinimax(minimaxArgs{args.board, getNextSnakeIndex(args.board, args.snakeIndex), args.depth, newMoves, args.ids, args.alpha, args.beta, args.count + 1})
-		if score < mini {
-			mini = score
-		}
-		if score < args.alpha {
-			break
-		}
-
-		if score < args.beta {
-			args.beta = score
-		}
-	}
-	return mini
-}
-
 func (minimax *MinimaxAlgoMove) runMinimax(args minimaxArgs) float64 {
 	if args.count > minimax.maxDepth {
 		// I feel like this is always  true
@@ -180,9 +135,46 @@ func (minimax *MinimaxAlgoMove) runMinimax(args minimaxArgs) float64 {
 			return minimax.evaluator.EvaluateBoard(args.board, args.ids.playerId, false, args.count)
 		}
 		args.board = &newBoard
-		res := minimax.getBestMove(&args)
+		m := 0.0
+		validMoves := minimax.simulator.GetValidMoves(args.board, args.ids.playerId)
+		for _, move := range validMoves {
+			moves := makeNewSnakeMoves(args.board)
+			moves[args.ids.playerIndex] = SnakeMove{ID: args.ids.playerId, Move: move}
+			score := minimax.runMinimax(minimaxArgs{args.board, getNextSnakeIndex(args.board, args.snakeIndex), args.depth + 1, moves, args.ids, args.alpha, args.beta, args.count + 1})
+			if score > m {
+				m = score
+			}
+
+			if score > args.beta {
+				break
+			}
+
+			if score > args.alpha {
+				args.alpha = score
+			}
+		}
+		res := m
 		return res
 	} else {
-		return minimax.doMinimizingPlayer(&args)
+		snakeId := args.board.Snakes[args.snakeIndex].ID
+		mini := math.Inf(1)
+		validMoves := minimax.simulator.GetValidMoves(args.board, snakeId)
+		for _, move := range validMoves {
+			newMoves := makeNewSnakeMoves(args.board)
+			copy(newMoves, args.moves)
+			newMoves[args.snakeIndex] = SnakeMove{ID: snakeId, Move: move}
+			score := minimax.runMinimax(minimaxArgs{args.board, getNextSnakeIndex(args.board, args.snakeIndex), args.depth, newMoves, args.ids, args.alpha, args.beta, args.count + 1})
+			if score < mini {
+				mini = score
+			}
+			if score < args.alpha {
+				break
+			}
+
+			if score < args.beta {
+				args.beta = score
+			}
+		}
+		return mini
 	}
 }

@@ -25,7 +25,7 @@ func BuildRandomPlayer() Player {
 func BuildMinimaxPlayer() Player {
 	conv := StateConverterImpl{}
 	algo := coreplayer.NewMinimaxAlgoMove(customsimulator.New(),
-		evaluator.NewVoronoiEval(), 4)
+		evaluator.NewVoronoiEval(), 5)
 	player := MinimaxPlayer{}
 	player.Init(&conv, algo)
 	return &player
