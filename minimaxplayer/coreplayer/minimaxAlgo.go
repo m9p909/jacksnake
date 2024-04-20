@@ -2,6 +2,7 @@ package coreplayer
 
 import (
 	"math"
+	"math/rand"
 )
 
 type PlayerIds struct {
@@ -59,6 +60,12 @@ func (minimax *MinimaxAlgoMove) getScores(moves []Direction, board *GameBoard, i
 	scores := make([]MoveResult, len(moves))
 	// d, _ := json.Marshal(board)
 	// println(string(d))
+	// shuffle
+	for i := range moves {
+		j := rand.Intn(i + 1)
+		moves[i], moves[j] = moves[j], moves[i]
+	}
+
 	ch := make(chan MoveResult)
 	for i, move := range moves {
 		go func(i int, move Direction, board *GameBoard) {

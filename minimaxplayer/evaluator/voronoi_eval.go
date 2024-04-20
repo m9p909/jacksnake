@@ -105,12 +105,22 @@ func VoronoiScore(board *GameBoard) []float64 {
 			for _, cell := range row {
 				if cell.closestSnake == snake.ID {
 					sum += 1
+
 				}
 			}
 		}
 		results[snake.ID] = float64(int(float64(sum)/float64(board.Width*board.Height)*1000)) / 1000
 	}
 	return results
+}
+
+func cellHasFood(board *GameBoard, point Point) bool {
+	for _, food := range board.Food {
+		if Equals(food, point) {
+			return true
+		}
+	}
+	return false
 }
 
 func enqueueNextPoints(board *GameBoard, pvalue qNode, hasVisted func(p Point) bool, qPoint *circularbuffer.Queue, visited map[Point]bool) {
@@ -148,8 +158,14 @@ func enqueueNextPoints(board *GameBoard, pvalue qNode, hasVisted func(p Point) b
 
 func (v VoronoiEval) EvaluateBoard(board *GameBoard, snakeId SnakeID, complete bool, count int) float64 {
 	scores := VoronoiScore(board)
+	res := scores[snakeId]
 
 	healthscore := getHealthScore(&board.Snakes[snakeId])
-	res := scores[snakeId]
-	return res*0.5 + healthscore*0.5
+	//s := lengthScore(board, snakeId)
+	score := healthscore*0.5 + res*0.5
+	if !complete {
+		score = score * 0.01 * (float64(count) + 1)
+	}
+	return score
+
 }
