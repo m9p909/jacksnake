@@ -3,4 +3,4 @@ battlesnake play -W 11 -H 11 \
   --name jacksnake1 --url http://localhost:8000 \
   --name jacksnake2 --url http://localhost:8000 \
   --name jacksnake3 --url http://localhost:8000 \
-  --name current --url https://jacksnake.fly.dev/
+  --name current --url https://jacksnake-production.up.railway.app
