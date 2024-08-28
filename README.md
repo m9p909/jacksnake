@@ -1,5 +1,6 @@
 # Battlesnake Go Starter Project
 
+TODO: improve readme
 An official Battlesnake template written in Go. Get started at [play.battlesnake.com](https://play.battlesnake.com).
 
 ![Battlesnake Logo](https://media.battlesnake.com/social/StarterSnakeGitHubRepos_Go.png)
