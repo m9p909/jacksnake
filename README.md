@@ -1,37 +1,29 @@
 # The JackSnake
 
-I started the jacksnake over christmas break when I discovered Battlesnake! It’s a game where you write an AI snake and compete against other AI snakes.
-# Basics
+The JackSnake is an AI Battlesnake that uses a variety of algorithms to solve a 4-player game of Snake. Each turn runs in under 500 ms.
 
-The first step was to make the snake move towards the food. I used a simple breadth first search to find the shortest path to the food. This worked well, but the snake still killed itself because it would use too much space. The snake didn’t know to stay along the border or fold into itself. It also chased food, even when it had full or nearly full health!.
-# Research
+Its stats can be found here: [JackSnake Stats](https://play.battlesnake.com/leaderboard/standard/m9p909/stats).
 
-Before doing anything else, I read up on the most common algorithms used in AI snakes. This is what I discovered:
-## Minimax
+Rank at the time of writing (August 2024):
+- 36th out of 400 snakes in standard 4-player free-for-all
+- 16th out of 300 snakes in duels with 2 players
 
-a lot of snakes were tagged as minimax or alpha beta snakes. Minimax is an adversarial search algorithm that is used to find the best move for a player. It works by generating the game tree, and alternating between evaluating the best move for the player and the enemy.
+# High-Level Overview
+The Battlesnake uses an algorithm called alpha-beta minimax to search the decision tree of possible moves and determine the best move. In a 4-player game, this setup is called a "Paranoid" algorithm because the alpha-beta pruning assumes that other snakes will always choose the move most likely to kill your snake. The benefit is that you can go much deeper in the decision tree than you could if you didn't use alpha-beta pruning.
 
-Minimax is a recursive function. The base case is when a certain depth is reached or the game is over. Pre-recursion it generates all the possible moves for the current player. Then it calls itself on each of those moves. If the row is a maximizing row (current player), then it return the maximum value for the current player. If it’s a minimizing row (enemy), then it returns the minimum child value. It simulates a game where the opponent is trying to minimize the score and the current player is trying to maximize the score. And chooses the move that maximizes the score.
-## Alpha-Beta Pruning
+A decision tree search will almost never be able to search until the end of the game, so we need a heuristic function. The heuristic function evaluates an unfinished state of the game.  The heuristic function runs hundreds or thousands of times every turn, so it needs to be reasonably performant and provide a good estimation of how the snake is doing.
 
-This algorithm is an extension or technique for minimax. If the score isn’t strong enough to change the decision at a higher node, then it doesn’t need to be evaluated. For example if a min node chose a score of 8, then and one the remaining max nodes receives a value higher than 8, then we don’t need to keep evaluating other nodes because we know that the previous min node won’t chose it.
-## Voronai
+Minimax Algorithm: [Minimax Algorithm Code](https://github.com/m9p909/jacksnake/blob/main/minimaxplayer/coreplayer/minimaxAlgo.go)
 
-Partition the board into areas you’re snake can get to first, and the areas the enemy snake can get to first. We can use this information as a heuristic in our minimax algorithm. Using this heuristic makes our snake more aggressive.
-## Implementation
+The heuristic function I've found to be the best is called a "Voronoi" function. It uses a breadth-first search to determine how many squares my snake can reach before the other snakes. The more squares my snake controls, the better chance it has of winning. It's combined with a few other metrics like "health." I added a cache to this function because I noticed that many states are repeatedly evaluated.
 
-I started building the snake in Go, because I like the language. It’s around as fast as java, so it should be plenty fast unless I get really competitive and it compiles to a single executable. No scripting runtime, or JVM. Just a single binary.
+This algorithm is relatively heavy, but the results are significantly better than any other algorithm. The first time I tested it, this algorithm outperformed my original snake without a game tree search.
 
-Thus far, I’ve implemented a basic heuristic for food and space. I need to add other heursitics so my snake can get smarter.
-Minimax Implementation
+Heuristic function: [Heuristic Function Code](https://github.com/m9p909/jacksnake/blob/main/minimaxplayer/evaluator/voronoi_eval.go)
 
-I’m working on the minimax algorithm. The problem with the minimax algorithm is that it’s made for 2 player games.
+# Performance
+Performance is a top concern, and my snake typically executes its moves in about 50-100 ms.
 
-To make it work with a 4 player games there are 2 approachs: Paranoid, and MaxN
-## Paranoid
+I achieved this performance by profiling the application locally on my laptop to solve issues and using space-efficient data structures so that more data can fit in the CPU caches.
 
-paranoid is when you assume that the enemy is trying to minimize your own score. So every opponent is a min node in the minmax tree. This method provides more depth because we can use the alpha beta algorithm.
-## MaxN
-
-Max^N is where we assume all other snakes are trying to maximize their own score. This method makes more sense and is probably more accurate for multiplayer games but alpha-beta pruning doesn’t work. So we need to try every possible game state
-untitled page
+Golang channels handle parallelizing the work. I found that one thread for each possible move works best.
