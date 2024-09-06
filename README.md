@@ -1,52 +1,37 @@
-# Battlesnake Go Starter Project
+# The JackSnake
 
-TODO: improve readme
-An official Battlesnake template written in Go. Get started at [play.battlesnake.com](https://play.battlesnake.com).
+I started the jacksnake over christmas break when I discovered Battlesnake! It’s a game where you write an AI snake and compete against other AI snakes.
+# Basics
 
-![Battlesnake Logo](https://media.battlesnake.com/social/StarterSnakeGitHubRepos_Go.png)
+The first step was to make the snake move towards the food. I used a simple breadth first search to find the shortest path to the food. This worked well, but the snake still killed itself because it would use too much space. The snake didn’t know to stay along the border or fold into itself. It also chased food, even when it had full or nearly full health!.
+# Research
 
-This project is a great starting point for anyone wanting to program their first Battlesnake in Go. It can be run locally or easily deployed to a cloud provider of your choosing. See the [Battlesnake API Docs](https://docs.battlesnake.com/api) for more detail. 
+Before doing anything else, I read up on the most common algorithms used in AI snakes. This is what I discovered:
+## Minimax
 
-[![Run on Replit](https://repl.it/badge/github/BattlesnakeOfficial/starter-snake-go)](https://replit.com/@Battlesnake/starter-snake-go)
+a lot of snakes were tagged as minimax or alpha beta snakes. Minimax is an adversarial search algorithm that is used to find the best move for a player. It works by generating the game tree, and alternating between evaluating the best move for the player and the enemy.
 
-## Technologies Used
+Minimax is a recursive function. The base case is when a certain depth is reached or the game is over. Pre-recursion it generates all the possible moves for the current player. Then it calls itself on each of those moves. If the row is a maximizing row (current player), then it return the maximum value for the current player. If it’s a minimizing row (enemy), then it returns the minimum child value. It simulates a game where the opponent is trying to minimize the score and the current player is trying to maximize the score. And chooses the move that maximizes the score.
+## Alpha-Beta Pruning
 
-This project uses [Go](https://go.dev/). It also comes with an optional [Dockerfile](https://docs.docker.com/engine/reference/builder/) to help with deployment.
+This algorithm is an extension or technique for minimax. If the score isn’t strong enough to change the decision at a higher node, then it doesn’t need to be evaluated. For example if a min node chose a score of 8, then and one the remaining max nodes receives a value higher than 8, then we don’t need to keep evaluating other nodes because we know that the previous min node won’t chose it.
+## Voronai
 
-## Run Your Battlesnake
+Partition the board into areas you’re snake can get to first, and the areas the enemy snake can get to first. We can use this information as a heuristic in our minimax algorithm. Using this heuristic makes our snake more aggressive.
+## Implementation
 
-Start your Battlesnake
+I started building the snake in Go, because I like the language. It’s around as fast as java, so it should be plenty fast unless I get really competitive and it compiles to a single executable. No scripting runtime, or JVM. Just a single binary.
 
-```sh
-go run .
-```
+Thus far, I’ve implemented a basic heuristic for food and space. I need to add other heursitics so my snake can get smarter.
+Minimax Implementation
 
-You should see the following output once it is running
+I’m working on the minimax algorithm. The problem with the minimax algorithm is that it’s made for 2 player games.
 
-```sh
-Running your Battlesnake at http://0.0.0.0:8000
-```
+To make it work with a 4 player games there are 2 approachs: Paranoid, and MaxN
+## Paranoid
 
-Open [localhost:8000](http://localhost:8000) in your browser and you should see
+paranoid is when you assume that the enemy is trying to minimize your own score. So every opponent is a min node in the minmax tree. This method provides more depth because we can use the alpha beta algorithm.
+## MaxN
 
-```json
-{"apiversion":"1","author":"","color":"#888888","head":"default","tail":"default"}
-```
-
-## Play a Game Locally
-
-Install the [Battlesnake CLI](https://github.com/BattlesnakeOfficial/rules/tree/main/cli)
-* You can [download compiled binaries here](https://github.com/BattlesnakeOfficial/rules/releases)
-* or [install as a go package](https://github.com/BattlesnakeOfficial/rules/tree/main/cli#installation) (requires Go 1.18 or higher)
-
-Command to run a local game
-
-```sh
-battlesnake play -W 11 -H 11 --name 'Go Starter Project' --url http://localhost:8000 -g solo --browser
-```
-
-## Next Steps
-
-Continue with the [Battlesnake Quickstart Guide](https://docs.battlesnake.com/quickstart) to customize and improve your Battlesnake's behavior.
-
-**Note:** To play games on [play.battlesnake.com](https://play.battlesnake.com) you'll need to deploy your Battlesnake to a live web server OR use a port forwarding tool like [ngrok](https://ngrok.com/) to access your server locally.
+Max^N is where we assume all other snakes are trying to maximize their own score. This method makes more sense and is probably more accurate for multiplayer games but alpha-beta pruning doesn’t work. So we need to try every possible game state
+untitled page
